@@ -1,0 +1,32 @@
+name: Actualizar Shows desde Notion
+
+on:
+  schedule:
+    - cron: '0 8 * * 1'   # Cada lunes a las 8:00 UTC
+  workflow_dispatch:        # También se puede lanzar manualmente
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Actualizar shows desde Notion
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+        run: node scripts/update-shows.js
+
+      - name: Commit y push si hay cambios
+        run: |
+          git config user.name "Bot Daviz Garzia"
+          git config user.email "bot@davizgarziamusic.com"
+          git add index.html
+          git diff --staged --quiet || git commit -m "auto: actualizar próximas fechas desde Notion [$(date '+%Y-%m-%d')]"
+          git push
