@@ -184,6 +184,17 @@
     [data-delay="1"]{transition-delay:.08s}[data-delay="2"]{transition-delay:.16s}
     [data-delay="3"]{transition-delay:.24s}[data-delay="4"]{transition-delay:.32s}
     [data-delay="5"]{transition-delay:.40s}[data-delay="6"]{transition-delay:.48s}
+
+    /* COUNTDOWN */
+    .cdwn-wrap{background:linear-gradient(135deg,rgba(255,107,0,.12),rgba(255,154,0,.06));border:1px solid rgba(255,107,0,.2);border-radius:24px;padding:40px 32px;text-align:center;max-width:720px;margin:0 auto}
+    .cdwn-eye{font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+    .cdwn-title{font-size:clamp(20px,3vw,28px);font-weight:900;margin-bottom:4px}
+    .cdwn-sub{font-size:13px;color:var(--muted2);margin-bottom:28px}
+    .cdwn-grid{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}
+    .cdwn-unit{background:rgba(255,255,255,.04);border:1px solid #222;border-radius:14px;padding:16px 20px;min-width:72px}
+    .cdwn-num{font-size:clamp(28px,5vw,42px);font-weight:900;line-height:1;background:linear-gradient(135deg,#FF6B00,#FF9A00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .cdwn-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
+    .cdwn-done{font-size:18px;font-weight:700;color:var(--accent);padding:20px 0}
     /* WHATSAPP FLOAT */
     .wa-float{position:fixed;bottom:28px;right:28px;z-index:999;display:flex;align-items:center;gap:10px;background:#25D366;color:#fff;font-size:13px;font-weight:700;padding:13px 20px 13px 16px;border-radius:999px;text-decoration:none;box-shadow:0 8px 32px rgba(37,211,102,.4);transition:transform .2s,box-shadow .2s}
     .wa-float:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(37,211,102,.55)}
@@ -848,6 +859,53 @@
       </div></div>
 </section>
 
+<!-- COUNTDOWN AL PRÓXIMO SHOW -->
+<section id="cuenta-atras">
+  <div class="sw">
+    <div data-anim style="text-align:center;margin-bottom:48px;">
+      <div class="section-eye">¡Nos vemos pronto!</div>
+      <h2 class="section-h">Cuenta atrás al<br>próximo show</h2>
+    </div>
+    <div class="cdwn-wrap" data-anim="scale">
+      <div class="cdwn-eye" id="cdwn-label">PRÓXIMO SHOW</div>
+      <div class="cdwn-title" id="cdwn-event">Cargando...</div>
+      <div class="cdwn-sub" id="cdwn-venue"></div>
+      <div class="cdwn-grid">
+        <div class="cdwn-unit"><div class="cdwn-num" id="cdwn-d">--</div><div class="cdwn-lbl">Días</div></div>
+        <div class="cdwn-unit"><div class="cdwn-num" id="cdwn-h">--</div><div class="cdwn-lbl">Horas</div></div>
+        <div class="cdwn-unit"><div class="cdwn-num" id="cdwn-m">--</div><div class="cdwn-lbl">Min</div></div>
+        <div class="cdwn-unit"><div class="cdwn-num" id="cdwn-s">--</div><div class="cdwn-lbl">Seg</div></div>
+      </div>
+      <div id="cdwn-cta"></div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var events=[
+    {date:new Date('2026-05-23T22:00:00'),name:'Roxel Sala Musical',venue:'📍 Solares, Cantabria',url:''},
+    {date:new Date('2026-07-04T12:00:00'),name:'Gamoneo — Todos al Prao',venue:'📍 Torrelavega, Cantabria',url:''},
+    {date:new Date('2026-07-19T17:00:00'),name:'Bahía Sun Festival',venue:'📍 La Magdalena, Santander',url:'https://www.bahiasunfestival.com/'}
+  ];
+  var el={d:document.getElementById('cdwn-d'),h:document.getElementById('cdwn-h'),m:document.getElementById('cdwn-m'),s:document.getElementById('cdwn-s'),event:document.getElementById('cdwn-event'),venue:document.getElementById('cdwn-venue'),cta:document.getElementById('cdwn-cta')};
+  function pad(n){return String(n).padStart(2,'0');}
+  function tick(){
+    var now=Date.now();
+    var next=null;for(var i=0;i<events.length;i++){if(events[i].date.getTime()>now){next=events[i];break;}}
+    if(!next){el.event.textContent='Próximas fechas en camino...';el.d.textContent=el.h.textContent=el.m.textContent=el.s.textContent='00';return;}
+    el.event.textContent=next.name;
+    el.venue.textContent=next.venue;
+    if(next.url&&!el.cta.innerHTML)el.cta.innerHTML='<a href="'+next.url+'" target="_blank" class="btn-orange" style="display:inline-block;margin-top:8px;">Entradas ↗</a>';
+    var diff=next.date.getTime()-now;
+    el.d.textContent=pad(Math.floor(diff/86400000));
+    el.h.textContent=pad(Math.floor((diff%86400000)/3600000));
+    el.m.textContent=pad(Math.floor((diff%3600000)/60000));
+    el.s.textContent=pad(Math.floor((diff%60000)/1000));
+  }
+  tick();setInterval(tick,1000);
+})();
+</script>
+
 <!-- BOOKING -->
 <div class="booking-bg">
   <div class="sw" id="booking">
@@ -967,6 +1025,7 @@
 </div>
 </body>
 </html>
+
 
 
 
