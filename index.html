@@ -24,6 +24,8 @@
   <meta name="twitter:description" content="DJ y productor de Cantabria. Reggaeton, Tech House, Techno. Actuaciones en Santander, Torrelavega, Palencia, Avila y mas. Booking: hola@davizgarziamusic.com">
   <meta name="twitter:image" content="https://image-cdn-fa.spotifycdn.com/image/ab6761610000517415c55f797ea09e97a9330933">
   <link rel="canonical" href="https://www.davizgarziamusic.com">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23060606'/%3E%3Ctext x='50' y='68' font-family='Inter,Arial,sans-serif' font-size='42' font-weight='900' text-anchor='middle' fill='%23FF6B00'%3EDG%3C/text%3E%3C/svg%3E">
+
   <meta name="google-site-verification" content="XufTJ6KEIiJyiDqCHkUtefyQ8ftL_HVb8iWJmdpMO5w" />
 
   <!-- Schema.org Structured Data -->
@@ -182,6 +184,16 @@
     [data-delay="1"]{transition-delay:.08s}[data-delay="2"]{transition-delay:.16s}
     [data-delay="3"]{transition-delay:.24s}[data-delay="4"]{transition-delay:.32s}
     [data-delay="5"]{transition-delay:.40s}[data-delay="6"]{transition-delay:.48s}
+    /* WHATSAPP FLOAT */
+    .wa-float{position:fixed;bottom:28px;right:28px;z-index:999;display:flex;align-items:center;gap:10px;background:#25D366;color:#fff;font-size:13px;font-weight:700;padding:13px 20px 13px 16px;border-radius:999px;text-decoration:none;box-shadow:0 8px 32px rgba(37,211,102,.4);transition:transform .2s,box-shadow .2s}
+    .wa-float:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(37,211,102,.55)}
+    .wa-float svg{width:22px;height:22px;flex-shrink:0}
+
+    /* COOKIE BANNER */
+    #cookie-banner{position:fixed;bottom:0;left:0;right:0;z-index:998;background:rgba(13,13,13,.97);backdrop-filter:blur(12px);border-top:1px solid #1c1c1c;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:13px;color:#888}
+    #cookie-banner a{color:var(--accent2);text-decoration:none}
+    #cookie-banner.hidden{display:none}
+    .cookie-btn{background:var(--accent);color:#fff;border:none;border-radius:999px;padding:8px 22px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.5px}
 
     /* NAVBAR */
     nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:22px 52px;transition:background .4s,padding .4s}
@@ -938,9 +950,26 @@
     entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
   document.querySelectorAll('[data-anim]').forEach(el => io.observe(el));
+  // Cookie banner
+  if(localStorage.getItem('cookies_ok')) document.getElementById('cookie-banner').classList.add('hidden');
 </script>
+
+<!-- WHATSAPP FLOATING BUTTON -->
+<a href="https://wa.me/34660375685?text=Hola%20Daviz%2C%20quiero%20información%20para%20contratarte" target="_blank" class="wa-float" aria-label="Contactar por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L.044 23.956l6.241-1.634A11.942 11.942 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.012-1.376l-.36-.213-3.705.972.988-3.608-.234-.372A9.808 9.808 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+  WhatsApp
+</a>
+
+<!-- COOKIE BANNER -->
+<div id="cookie-banner">
+  <span>🍪 Esta web usa cookies propias para mejorar tu experiencia. <a href="#" onclick="return false;">Más info</a></span>
+  <button class="cookie-btn" onclick="document.getElementById('cookie-banner').classList.add('hidden');localStorage.setItem('cookies_ok','1')">Aceptar</button>
+</div>
 </body>
 </html>
+
+
+
 
 
 
