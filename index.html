@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -712,7 +712,7 @@
       <h2 class="section-h">Actuaciones confirmadas</h2>
     </div>
 
-    <!-- Bahía Sun — featured -->
+    <!-- AUTO-SHOWS:START -->
     <div class="upcoming-featured" data-anim="scale">
       <div class="upcoming-featured-date"><div class="uf-day">19</div><div class="uf-month">Jul 2026</div></div>
       <div class="upcoming-featured-info">
@@ -743,6 +743,7 @@
         </div>
       </div>
     </div>
+    <!-- AUTO-SHOWS:END -->
   </div>
 </div>
 
@@ -894,9 +895,11 @@
 <script>
 (function(){
   var events=[
+  /* AUTO-COUNTDOWN:START */
     {date:new Date('2026-05-23T22:00:00'),name:'Roxel Sala Musical',venue:'📍 Solares, Cantabria',url:''},
     {date:new Date('2026-07-04T12:00:00'),name:'Gamoneo — Todos al Prao',venue:'📍 Torrelavega, Cantabria',url:''},
     {date:new Date('2026-07-19T17:00:00'),name:'Bahía Sun Festival',venue:'📍 La Magdalena, Santander',url:'https://www.bahiasunfestival.com/'}
+  /* AUTO-COUNTDOWN:END */
   ];
   var el={d:document.getElementById('cdwn-d'),h:document.getElementById('cdwn-h'),m:document.getElementById('cdwn-m'),s:document.getElementById('cdwn-s'),event:document.getElementById('cdwn-event'),venue:document.getElementById('cdwn-venue'),cta:document.getElementById('cdwn-cta')};
   function pad(n){return String(n).padStart(2,'0');}
