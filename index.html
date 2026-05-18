@@ -1,0 +1,827 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daviz Garzia — DJ & Producer | Cantabria · Reggaeton · Tech House</title>
+  <meta name="description" content="Daviz Garzia, DJ y productor musical de Cantabria. Reggaeton, Tech House, House, Techno, Hard Groove y Schranz. CEO de @thenorthrecordlabel. Booking: hola@davizgarziamusic.com — Actuaciones en Cantabria, La Rioja, Ávila, Palencia y Álava. Bahía Sun Festival 2026 · Gamoneo Torrelavega.">
+  <meta name="keywords" content="DJ Cantabria, DJ Santander, DJ Reggaeton, Tech House España, contratar DJ, Daviz Garzia, productor musical, Bahía Sun Festival, Gamoneo Torrelavega, Sala Kaya Santander, Hard Groove, Schranz, The North Record Label, Plan B Palencia">
+  <meta name="author" content="Daviz Garzia">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="Daviz Garzia — DJ & Producer | Cantabria">
+  <meta property="og:description" content="DJ y productor musical de Cantabria. Reggaeton · Tech House · Techno. Booking: hola@davizgarziamusic.com">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.davizgarziamusic.com">
+  <meta property="og:image" content="https://image-cdn-fa.spotifycdn.com/image/ab6761610000517415c55f797ea09e97a9330933">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Daviz Garzia — DJ & Producer">
+  <meta name="twitter:image" content="https://image-cdn-fa.spotifycdn.com/image/ab6761610000517415c55f797ea09e97a9330933">
+  <link rel="canonical" href="https://www.davizgarziamusic.com">
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MusicGroup",
+    "name": "Daviz Garzia",
+    "url": "https://www.davizgarziamusic.com",
+    "image": "https://image-cdn-fa.spotifycdn.com/image/ab6761610000517415c55f797ea09e97a9330933",
+    "description": "DJ y productor musical originario de Cantabria. Reggaeton, Tech House, Techno y Schranz. CEO de @thenorthrecordlabel.",
+    "genre": ["Reggaeton", "Tech House", "House", "Techno", "Hard Groove", "Schranz"],
+    "foundingLocation": { "@type": "Place", "name": "Cantabria, España" },
+    "email": "hola@davizgarziamusic.com",
+    "sameAs": [
+      "https://www.instagram.com/davizgarzia.music/",
+      "https://www.tiktok.com/@davizgarzia.music",
+      "https://open.spotify.com/artist/6kuKoUwoqmzqP0vXmkgOH1",
+      "https://www.youtube.com/@Davizgarziamusic",
+      "https://soundcloud.com/davizgarziamusic",
+      "https://linktr.ee/davizgarzia.music"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MusicEvent",
+    "name": "Daviz Garzia en Bahía Sun Festival",
+    "startDate": "2026-07-19T17:00",
+    "location": {
+      "@type": "Place",
+      "name": "La Campa de la Magdalena",
+      "address": { "@type": "PostalAddress", "addressLocality": "Santander", "addressRegion": "Cantabria", "addressCountry": "ES" }
+    },
+    "performer": { "@type": "MusicGroup", "name": "Daviz Garzia" },
+    "url": "https://www.bahiasunfestival.com/"
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg:#060606; --bg2:#090909; --surface:#0d0d0d; --surface2:#131313;
+      --border:#1c1c1c; --border2:#272727;
+      --accent:#FF6B00; --accent2:#FF9A00; --gold:#FFD000;
+      --glow:rgba(255,107,0,0.3);
+      --text:#F2F2F2; --muted:#555; --muted2:#888;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Inter','Segoe UI',system-ui,sans-serif;line-height:1.6;overflow-x:hidden}
+
+    /* SCROLL ANIMATIONS */
+    [data-anim]{opacity:0;transform:translateY(48px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)}
+    [data-anim="left"]{transform:translateX(-48px)}
+    [data-anim="right"]{transform:translateX(48px)}
+    [data-anim="scale"]{transform:scale(.9) translateY(20px)}
+    [data-anim="fade"]{transform:none}
+    [data-anim].in{opacity:1;transform:none}
+    [data-delay="1"]{transition-delay:.08s}[data-delay="2"]{transition-delay:.16s}
+    [data-delay="3"]{transition-delay:.24s}[data-delay="4"]{transition-delay:.32s}
+    [data-delay="5"]{transition-delay:.40s}[data-delay="6"]{transition-delay:.48s}
+
+    /* NAVBAR */
+    nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:22px 52px;transition:background .4s,padding .4s}
+    nav.scrolled{background:rgba(6,6,6,.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);padding:14px 52px;border-bottom:1px solid rgba(255,107,0,.08)}
+    .nav-logo{font-size:16px;font-weight:900;letter-spacing:3px;text-transform:uppercase;background:linear-gradient(120deg,#FF6B00,#FF9A00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .nav-links{display:flex;gap:36px;list-style:none}
+    .nav-links a{color:rgba(242,242,242,.5);text-decoration:none;font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;transition:color .2s}
+    .nav-links a:hover{color:var(--text)}
+    .nav-cta{background:linear-gradient(135deg,var(--accent),var(--accent2)) !important;-webkit-text-fill-color:#fff !important;color:#fff !important;padding:9px 22px !important;border-radius:999px !important}
+
+    /* HERO */
+    .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 24px;position:relative;overflow:hidden}
+    .hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 65% 60% at 50% 42%,rgba(255,107,0,.11) 0%,rgba(255,107,0,.04) 40%,transparent 70%);pointer-events:none}
+    .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,107,0,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,107,0,.025) 1px,transparent 1px);background-size:80px 80px;pointer-events:none}
+    .hero-content{position:relative;z-index:2;max-width:960px}
+    .hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.22);color:var(--accent2);font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;padding:8px 22px;border-radius:999px;margin-bottom:36px}
+    .hero-dot{width:7px;height:7px;background:var(--accent);border-radius:50%;animation:blink 2s ease-in-out infinite}
+    @keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.75)}}
+    .hero h1{font-size:clamp(72px,16vw,172px);font-weight:900;line-height:.88;letter-spacing:-5px;margin-bottom:28px}
+    .hero-n1{display:block;color:var(--text)}
+    .hero-n2{display:block;background:linear-gradient(120deg,#FF5500 0%,#FF9A00 55%,#FFD000 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .hero-sub{font-size:13px;font-weight:300;color:var(--muted2);letter-spacing:4px;text-transform:uppercase;margin-bottom:44px}
+    .hero-sub b{color:rgba(242,242,242,.75);font-weight:700}
+    .hero-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:68px}
+    .btn-orange{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:15px 38px;border-radius:999px;text-decoration:none;font-weight:800;font-size:13px;box-shadow:0 4px 30px rgba(255,107,0,.4);transition:transform .25s,box-shadow .25s}
+    .btn-orange:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(255,107,0,.55)}
+    .btn-ghost{background:transparent;color:var(--text);padding:15px 38px;border-radius:999px;text-decoration:none;font-weight:600;font-size:13px;border:1px solid rgba(255,255,255,.13);transition:border-color .2s,background .2s}
+    .btn-ghost:hover{border-color:rgba(255,107,0,.45);background:rgba(255,107,0,.05)}
+    .hero-stats{display:flex;gap:52px;justify-content:center;flex-wrap:wrap}
+    .h-stat{text-align:center}
+    .h-stat-num{font-size:30px;font-weight:900;background:linear-gradient(120deg,#FF6B00,#FF9A00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .h-stat-lbl{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
+    .hero-scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;animation:floatDown 2.2s ease-in-out infinite}
+    .hero-scroll-line{width:1px;height:44px;background:linear-gradient(to bottom,transparent,var(--accent))}
+    .hero-scroll-txt{font-size:9px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted)}
+    @keyframes floatDown{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+
+    /* MARQUEE */
+    .marquee-wrap{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);padding:14px 0}
+    .marquee-track{display:flex;width:max-content;animation:runMarquee 22s linear infinite}
+    .marquee-track.rev{animation-direction:reverse}
+    .marquee-item{white-space:nowrap;font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--muted);padding:0 28px}
+    .marquee-item .dot{color:var(--accent);font-size:14px}
+    @keyframes runMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+    /* SECTION WRAPPER */
+    .sw{max-width:1140px;margin:0 auto;padding:100px 44px}
+    .section-eye{font-size:10px;font-weight:800;letter-spacing:3.5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+    .section-h{font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.0;letter-spacing:-1.5px;margin-bottom:18px}
+    .section-p{font-size:15px;color:var(--muted2);max-width:540px;line-height:1.8}
+
+    /* ABOUT */
+    .about-grid{display:grid;grid-template-columns:1fr 1.25fr;gap:72px;align-items:center;margin-top:64px}
+    .about-photo-wrap{position:relative}
+    .about-photo-card{border-radius:24px;overflow:hidden;border:1px solid var(--border2);position:relative;aspect-ratio:1}
+    .about-photo-card img{width:100%;height:100%;object-fit:cover;display:block}
+    .about-photo-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:40%;background:linear-gradient(to top,rgba(6,6,6,.8),transparent)}
+    .about-photo-name{position:absolute;bottom:20px;left:20px;z-index:2}
+    .about-photo-name h3{font-size:20px;font-weight:900;background:linear-gradient(120deg,#FF6B00,#FF9A00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .about-photo-name p{font-size:11px;color:rgba(255,255,255,.6);letter-spacing:2px;text-transform:uppercase;margin-top:2px}
+    .about-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
+    .atag{background:rgba(255,107,0,.09);border:1px solid rgba(255,107,0,.2);color:var(--accent2);font-size:10px;font-weight:700;padding:4px 12px;border-radius:999px;letter-spacing:.5px}
+    .about-text .big-quote{font-size:20px;font-weight:700;color:var(--text);line-height:1.45;margin-bottom:22px}
+    .about-text p{font-size:14px;color:var(--muted2);line-height:1.85;margin-bottom:16px}
+    .about-text p strong{color:var(--text)}
+    .genre-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+    .gpill{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);color:var(--muted2);font-size:11px;font-weight:600;padding:6px 14px;border-radius:999px;transition:border-color .2s,color .2s}
+    .gpill:hover{border-color:rgba(255,107,0,.35);color:var(--accent2)}
+    .provinces-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+    .prov-chip{background:rgba(255,107,0,.07);border:1px solid rgba(255,107,0,.15);color:var(--muted2);font-size:10px;font-weight:700;padding:4px 11px;border-radius:999px;letter-spacing:.5px}
+
+    /* MUSIC */
+    .music-bg{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .releases-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:18px;margin-top:50px}
+    .rel-card{background:var(--surface2);border:1px solid var(--border);border-radius:14px;overflow:hidden;cursor:pointer;transition:transform .3s cubic-bezier(.16,1,.3,1),border-color .3s,box-shadow .3s}
+    .rel-card:hover{transform:translateY(-7px);border-color:rgba(255,107,0,.35);box-shadow:0 20px 50px rgba(0,0,0,.45),0 0 0 1px rgba(255,107,0,.08)}
+    .rel-img-box{width:100%;aspect-ratio:1;position:relative;overflow:hidden}
+    .rel-img-box img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .45s ease}
+    .rel-card:hover .rel-img-box img{transform:scale(1.07)}
+    .rel-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,transparent 55%);opacity:0;transition:opacity .3s;display:flex;align-items:flex-end;padding:10px}
+    .rel-card:hover .rel-overlay{opacity:1}
+    .rel-play{width:34px;height:34px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-left:auto;font-size:11px}
+    .rel-img-fallback{width:100%;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:36px}
+    .rel-info{padding:12px 13px 14px}
+    .rel-title{font-size:12px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px;color:var(--text)}
+    .rel-meta{font-size:10px;color:var(--muted)}
+    .rel-stat{font-size:10px;color:var(--accent2);font-weight:600;margin-top:2px}
+    .rel-new{display:inline-block;background:var(--accent);color:#fff;font-size:8px;font-weight:800;padding:2px 6px;border-radius:4px;margin-left:4px;vertical-align:middle;text-transform:uppercase}
+    .rel-links{display:flex;gap:6px;padding:0 13px 12px;margin-top:-2px}
+    .rel-link-btn{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:4px 10px;border-radius:999px;text-decoration:none;transition:opacity .2s}
+    .rel-link-btn:hover{opacity:.8}
+    .rel-link-spotify{background:rgba(30,215,96,.12);color:#1DB954;border:1px solid rgba(30,215,96,.25)}
+    .rel-link-youtube{background:rgba(255,0,0,.1);color:#FF4040;border:1px solid rgba(255,0,0,.2)}
+    .rel-link-soundcloud{background:rgba(255,87,0,.12);color:#FF5700;border:1px solid rgba(255,87,0,.25)}
+    .music-cta{text-align:center;margin-top:36px}
+
+    /* VIDEO */
+    .video-sec{text-align:center}
+    .viral-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,#FF5500,#ef4444);color:#fff;font-size:11px;font-weight:800;padding:7px 18px;border-radius:999px;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
+    .video-title{font-size:clamp(22px,4.5vw,44px);font-weight:900;letter-spacing:-.5px;margin-bottom:10px}
+    .video-desc{color:var(--muted2);font-size:14px;margin-bottom:36px}
+    .video-frame{max-width:720px;margin:0 auto;border-radius:16px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,107,0,.08)}
+    .video-frame iframe{display:block;width:100%;aspect-ratio:16/9;border:none}
+
+    /* ZONA CERO */
+    .zona-bg{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .zona-card{background:linear-gradient(135deg,rgba(255,107,0,.07),rgba(255,154,0,.03));border:1px solid rgba(255,107,0,.14);border-radius:20px;padding:40px;margin-top:44px;display:flex;align-items:center;gap:32px;flex-wrap:wrap}
+    .zona-icon{font-size:60px;flex-shrink:0}
+    .zona-info{flex:1;min-width:220px}
+    .zona-title{font-size:24px;font-weight:900;margin-bottom:8px}
+    .zona-desc{color:var(--muted2);font-size:14px;line-height:1.65;margin-bottom:16px}
+    .zona-chips{display:flex;gap:10px;flex-wrap:wrap}
+    .zchip{background:rgba(255,107,0,.12);color:var(--accent2);padding:4px 14px;border-radius:999px;font-size:11px;font-weight:700}
+
+    /* UPCOMING SHOWS */
+    .upcoming-bg{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .upcoming-featured{background:linear-gradient(135deg,rgba(255,107,0,.1),rgba(255,154,0,.05));border:1px solid rgba(255,107,0,.25);border-radius:20px;padding:36px;margin-top:50px;display:flex;align-items:center;gap:28px;flex-wrap:wrap;position:relative;overflow:hidden}
+    .upcoming-featured::before{content:'⭐ PRÓXIMO';position:absolute;top:16px;right:16px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;font-size:10px;font-weight:800;padding:5px 14px;border-radius:999px;letter-spacing:1px}
+    .upcoming-featured-date{flex-shrink:0;text-align:center;background:rgba(255,107,0,.15);border:1px solid rgba(255,107,0,.3);border-radius:16px;padding:18px 24px;min-width:90px}
+    .uf-day{font-size:36px;font-weight:900;background:linear-gradient(135deg,#FF6B00,#FF9A00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+    .uf-month{font-size:12px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:2px;margin-top:4px}
+    .upcoming-featured-info{flex:1;min-width:200px}
+    .uf-event{font-size:26px;font-weight:900;margin-bottom:6px}
+    .uf-desc{color:var(--muted2);font-size:14px;line-height:1.6;margin-bottom:14px}
+    .uf-tags{display:flex;gap:8px;flex-wrap:wrap}
+    .uf-tag{background:rgba(255,255,255,.06);color:var(--muted2);padding:4px 12px;border-radius:999px;font-size:11px;font-weight:600}
+    .upcoming-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:16px}
+    .upcoming-card{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:20px 22px;display:flex;align-items:center;gap:18px;transition:transform .3s,border-color .3s}
+    .upcoming-card:hover{transform:translateY(-3px);border-color:rgba(255,107,0,.2)}
+    .uc-date{flex-shrink:0;text-align:center;background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.15);border-radius:12px;padding:10px 14px;min-width:64px}
+    .uc-day{font-size:22px;font-weight:900;color:var(--accent);line-height:1}
+    .uc-month{font-size:10px;font-weight:700;color:var(--muted2);text-transform:uppercase;letter-spacing:1.5px;margin-top:2px}
+    .uc-info{flex:1}
+    .uc-venue{font-size:15px;font-weight:800;margin-bottom:3px}
+    .uc-loc{font-size:11px;color:var(--muted2)}
+
+    /* PAST SHOWS */
+    .shows-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;margin-top:50px}
+    .show-card{background:var(--surface2);border:1px solid var(--border);border-radius:16px;padding:20px;transition:transform .3s,border-color .3s}
+    .show-card:hover{transform:translateY(-4px);border-color:rgba(255,107,0,.2)}
+    .show-card-top{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+    .show-logo-box{width:52px;height:52px;border-radius:12px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px solid var(--border2)}
+    .show-logo-box img{width:100%;height:100%;object-fit:contain;padding:6px}
+    .show-logo-placeholder{width:52px;height:52px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:900;color:#fff;font-family:'Inter',sans-serif}
+    .show-venue-name{font-size:16px;font-weight:800}
+    .show-date-badge{font-size:10px;color:var(--accent2);font-weight:700;margin-top:2px}
+    .show-bottom{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+    .show-loc-chip{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.04);color:var(--muted2);font-size:10px;font-weight:700;padding:4px 10px;border-radius:999px}
+    .show-ig-btn{display:inline-flex;align-items:center;gap:5px;background:rgba(255,107,0,.1);border:1px solid rgba(255,107,0,.2);color:var(--accent2);font-size:10px;font-weight:700;padding:5px 12px;border-radius:999px;text-decoration:none;transition:background .2s}
+    .show-ig-btn:hover{background:rgba(255,107,0,.2)}
+
+    /* BOOKING */
+    .booking-bg{background:var(--surface);border-top:1px solid var(--border)}
+    .booking-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:start;margin-top:56px}
+    .booking-left h3{font-size:17px;font-weight:800;margin-bottom:28px}
+    .citem{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+    .citem:last-of-type{border-bottom:none}
+    .cicon{width:42px;height:42px;border-radius:11px;background:rgba(255,107,0,.1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+    .clabel{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+    .cval{font-size:13px;font-weight:700;margin-top:3px}
+    .cval a{color:var(--accent2);text-decoration:none}
+    .cval a:hover{text-decoration:underline}
+    .riders-list{margin-top:28px;display:flex;flex-direction:column;gap:10px}
+    .rider-item{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:10px;padding:12px 16px;text-decoration:none;color:var(--text);transition:border-color .2s,background .2s}
+    .rider-item:hover{border-color:rgba(255,107,0,.28);background:rgba(255,107,0,.04)}
+    .rider-item-icon{font-size:17px}
+    .rider-item-title{font-size:13px;font-weight:700}
+    .rider-item-sub{font-size:10px;color:var(--muted)}
+    .rider-arrow{margin-left:auto;color:var(--muted)}
+    .booking-form{background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:36px}
+    .booking-form h3{font-size:19px;font-weight:800;margin-bottom:24px}
+    .fg{margin-bottom:15px}
+    .fg label{display:block;font-size:10px;font-weight:800;color:var(--muted2);text-transform:uppercase;letter-spacing:1px;margin-bottom:7px}
+    .fg input,.fg textarea,.fg select{width:100%;background:rgba(255,255,255,.025);border:1px solid var(--border);border-radius:10px;padding:11px 15px;color:var(--text);font-size:13px;font-family:inherit;outline:none;transition:border-color .2s,background .2s}
+    .fg input:focus,.fg textarea:focus,.fg select:focus{border-color:rgba(255,107,0,.45);background:rgba(255,107,0,.025)}
+    .fg textarea{resize:vertical;min-height:88px}
+    .fg select option{background:#1a1a1a}
+    .form-send{width:100%;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border:none;border-radius:999px;padding:14px;font-size:14px;font-weight:800;cursor:pointer;letter-spacing:.5px;box-shadow:0 4px 24px rgba(255,107,0,.35);transition:transform .2s,box-shadow .2s}
+    .form-send:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,107,0,.5)}
+
+    /* SOCIAL */
+    .social-sec{text-align:center}
+    .social-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:44px}
+    .scard{display:flex;align-items:center;gap:12px;background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:16px 22px;text-decoration:none;color:var(--text);min-width:165px;transition:transform .2s,border-color .2s,box-shadow .2s}
+    .scard:hover{transform:translateY(-3px);border-color:rgba(255,107,0,.28);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+    .scard-icon{font-size:22px}
+    .scard-name{font-size:12px;font-weight:800}
+    .scard-handle{font-size:10px;color:var(--muted);margin-top:1px}
+
+    /* FOOTER */
+    footer{border-top:1px solid var(--border);padding:52px 40px;text-align:center}
+    .foot-logo{font-size:20px;font-weight:900;letter-spacing:3px;text-transform:uppercase;background:linear-gradient(120deg,#FF6B00,#FF9A00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+    .foot-tag{color:var(--muted2);font-size:13px;margin-bottom:6px}
+    .foot-loc{color:var(--muted);font-size:12px;margin-bottom:22px}
+    .foot-links{display:flex;gap:20px;justify-content:center;margin-bottom:22px;flex-wrap:wrap}
+    .foot-links a{color:var(--muted2);text-decoration:none;font-size:12px;transition:color .2s}
+    .foot-links a:hover{color:var(--accent2)}
+    .foot-copy{color:var(--muted);font-size:10px}
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      nav{padding:16px 24px}nav.scrolled{padding:12px 24px}
+      .nav-links{display:none}
+      .sw{padding:70px 24px}
+      .about-grid,.booking-grid{grid-template-columns:1fr;gap:36px}
+      .hero h1{letter-spacing:-2.5px}
+      .releases-grid{grid-template-columns:repeat(2,1fr)}
+      .shows-grid,.upcoming-grid{grid-template-columns:1fr}
+      footer{padding:40px 24px}
+    }
+    @media(max-width:480px){
+      .hero-stats{gap:28px}
+      .hero-btns{flex-direction:column;align-items:center}
+      .releases-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-logo">Daviz Garzia</div>
+  <ul class="nav-links">
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#musica">Música</a></li>
+    <li><a href="#proximas">Shows</a></li>
+    <li><a href="#booking" class="nav-cta">Booking</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="hero-dot"></span>DJ &amp; Producer · Cantabria · España</div>
+    <h1><span class="hero-n1">DAVIZ</span><span class="hero-n2">GARZIA</span></h1>
+    <p class="hero-sub"><b>Reggaeton</b> &nbsp;·&nbsp; <b>Tech House / House</b> &nbsp;·&nbsp; <b>Techno</b></p>
+    <div class="hero-btns">
+      <a href="#booking" class="btn-orange">Contratar ahora</a>
+      <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="btn-ghost">Escuchar en Spotify ↗</a>
+    </div>
+    <div class="hero-stats">
+      <div class="h-stat"><div class="h-stat-num">2.5K</div><div class="h-stat-lbl">Seguidores IG</div></div>
+      <div class="h-stat"><div class="h-stat-num">47K</div><div class="h-stat-lbl">Likes TikTok</div></div>
+      <div class="h-stat"><div class="h-stat-num">144K</div><div class="h-stat-lbl">Vistas YouTube</div></div>
+      <div class="h-stat"><div class="h-stat-num">9+</div><div class="h-stat-lbl">Lanzamientos 2025</div></div>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="hero-scroll-line"></div><span class="hero-scroll-txt">scroll</span></div>
+</section>
+
+<!-- MARQUEE 1 -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Reggaeton <span class="dot">●</span></span><span class="marquee-item">Tech House <span class="dot">●</span></span><span class="marquee-item">House <span class="dot">●</span></span><span class="marquee-item">Schranz <span class="dot">●</span></span><span class="marquee-item">Hard Groove <span class="dot">●</span></span><span class="marquee-item">Techno <span class="dot">●</span></span><span class="marquee-item">DJ &amp; Producer <span class="dot">●</span></span><span class="marquee-item">Cantabria <span class="dot">●</span></span><span class="marquee-item">Booking Open <span class="dot">●</span></span><span class="marquee-item">FL Studio <span class="dot">●</span></span>
+    <span class="marquee-item">Reggaeton <span class="dot">●</span></span><span class="marquee-item">Tech House <span class="dot">●</span></span><span class="marquee-item">House <span class="dot">●</span></span><span class="marquee-item">Schranz <span class="dot">●</span></span><span class="marquee-item">Hard Groove <span class="dot">●</span></span><span class="marquee-item">Techno <span class="dot">●</span></span><span class="marquee-item">DJ &amp; Producer <span class="dot">●</span></span><span class="marquee-item">Cantabria <span class="dot">●</span></span><span class="marquee-item">Booking Open <span class="dot">●</span></span><span class="marquee-item">FL Studio <span class="dot">●</span></span>
+  </div>
+</div>
+
+<!-- SOBRE MÍ -->
+<section id="sobre-mi">
+  <div class="sw">
+    <div class="about-grid">
+      <div data-anim="left">
+        <div class="about-photo-wrap">
+          <div class="about-photo-card">
+            <img src="https://image-cdn-fa.spotifycdn.com/image/ab6761610000517415c55f797ea09e97a9330933"
+                 alt="Daviz Garzia DJ Producer Cantabria" loading="lazy"
+                 onerror="this.parentNode.style.background='linear-gradient(135deg,#1a1a1a,#0a0a0a)';this.style.display='none'">
+            <div class="about-photo-name"><h3>Daviz Garzia</h3><p>DJ &amp; Music Producer</p></div>
+          </div>
+          <div class="about-tags" style="margin-top:14px;">
+            <span class="atag">FL Studio</span><span class="atag">Cantabria</span>
+            <a href="https://www.instagram.com/thenorthrecordlabel/" target="_blank" class="atag" style="text-decoration:none">CEO @thenorthrecordlabel ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="about-text" data-anim="right">
+        <div class="section-eye">Sobre mí</div>
+        <h2 class="section-h">Música pensada<br>para romper el club</h2>
+        <p class="big-quote">"Todo lo que escuchas nace de horas en FL Studio con una sola idea: <span style="color:var(--accent)">haceros disfrutar</span>."</p>
+        <p>Soy <strong>Daviz Garzia</strong>, DJ y productor musical originario de <strong>Cantabria</strong>. Mi sonido mezcla la actitud del <strong>reggaeton</strong>, el ritmo hipnótico del <strong>tech house / house</strong> y la contundencia del <strong>techno</strong> (Hard Groove y Schranz) para crear algo diseñado específicamente para romper el suelo de cualquier club.</p>
+        <p>CEO de <a href="https://www.instagram.com/thenorthrecordlabel/" target="_blank" style="color:var(--accent2);text-decoration:none;font-weight:700">@thenorthrecordlabel</a> · Co-fundador de <a href="https://www.instagram.com/planbpalencia/" target="_blank" style="color:var(--accent2);text-decoration:none;font-weight:700">@planbpalencia</a> <span style="color:var(--muted2);font-size:12px">(fiesta de reggaeton old school &amp; trap antiguo en Palencia)</span> · Actuaciones en cinco provincias de España.</p>
+        <div class="genre-pills">
+          <span class="gpill">Reggaeton</span><span class="gpill">Tech House</span><span class="gpill">House</span>
+          <span class="gpill">Techno</span><span class="gpill">Hard Groove</span><span class="gpill">Schranz</span>
+        </div>
+        <div style="margin-top:16px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;">Provincias</div>
+        <div class="provinces-row">
+          <span class="prov-chip">Cantabria</span><span class="prov-chip">La Rioja</span>
+          <span class="prov-chip">Ávila</span><span class="prov-chip">Palencia</span><span class="prov-chip">Álava</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MÚSICA -->
+<div class="music-bg">
+  <div class="sw" id="musica">
+    <div data-anim>
+      <div class="section-eye">Discografía</div>
+      <h2 class="section-h">Últimos lanzamientos</h2>
+      <p class="section-p">9 singles publicados en 2025 en todas las plataformas. Producción propia desde FL Studio.</p>
+    </div>
+    <div class="releases-grid">
+
+      <div class="rel-card" data-anim data-delay="1">
+        <div class="rel-img-box">
+          <img src="https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02625c59668d0c6298043d294a" alt="ESE FRONTEO - Daviz Garzia" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'rel-img-fallback\' style=\'background:linear-gradient(135deg,#FF6B00,#FF2200)\'>🎵</div>'">
+          <div class="rel-overlay"><div class="rel-play">▶</div></div>
+        </div>
+        <div class="rel-info">
+          <div class="rel-title">ESE FRONTEO <span class="rel-new">Nuevo</span></div>
+          <div class="rel-meta">Sencillo · 2025</div>
+          <div class="rel-stat">Último lanzamiento</div>
+        </div>
+        <div class="rel-links">
+          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-link-btn rel-link-spotify">▶ Spotify</a>
+        </div>
+      </div>
+
+      <div class="rel-card" data-anim data-delay="2">
+        <div class="rel-img-box">
+          <img src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e022626fc82e16494cfd326caaa" alt="Voy a llevarte pa PR - Daviz Garzia" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'rel-img-fallback\' style=\'background:linear-gradient(135deg,#7c3aed,#06b6d4)\'>🌊</div>'">
+          <div class="rel-overlay"><div class="rel-play">▶</div></div>
+        </div>
+        <div class="rel-info">
+          <div class="rel-title">Voy a llevarte pa' PR</div>
+          <div class="rel-meta">Tech House · 2025</div>
+          <div class="rel-stat">8.415 plays en Spotify</div>
+        </div>
+        <div class="rel-links">
+          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-link-btn rel-link-spotify">▶ Spotify</a>
+        </div>
+      </div>
+
+      <div class="rel-card" data-anim data-delay="3">
+        <div class="rel-img-box">
+          <img src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02d145ed6256f604c914a7e2d7" alt="Anxiety tech - Daviz Garzia" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'rel-img-fallback\' style=\'background:linear-gradient(135deg,#1d4ed8,#7c3aed)\'>⚡</div>'">
+          <div class="rel-overlay"><div class="rel-play">▶</div></div>
+        </div>
+        <div class="rel-info">
+          <div class="rel-title">Anxiety (tech)</div>
+          <div class="rel-meta">Tech House · 2025</div>
+          <div class="rel-stat">2.085 plays en Spotify</div>
+        </div>
+        <div class="rel-links">
+          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-link-btn rel-link-spotify">▶ Spotify</a>
+        </div>
+      </div>
+
+      <div class="rel-card" data-anim data-delay="4">
+        <div class="rel-img-box">
+          <img src="https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02528fc542d26da6fa46b278ca" alt="Dance First After Dark - Daviz Garzia" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'rel-img-fallback\' style=\'background:linear-gradient(135deg,#0f766e,#06b6d4)\'>🌙</div>'">
+          <div class="rel-overlay"><div class="rel-play">▶</div></div>
+        </div>
+        <div class="rel-info">
+          <div class="rel-title">Dance First (After Dark)</div>
+          <div class="rel-meta">Sencillo · 2025</div>
+          <div class="rel-stat">Disponible en streaming</div>
+        </div>
+        <div class="rel-links">
+          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-link-btn rel-link-spotify">▶ Spotify</a>
+        </div>
+      </div>
+
+      <div class="rel-card" data-anim data-delay="5">
+        <div class="rel-img-box">
+          <img src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02475af1458cc4bf3ebbdf8e39" alt="Girls Just Want to Have Fun - Daviz Garzia" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'rel-img-fallback\' style=\'background:linear-gradient(135deg,#be185d,#7c3aed)\'>💃</div>'">
+          <div class="rel-overlay"><div class="rel-play">▶</div></div>
+        </div>
+        <div class="rel-info">
+          <div class="rel-title">Girls Just Want to Have Fun</div>
+          <div class="rel-meta">Tech House · 2025</div>
+          <div class="rel-stat">716 vistas YouTube</div>
+        </div>
+        <div class="rel-links">
+          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-link-btn rel-link-spotify">▶ Spotify</a>
+        </div>
+      </div>
+
+      <div class="rel-card" data-anim data-delay="6">
+        <div class="rel-img-box">
+          <img src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0213d9a227efffbbd243807dab" alt="Capaz Tech House - Daviz Garzia" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'rel-img-fallback\' style=\'background:linear-gradient(135deg,#FF6B00,#FF9A00)\'>🔥</div>'">
+          <div class="rel-overlay"><div class="rel-play">▶</div></div>
+        </div>
+        <div class="rel-info">
+          <div class="rel-title">Capaz (Tech House)</div>
+          <div class="rel-meta">Tech House · 2025</div>
+          <div class="rel-stat">Disponible en streaming</div>
+        </div>
+        <div class="rel-links">
+          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-link-btn rel-link-spotify">▶ Spotify</a>
+        </div>
+      </div>
+
+      <div class="rel-card" data-anim data-delay="3">
+        <div class="rel-img-box">
+          <img src="https://i1.sndcdn.com/artworks-nIjAGCT5vvp0qi76-Qb25Hw-t500x500.png" alt="Waterfalls Schranz Rework - Daviz Garzia" loading="lazy"
+               onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#1a1a2e,#16213e)';this.parentNode.innerHTML+='<div style=\'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:36px\'>🌊</div>'">
+          <div class="rel-overlay"><div class="rel-play">▶</div></div>
+        </div>
+        <div class="rel-info">
+          <div class="rel-title">Waterfalls (Schranz Rework)</div>
+          <div class="rel-meta">Schranz · 2025</div>
+          <div class="rel-stat">699 vistas YouTube</div>
+        </div>
+        <div class="rel-links">
+          <a href="https://www.youtube.com/@Davizgarziamusic" target="_blank" class="rel-link-btn rel-link-youtube">▶ YouTube</a>
+          <a href="https://soundcloud.com/davizgarziamusic" target="_blank" class="rel-link-btn rel-link-soundcloud">☁ SC</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="music-cta" data-anim>
+      <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="btn-orange">Ver discografía completa en Spotify ↗</a>
+    </div>
+  </div>
+</div>
+
+<!-- VIDEO VIRAL -->
+<section>
+  <div class="sw video-sec">
+    <div data-anim>
+      <div class="viral-badge">🔥 144K vistas</div>
+      <h2 class="video-title">El mashup que lo empezó todo</h2>
+      <p class="video-desc">Calor × Que Calor × Loco · El vídeo más visto del canal · Daviz Garzia</p>
+    </div>
+    <div class="video-frame" data-anim="scale" style="max-width:560px;">
+      <a href="https://www.youtube.com/watch?v=8MTWzI7FjH8" target="_blank" style="display:block;position:relative;aspect-ratio:16/9;">
+        <img src="https://img.youtube.com/vi/8MTWzI7FjH8/maxresdefault.jpg" alt="Calor x Que Calor x Loco Mash Up - Daviz Garzia" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.35);">
+          <div style="width:68px;height:68px;background:#FF0000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;padding-left:4px;">▶</div>
+        </div>
+      </a>
+    </div>
+    <div style="text-align:center;margin-top:28px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;" data-anim>
+      <a href="https://www.youtube.com/watch?v=8MTWzI7FjH8" target="_blank" class="btn-orange">▶ Ver en YouTube ↗</a>
+      <a href="https://www.youtube.com/@Davizgarziamusic" target="_blank" class="btn-ghost">Canal completo →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ZONA CERO -->
+<div class="zona-bg">
+  <div class="sw">
+    <div data-anim>
+      <div class="section-eye">Serie exclusiva</div>
+      <h2 class="section-h">Zona Cero — Sessions</h2>
+      <p class="section-p">Sets completos de 45 minutos. Dembow, Reggaeton, Afro House y más. Disponibles en YouTube.</p>
+    </div>
+    <div class="zona-card" data-anim>
+      <div class="zona-icon">🌊</div>
+      <div class="zona-info">
+        <div class="zona-title">Zona Cero · Daviz Garzia</div>
+        <div class="zona-desc">Dembow · Reggaeton · Afro · Edits &amp; More · 45 min</div>
+        <div class="zona-chips"><span class="zchip">14.000 vistas</span><span class="zchip">Sessions completas</span><span class="zchip">YouTube</span></div>
+      </div>
+      <a href="https://www.youtube.com/@DavizGarziaSessions" target="_blank" class="btn-orange">Ver la sesión →</a>
+    </div>
+  </div>
+</div>
+
+<!-- MARQUEE 2 -->
+<div class="marquee-wrap">
+  <div class="marquee-track rev">
+    <span class="marquee-item">Sala Kaya — Santander <span class="dot">●</span></span><span class="marquee-item">Sala Concept — Logroño <span class="dot">●</span></span><span class="marquee-item">Roxel — Solares <span class="dot">●</span></span><span class="marquee-item">Samoa — Ávila <span class="dot">●</span></span><span class="marquee-item">La Castafiore — Ávila <span class="dot">●</span></span><span class="marquee-item">Gamoneo — Torrelavega <span class="dot">●</span></span><span class="marquee-item">Bahía Sun Festival — Santander <span class="dot">●</span></span>
+    <span class="marquee-item">Sala Kaya — Santander <span class="dot">●</span></span><span class="marquee-item">Sala Concept — Logroño <span class="dot">●</span></span><span class="marquee-item">Roxel — Solares <span class="dot">●</span></span><span class="marquee-item">Samoa — Ávila <span class="dot">●</span></span><span class="marquee-item">La Castafiore — Ávila <span class="dot">●</span></span><span class="marquee-item">Gamoneo — Torrelavega <span class="dot">●</span></span><span class="marquee-item">Bahía Sun Festival — Santander <span class="dot">●</span></span>
+  </div>
+</div>
+
+<!-- PRÓXIMAS FECHAS -->
+<div class="upcoming-bg" id="proximas">
+  <div class="sw">
+    <div data-anim>
+      <div class="section-eye">Próximas fechas</div>
+      <h2 class="section-h">Actuaciones confirmadas</h2>
+    </div>
+
+    <!-- Bahía Sun — featured -->
+    <div class="upcoming-featured" data-anim="scale">
+      <div class="upcoming-featured-date"><div class="uf-day">19</div><div class="uf-month">Jul 2026</div></div>
+      <div class="upcoming-featured-info">
+        <div class="uf-event">Bahía Sun Festival</div>
+        <div class="uf-desc">El primer festival de tardeo de Santander. 8 horas · 3 escenarios · Nervo · Ovy on The Drums · Daviz Garzia y más.</div>
+        <div class="uf-tags">
+          <span class="uf-tag">📍 La Magdalena, Santander</span>
+          <span class="uf-tag">17:00h</span>
+          <span class="uf-tag">Cantabria</span>
+        </div>
+      </div>
+      <a href="https://www.bahiasunfestival.com/" target="_blank" class="btn-orange">Entradas ↗</a>
+    </div>
+
+    <div class="upcoming-grid" style="margin-top:16px;">
+      <div class="upcoming-card" data-anim data-delay="1">
+        <div class="uc-date"><div class="uc-day">23</div><div class="uc-month">May 26</div></div>
+        <div class="uc-info">
+          <div class="uc-venue">Roxel Sala Musical</div>
+          <div class="uc-loc">📍 Solares, Cantabria · vs Wasfu</div>
+        </div>
+      </div>
+      <div class="upcoming-card" data-anim data-delay="2">
+        <div class="uc-date"><div class="uc-day">4</div><div class="uc-month">Jul 26</div></div>
+        <div class="uc-info">
+          <div class="uc-venue">Gamoneo — Todos al Prao</div>
+          <div class="uc-loc">📍 Torrelavega, Cantabria · 12:00–22:00h</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ACTUACIONES PASADAS -->
+<section id="shows">
+  <div class="sw">
+    <div data-anim>
+      <div class="section-eye">Historial</div>
+      <h2 class="section-h">Actuaciones recientes</h2>
+      <p class="section-p">Salas y eventos en Cantabria, La Rioja, Ávila, Palencia y Álava.</p>
+    </div>
+
+    <div class="shows-grid">
+
+      <!-- Sala Kaya -->
+      <div class="show-card" data-anim data-delay="1">
+        <div class="show-card-top">
+          <div class="show-logo-box" style="background:#0a0a0a;">
+            <img src="https://www.salakaya.com/assets/img/logo-salakaya-v2.svg" alt="Sala Kaya" loading="lazy"
+                 onerror="this.parentNode.outerHTML='<div class=\'show-logo-placeholder\' style=\'background:linear-gradient(135deg,#7c3aed,#4f46e5)\'>K</div>'">
+          </div>
+          <div>
+            <div class="show-venue-name">Sala Kaya</div>
+            <div class="show-date-badge">16 Mayo 2026</div>
+          </div>
+        </div>
+        <div class="show-bottom">
+          <span class="show-loc-chip">📍 Santander, Cantabria</span>
+          <a href="https://www.instagram.com/salakaya_santander/" target="_blank" class="show-ig-btn">📸 @salakaya_santander</a>
+        </div>
+      </div>
+
+      <!-- Sala Concept -->
+      <div class="show-card" data-anim data-delay="2">
+        <div class="show-card-top">
+          <div class="show-logo-box" style="background:#0a0a0a;">
+            <img src="https://nyxellpro.s3.amazonaws.com/sitename/2014-dud657iu11pfkmoqapo8h4qusvh2orto9qfipuspsvdhf9l7vu0bi06ltbsi.png" alt="Sala Concept Logroño" loading="lazy"
+                 onerror="this.parentNode.outerHTML='<div class=\'show-logo-placeholder\' style=\'background:linear-gradient(135deg,#FF6B00,#FF9A00)\'>C</div>'">
+          </div>
+          <div>
+            <div class="show-venue-name">Sala Concept</div>
+            <div class="show-date-badge">14 Feb 2026</div>
+          </div>
+        </div>
+        <div class="show-bottom">
+          <span class="show-loc-chip">📍 Logroño, La Rioja</span>
+          <a href="https://www.instagram.com/salaconcept/" target="_blank" class="show-ig-btn">📸 @salaconcept</a>
+        </div>
+      </div>
+
+      <!-- Roxel -->
+      <div class="show-card" data-anim data-delay="3">
+        <div class="show-card-top">
+          <div class="show-logo-placeholder" style="background:linear-gradient(135deg,#dc2626,#f97316)">R</div>
+          <div>
+            <div class="show-venue-name">Roxel Sala Musical</div>
+            <div class="show-date-badge">2025 · Historial</div>
+          </div>
+        </div>
+        <div class="show-bottom">
+          <span class="show-loc-chip">📍 Solares, Cantabria</span>
+          <a href="https://www.instagram.com/r.o.x.e.l/" target="_blank" class="show-ig-btn">📸 @r.o.x.e.l</a>
+        </div>
+      </div>
+
+      <!-- Samoa Ávila -->
+      <div class="show-card" data-anim data-delay="4">
+        <div class="show-card-top">
+          <div class="show-logo-placeholder" style="background:linear-gradient(135deg,#0284c7,#06b6d4)">S</div>
+          <div>
+            <div class="show-venue-name">Samoa Ávila</div>
+            <div class="show-date-badge">2025 · Historial</div>
+          </div>
+        </div>
+        <div class="show-bottom">
+          <span class="show-loc-chip">📍 Ávila</span>
+          <a href="https://www.instagram.com/samoaavila/" target="_blank" class="show-ig-btn">📸 @samoaavila</a>
+        </div>
+      </div>
+
+      <!-- La Castafiore -->
+      <div class="show-card" data-anim data-delay="5">
+        <div class="show-card-top">
+          <div class="show-logo-placeholder" style="background:linear-gradient(135deg,#059669,#10b981)">LC</div>
+          <div>
+            <div class="show-venue-name">La Castafiore</div>
+            <div class="show-date-badge">2025 · Historial</div>
+          </div>
+        </div>
+        <div class="show-bottom">
+          <span class="show-loc-chip">📍 Ávila</span>
+          <a href="https://www.instagram.com/lacastafioreav/" target="_blank" class="show-ig-btn">📸 @lacastafioreav</a>
+        </div>
+      </div>
+
+      <!-- Fiestas de Tanos -->
+      <div class="show-card" data-anim data-delay="6">
+        <div class="show-card-top">
+          <div class="show-logo-placeholder" style="background:linear-gradient(135deg,#ca8a04,#fbbf24)">🏟️</div>
+          <div>
+            <div class="show-venue-name">Fiestas de Tanos</div>
+            <div class="show-date-badge">2025 · Historial</div>
+          </div>
+        </div>
+        <div class="show-bottom">
+          <span class="show-loc-chip">📍 Tanos, Cantabria</span>
+        </div>
+      </div>
+
+    </div>
+  
+      <!-- Sala Chapo -->
+      <div class="show-card" data-anim data-delay="6">
+        <div class="show-card-top">
+          <div class="show-logo-placeholder" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">CH</div>
+          <div>
+            <div class="show-venue-name">Chapó Soundclub</div>
+            <div class="show-date-badge">2025 · Historial</div>
+          </div>
+        </div>
+        <div class="show-bottom">
+          <span class="show-loc-chip">📍 Palencia</span>
+          <a href="https://www.instagram.com/chapo_discoteca/" target="_blank" class="show-ig-btn">📸 @chapo_discoteca</a>
+        </div>
+      </div></div>
+</section>
+
+<!-- BOOKING -->
+<div class="booking-bg">
+  <div class="sw" id="booking">
+    <div data-anim>
+      <div class="section-eye">Contrataciones</div>
+      <h2 class="section-h">¿Quieres que pinche<br>en tu evento?</h2>
+      <p class="section-p">Disponible para clubs, festivales, bodas y eventos privados en toda España.</p>
+    </div>
+    <div class="booking-grid">
+      <div data-anim="left">
+        <h3>Contacto &amp; Información</h3>
+        <div class="citem">
+          <div class="cicon">📩</div>
+          <div><div class="clabel">Email artístico</div><div class="cval"><a href="mailto:hola@davizgarziamusic.com">hola@davizgarziamusic.com</a></div></div>
+        </div>
+        <div class="citem">
+          <div class="cicon">📱</div>
+          <div><div class="clabel">WhatsApp mánager</div><div class="cval"><a href="https://wa.me/34660375685" target="_blank">Contactar por WhatsApp →</a></div></div>
+        </div>
+        <div class="citem">
+          <div class="cicon">📍</div>
+          <div><div class="clabel">Ubicación</div><div class="cval">Cantabria · Disponible en toda España</div></div>
+        </div>
+        <h3 style="margin-top:28px;font-size:15px;font-weight:800;">Documentación técnica</h3>
+        <div class="riders-list">
+          <a href="https://drive.google.com/file/d/1f85na0l_-xmG45EBwgX6KXN0qNqWkHmd/view?usp=drive_link" target="_blank" class="rider-item">
+            <span class="rider-item-icon">📄</span>
+            <div><div class="rider-item-title">Dossier 2026</div><div class="rider-item-sub">Presentación artística completa</div></div>
+            <span class="rider-arrow">↗</span>
+          </a>
+          <a href="https://drive.google.com/file/d/1ol-CERkSBX7-I4ITeWPA-Rrkf9X6PY2Z/view?usp=drive_link" target="_blank" class="rider-item">
+            <span class="rider-item-icon">🔊</span>
+            <div><div class="rider-item-title">Rider Técnico</div><div class="rider-item-sub">Especificaciones de sonido y mesa</div></div>
+            <span class="rider-arrow">↗</span>
+          </a>
+          <a href="https://drive.google.com/file/d/1rPbKVH-7dGie22r6T-SWFfp3ocXXMdL3/view?usp=drive_link" target="_blank" class="rider-item">
+            <span class="rider-item-icon">🏨</span>
+            <div><div class="rider-item-title">Hospitality Rider</div><div class="rider-item-sub">Condiciones de alojamiento y catering</div></div>
+            <span class="rider-arrow">↗</span>
+          </a>
+        </div>
+      </div>
+      <div data-anim="right">
+        <div class="booking-form">
+          <h3>Solicitar disponibilidad</h3>
+          <form action="mailto:hola@davizgarziamusic.com" method="POST" enctype="text/plain">
+            <div class="fg"><label>Nombre / Sala o Evento</label><input type="text" name="nombre" placeholder="Ej. Club XYZ o Boda García"></div>
+            <div class="fg"><label>Email de contacto</label><input type="email" name="email" placeholder="tu@email.com"></div>
+            <div class="fg"><label>Tipo de evento</label>
+              <select name="tipo"><option value="">Selecciona...</option><option>Club / Discoteca</option><option>Festival</option><option>Boda / Evento privado</option><option>Residencia / Sala</option><option>Otro</option></select>
+            </div>
+            <div class="fg"><label>Fecha y ciudad aproximada</label><input type="text" name="fecha" placeholder="Ej. 15 julio, Santander"></div>
+            <div class="fg"><label>Mensaje (opcional)</label><textarea name="mensaje" placeholder="Cuéntame más sobre el evento..."></textarea></div>
+            <button type="submit" class="form-send">Enviar solicitud →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REDES SOCIALES -->
+<section>
+  <div class="sw social-sec">
+    <div data-anim>
+      <div class="section-eye">Sígueme</div>
+      <h2 class="section-h">Encuentra mi música<br>en todas partes</h2>
+    </div>
+    <div class="social-grid">
+      <a href="https://www.instagram.com/davizgarzia.music/" target="_blank" class="scard" data-anim data-delay="1"><span class="scard-icon">📸</span><div><div class="scard-name">Instagram</div><div class="scard-handle">@davizgarzia.music</div></div></a>
+      <a href="https://www.tiktok.com/@davizgarzia.music" target="_blank" class="scard" data-anim data-delay="2"><span class="scard-icon">🎵</span><div><div class="scard-name">TikTok</div><div class="scard-handle">@davizgarzia.music</div></div></a>
+      <a href="https://www.youtube.com/@Davizgarziamusic" target="_blank" class="scard" data-anim data-delay="3"><span class="scard-icon">▶️</span><div><div class="scard-name">YouTube Oficial</div><div class="scard-handle">@Davizgarziamusic</div></div></a>
+      <a href="https://www.youtube.com/@DavizGarziaSessions" target="_blank" class="scard" data-anim data-delay="4"><span class="scard-icon">🌊</span><div><div class="scard-name">YouTube Sessions</div><div class="scard-handle">@DavizGarziaSessions</div></div></a>
+      <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="scard" data-anim data-delay="5"><span class="scard-icon">🎧</span><div><div class="scard-name">Spotify</div><div class="scard-handle">Daviz Garzia</div></div></a>
+      <a href="https://soundcloud.com/davizgarziamusic" target="_blank" class="scard" data-anim data-delay="6"><span class="scard-icon">☁️</span><div><div class="scard-name">SoundCloud</div><div class="scard-handle">davizgarziamusic</div></div></a>
+      <a href="https://music.apple.com/es/artist/daviz-garcia/1771654018" target="_blank" class="scard" data-anim data-delay="2"><span class="scard-icon">🍎</span><div><div class="scard-name">Apple Music</div><div class="scard-handle">Daviz Garzia</div></div></a>
+      <a href="https://www.instagram.com/thenorthrecordlabel/" target="_blank" class="scard" data-anim data-delay="3"><span class="scard-icon">🎛️</span><div><div class="scard-name">The North Record Label</div><div class="scard-handle">@thenorthrecordlabel</div></div></a>
+      <a href="https://linktr.ee/davizgarzia.music" target="_blank" class="scard" data-anim data-delay="4"><span class="scard-icon">🔗</span><div><div class="scard-name">Linktree</div><div class="scard-handle">Dossier + Shop + Links</div></div></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-logo">DAVIZ GARZIA</div>
+  <div class="foot-tag">DJ &amp; Producer · Reggaeton · Tech House · Techno</div>
+  <div class="foot-loc">Cantabria · España 🇪🇸</div>
+  <div class="foot-links">
+    <a href="mailto:hola@davizgarziamusic.com">hola@davizgarziamusic.com</a>
+    <a href="https://linktr.ee/davizgarzia.music" target="_blank">Linktree</a>
+    <a href="#booking">Booking</a>
+  </div>
+  <div class="foot-copy">© 2026 Daviz Garzia · Todos los derechos reservados</div>
+</footer>
+
+<script>
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60), {passive:true});
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('[data-anim]').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
