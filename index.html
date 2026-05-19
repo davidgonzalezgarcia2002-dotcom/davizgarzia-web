@@ -445,6 +445,10 @@
     .yt-stats{display:flex;gap:8px;flex-wrap:wrap}
     .yt-stat{font-size:10px;color:var(--muted2);background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:999px;padding:3px 10px}
 
+    /* TICKET CHIP */
+    .uc-ticket{flex-shrink:0;background:rgba(255,107,0,.1);border:1px solid rgba(255,107,0,.2);color:var(--accent2);font-size:10px;font-weight:700;padding:5px 12px;border-radius:999px;text-decoration:none;white-space:nowrap;transition:background .2s}
+    .uc-ticket:hover{background:rgba(255,107,0,.2)}
+
     /* SHOW PILL */
     #show-pill{position:fixed;right:20px;bottom:96px;z-index:800;background:rgba(6,6,6,.95);border:1px solid rgba(255,107,0,.3);border-radius:16px;padding:14px 16px;backdrop-filter:blur(16px);min-width:152px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.5);opacity:0;transform:translateX(16px);transition:opacity .4s,transform .4s;pointer-events:none}
     #show-pill.visible{opacity:1;transform:none;pointer-events:auto}
@@ -870,6 +874,7 @@
           <div class="uc-venue">Roxel Sala Musical</div>
           <div class="uc-loc">📍 Solares, Cantabria · vs Wasfu</div>
         </div>
+        <a href="https://site.fourvenues.com/es/el-renacer/events/el-renacer---verus-23-05-2026-DGMU" target="_blank" class="uc-ticket">🎟️ Entradas</a>
       </div>
       <div class="upcoming-card" data-anim data-delay="2">
         <div class="uc-date"><div class="uc-day">4</div><div class="uc-month">Jul 26</div></div>
@@ -877,6 +882,7 @@
           <div class="uc-venue">Gamoneo — Todos al Prao</div>
           <div class="uc-loc">📍 Torrelavega, Cantabria · 12:00–22:00h</div>
         </div>
+        <a href="https://site.fourvenues.com/es/oxo-events/events/gamoneo-2026-todos-al-prao-04-07-2026-4EK2" target="_blank" class="uc-ticket">🎟️ Entradas</a>
       </div>
     </div>
     <!-- AUTO-SHOWS:END -->
@@ -1020,6 +1026,7 @@
       <p class="section-p" data-i18n="gal_p">Festivals, clubs, bodas — cada set es una experiencia única. <a href="https://www.instagram.com/davizgarzia.music/" target="_blank" style="color:var(--accent2);text-decoration:none;font-weight:700">@davizgarzia.music ↗</a></p>
     </div>
     <div class="gallery-grid" style="margin-top:50px;">
+    <!-- AUTO-GALLERY:START -->
 
       <div class="gal-item" data-anim data-delay="1">
         <img src="photos/planb-3.jpg" alt="Daviz Garzia en los CDJs - Plan B Palencia" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
@@ -1069,6 +1076,7 @@
         <a href="https://www.instagram.com/davizgarzia.music/" target="_blank" class="gal-ig-link">📸 Ver en IG</a>
       </div>
 
+    <!-- AUTO-GALLERY:END -->
     </div>
     <div style="text-align:center;margin-top:32px;" data-anim>
       <a href="https://www.instagram.com/davizgarzia.music/" target="_blank" class="btn-ghost" style="display:inline-block;">Ver más en Instagram ↗</a>
@@ -1100,8 +1108,8 @@
 <script>
 window.davizShows=[
 /* AUTO-COUNTDOWN:START */
-  {date:new Date('2026-05-23T22:00:00'),name:'Roxel Sala Musical',venue:'📍 Solares, Cantabria',url:''},
-  {date:new Date('2026-07-04T12:00:00'),name:'Gamoneo — Todos al Prao',venue:'📍 Torrelavega, Cantabria',url:''},
+  {date:new Date('2026-05-23T22:00:00'),name:'Roxel Sala Musical',venue:'📍 Solares, Cantabria',url:'https://site.fourvenues.com/es/el-renacer/events/el-renacer---verus-23-05-2026-DGMU'},
+  {date:new Date('2026-07-04T12:00:00'),name:'Gamoneo — Todos al Prao',venue:'📍 Torrelavega, Cantabria',url:'https://site.fourvenues.com/es/oxo-events/events/gamoneo-2026-todos-al-prao-04-07-2026-4EK2'},
   {date:new Date('2026-07-19T17:00:00'),name:'Bahía Sun Festival',venue:'📍 La Magdalena, Santander',url:'https://www.bahiasunfestival.com/'}
 /* AUTO-COUNTDOWN:END */
 ];
