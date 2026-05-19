@@ -1,4 +1,4 @@
-// Automation: reads upcoming announced shows from Notion → updates index.html
+// Automation: reads shows from Notion → updates index.html
 // Runs automatically every Monday via GitHub Actions
 // Notion database: Control de Ingresos David (306a485045d780c3ad62f6ac5a907da7)
 
@@ -10,9 +10,16 @@ const DB_ID = '306a485045d780c3ad62f6ac5a907da7';
 
 const MONTHS_SHORT = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 const MONTHS_FULL  = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const HIST_COLORS  = [
+  'linear-gradient(135deg,#7c3aed,#4f46e5)',
+  'linear-gradient(135deg,#FF6B00,#FF9A00)',
+  'linear-gradient(135deg,#0284c7,#06b6d4)',
+  'linear-gradient(135deg,#059669,#10b981)',
+  'linear-gradient(135deg,#ca8a04,#fbbf24)',
+  'linear-gradient(135deg,#dc2626,#f97316)',
+];
 
-async function queryNotion() {
-  const today = new Date().toISOString().split('T')[0];
+async function queryNotion(filter, sorts) {
   const resp = await fetch(`https://api.notion.com/v1/databases/${DB_ID}/query`, {
     method: 'POST',
     headers: {
@@ -20,15 +27,7 @@ async function queryNotion() {
       'Content-Type': 'application/json',
       'Notion-Version': '2022-06-28'
     },
-    body: JSON.stringify({
-      filter: {
-        and: [
-          { property: 'Anunciado', checkbox: { equals: true } },
-          { property: 'Fecha', date: { on_or_after: today } }
-        ]
-      },
-      sorts: [{ property: 'Fecha', direction: 'ascending' }]
-    })
+    body: JSON.stringify({ filter, sorts })
   });
   if (!resp.ok) throw new Error(`Notion API error: ${resp.status} ${await resp.text()}`);
   const data = await resp.json();
@@ -53,6 +52,8 @@ function parseDate(dateStr) {
 }
 
 function esc(str) { return str.replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
+
+// ── UPCOMING SHOWS ───────────────────────────────────────────────────────────
 
 function htmlFeatured(show) {
   const dt = parseDate(show.date);
@@ -114,21 +115,75 @@ function buildCountdownEvents(shows) {
   }).filter(Boolean).join(',\n');
 }
 
+// ── HISTORIAL ────────────────────────────────────────────────────────────────
+
+function htmlHistorialCard(show, i) {
+  const dt = parseDate(show.date);
+  if (!dt) return '';
+  const displayName = show.venue || show.name;
+  const initial = displayName.slice(0, 2).toUpperCase();
+  const color = HIST_COLORS[i % HIST_COLORS.length];
+  const dateStr = `${dt.day} ${dt.monFull} ${dt.yr}`;
+  return `
+      <div class="show-card" data-anim data-delay="${(i % 6) + 1}">
+        <div class="show-card-top">
+          <div class="show-logo-placeholder" style="background:${color}">${initial}</div>
+          <div>
+            <div class="show-venue-name">${displayName}</div>
+            <div class="show-date-badge">${dateStr}</div>
+          </div>
+        </div>
+        <div class="show-bottom">
+          ${show.city ? `<span class="show-loc-chip">📍 ${show.city}</span>` : ''}
+        </div>
+      </div>`;
+}
+
+function buildHistorialHTML(shows) {
+  if (!shows.length) return '';
+  return shows.map((s, i) => htmlHistorialCard(s, i)).join('');
+}
+
+// ── MAIN ─────────────────────────────────────────────────────────────────────
+
 async function main() {
   if (!NOTION_TOKEN) throw new Error('NOTION_TOKEN is not set');
 
-  console.log('Querying Notion...');
-  const pages = await queryNotion();
-  const shows = pages.map(parseShow).filter(s => s.date);
+  const today = new Date().toISOString().split('T')[0];
+  const ninetyDaysAgo = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
-  console.log(`Found ${shows.length} upcoming announced show(s):`);
-  shows.forEach(s => console.log(`  • ${s.date}  ${s.name}  |  ${s.venue}  |  ${s.city}`));
+  // --- Upcoming shows ---
+  console.log('Querying upcoming shows...');
+  const upcomingPages = await queryNotion(
+    { and: [
+      { property: 'Anunciado', checkbox: { equals: true } },
+      { property: 'Fecha', date: { on_or_after: today } }
+    ]},
+    [{ property: 'Fecha', direction: 'ascending' }]
+  );
+  const upcomingShows = upcomingPages.map(parseShow).filter(s => s.date);
+  console.log(`Found ${upcomingShows.length} upcoming show(s):`);
+  upcomingShows.forEach(s => console.log(`  • ${s.date}  ${s.name}  |  ${s.venue}  |  ${s.city}`));
+
+  // --- Past shows (historial, last 90 days) ---
+  console.log('Querying historial...');
+  const histPages = await queryNotion(
+    { and: [
+      { property: 'Fecha', date: { before: today } },
+      { property: 'Fecha', date: { on_or_after: ninetyDaysAgo } },
+      { property: 'Categoría', multi_select: { contains: '🎧 DJ' } }
+    ]},
+    [{ property: 'Fecha', direction: 'descending' }]
+  );
+  const histShows = histPages.map(parseShow).filter(s => s.date);
+  console.log(`Found ${histShows.length} past show(s) for historial:`);
+  histShows.forEach(s => console.log(`  · ${s.date}  ${s.venue || s.name}  |  ${s.city}`));
 
   const htmlPath = path.join(__dirname, '..', 'index.html');
   let html = fs.readFileSync(htmlPath, 'utf8');
 
-  // --- Update shows section ---
-  const showsBlock = buildShowsHTML(shows);
+  // --- Update upcoming shows section ---
+  const showsBlock = buildShowsHTML(upcomingShows);
   const newHtml1 = html.replace(
     /<!-- AUTO-SHOWS:START -->[\s\S]*?<!-- AUTO-SHOWS:END -->/,
     `<!-- AUTO-SHOWS:START -->${showsBlock}\n    <!-- AUTO-SHOWS:END -->`
@@ -141,11 +196,11 @@ async function main() {
   }
 
   // --- Update countdown events array ---
-  const cdwnBlock = buildCountdownEvents(shows);
+  const cdwnBlock = buildCountdownEvents(upcomingShows);
   if (cdwnBlock) {
     const newHtml2 = html.replace(
       /\/\* AUTO-COUNTDOWN:START \*\/[\s\S]*?\/\* AUTO-COUNTDOWN:END \*\//,
-      `/* AUTO-COUNTDOWN:START */\n${cdwnBlock}\n  /* AUTO-COUNTDOWN:END */`
+      `/* AUTO-COUNTDOWN:START */\n${cdwnBlock}\n/* AUTO-COUNTDOWN:END */`
     );
     if (newHtml2 === html) {
       console.warn('WARNING: AUTO-COUNTDOWN markers not found in index.html');
@@ -153,6 +208,23 @@ async function main() {
       html = newHtml2;
       console.log('Countdown section updated.');
     }
+  }
+
+  // --- Update historial section (only if Notion has data) ---
+  if (histShows.length > 0) {
+    const histBlock = buildHistorialHTML(histShows);
+    const newHtml3 = html.replace(
+      /<!-- AUTO-HISTORIAL:START -->[\s\S]*?<!-- AUTO-HISTORIAL:END -->/,
+      `<!-- AUTO-HISTORIAL:START -->${histBlock}\n    <!-- AUTO-HISTORIAL:END -->`
+    );
+    if (newHtml3 === html) {
+      console.warn('WARNING: AUTO-HISTORIAL markers not found in index.html');
+    } else {
+      html = newHtml3;
+      console.log('Historial section updated.');
+    }
+  } else {
+    console.log('No past DJ shows in last 90 days — keeping existing historial content.');
   }
 
   fs.writeFileSync(htmlPath, html, 'utf8');
