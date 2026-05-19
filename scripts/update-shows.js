@@ -130,13 +130,22 @@ function slugToLabel(slug) {
 function buildGalleryHTML(photos) {
   const shuffled = [...photos].sort(() => Math.random() - 0.5);
   const selected = shuffled.slice(0, Math.min(6, shuffled.length));
+  const altTemplates = [
+    v => `Daviz Garzia DJ pinchando en ${v}, Cantabria 2026`,
+    v => `Set de DJ Daviz Garzia en ${v}, actuacion en directo 2026`,
+    v => `Daviz Garzia DJ en directo en ${v}, Cantabria`,
+    v => `DJ Daviz Garzia actuando en ${v}, reggaeton tech house 2026`,
+    v => `Daviz Garzia en ${v}, DJ Cantabria en directo`,
+    v => `Actuacion DJ Daviz Garzia en ${v} 2026`,
+  ];
   return selected.map((photoPath, i) => {
     const base  = path.basename(photoPath, path.extname(photoPath));
-    const slug  = base.replace(/-\d+$/, '');  // quitar el número final
+    const slug  = base.replace(/-\d+$/, '');
     const venue = slugToLabel(slug);
+    const alt   = altTemplates[i % altTemplates.length](venue);
     return `
       <div class="gal-item" data-anim data-delay="${i + 1}">
-        <img src="${photoPath}" alt="Daviz Garzia DJ set" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
+        <img src="${photoPath}" alt="${alt}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
         <div class="gal-overlay">
           <div><div class="gal-label">${venue}</div><div class="gal-sub">En directo · 2026</div></div>
         </div>
