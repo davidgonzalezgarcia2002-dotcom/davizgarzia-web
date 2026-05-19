@@ -469,6 +469,12 @@
     .tnl-cat-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
     .tnl-chip{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);color:var(--muted);font-size:9px;font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:.5px}
 
+    /* LANG SWITCHER */
+    .lang-sw{display:flex;align-items:center;gap:3px;margin-left:12px}
+    .lang-btn{background:none;border:1px solid transparent;border-radius:999px;padding:4px 8px;font-size:15px;cursor:pointer;opacity:.45;transition:opacity .2s,border-color .2s,background .2s;line-height:1;color:inherit}
+    .lang-btn:hover{opacity:.8}
+    .lang-btn.active{opacity:1;border-color:rgba(255,107,0,.3);background:rgba(255,107,0,.08)}
+
     /* HERO CANVAS */
     #hero-canvas{position:absolute;inset:0;pointer-events:none;z-index:1;opacity:.75}
 
@@ -512,12 +518,17 @@
 <nav id="navbar">
   <a href="#" class="nav-logo"><img src="logo-blanco.svg" alt="Daviz Garzia" height="38"></a>
   <ul class="nav-links">
-    <li><a href="#sobre-mi">Sobre mí</a></li>
-    <li><a href="#musica">Música</a></li>
-    <li><a href="#proximas">Shows</a></li>
-    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#sobre-mi" data-i18n="nav_about">Sobre mí</a></li>
+    <li><a href="#musica" data-i18n="nav_music">Música</a></li>
+    <li><a href="#proximas" data-i18n="nav_shows">Shows</a></li>
+    <li><a href="#galeria" data-i18n="nav_gallery">Galería</a></li>
     <li><a href="#booking" class="nav-cta">Booking</a></li>
   </ul>
+  <div class="lang-sw" id="lang-sw">
+    <button class="lang-btn active" data-lang="es" title="Español">🇪🇸</button>
+    <button class="lang-btn" data-lang="en" title="English">🇬🇧</button>
+    <button class="lang-btn" data-lang="fr" title="Français">🇫🇷</button>
+  </div>
 </nav>
 
 <!-- HERO -->
@@ -526,18 +537,18 @@
   <div class="hero-glow"></div>
   <div class="hero-grid"></div>
   <div class="hero-content">
-    <div class="hero-badge"><span class="hero-dot"></span>DJ &amp; Producer · Cantabria · España</div>
+    <div class="hero-badge" data-i18n="hero_badge"><span class="hero-dot"></span>DJ &amp; Producer · Cantabria · España</div>
     <h1><span class="hero-n1">DAVIZ</span><span class="hero-n2">GARZIA</span></h1>
-    <p class="hero-sub">DJ &amp; Productor · <b>Cantabria</b> · <b>Reggaeton</b> &nbsp;·&nbsp; <b>Tech House</b> &nbsp;·&nbsp; <b>Techno</b></p>
+    <p class="hero-sub" data-i18n="hero_sub">DJ &amp; Productor · <b>Cantabria</b> · <b>Reggaeton</b> &nbsp;·&nbsp; <b>Tech House</b> &nbsp;·&nbsp; <b>Techno</b></p>
     <div class="hero-btns">
-      <a href="#booking" class="btn-orange">Contratar ahora</a>
-      <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="btn-ghost">Escuchar en Spotify ↗</a>
+      <a href="#booking" class="btn-orange" data-i18n="btn_book">Contratar ahora</a>
+      <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="btn-ghost" data-i18n="btn_spotify">Escuchar en Spotify ↗</a>
     </div>
     <div class="hero-stats">
-      <div class="h-stat"><div class="h-stat-num">2.5K</div><div class="h-stat-lbl">Seguidores IG</div></div>
-      <div class="h-stat"><div class="h-stat-num">47K</div><div class="h-stat-lbl">Likes TikTok</div></div>
-      <div class="h-stat"><div class="h-stat-num">144K</div><div class="h-stat-lbl">Vistas YouTube</div></div>
-      <div class="h-stat"><div class="h-stat-num">9+</div><div class="h-stat-lbl">Lanzamientos 2025</div></div>
+      <div class="h-stat"><div class="h-stat-num">2.5K</div><div class="h-stat-lbl" data-i18n="stat_ig">Seguidores IG</div></div>
+      <div class="h-stat"><div class="h-stat-num">47K</div><div class="h-stat-lbl" data-i18n="stat_tik">Likes TikTok</div></div>
+      <div class="h-stat"><div class="h-stat-num">144K</div><div class="h-stat-lbl" data-i18n="stat_yt">Vistas YouTube</div></div>
+      <div class="h-stat"><div class="h-stat-num">9+</div><div class="h-stat-lbl" data-i18n="stat_rel">Lanzamientos 2025</div></div>
     </div>
   </div>
   <div class="hero-scroll"><div class="hero-scroll-line"></div><span class="hero-scroll-txt">scroll</span></div>
@@ -570,8 +581,8 @@
         </div>
       </div>
       <div class="about-text" data-anim="right">
-        <div class="section-eye">Sobre mí</div>
-        <h2 class="section-h">Música pensada<br>para romper el club</h2>
+        <div class="section-eye" data-i18n="about_eye">Sobre mí</div>
+        <h2 class="section-h" data-i18n="about_h2">Música pensada<br>para romper el club</h2>
         <p class="big-quote">"Todo lo que escuchas nace de horas en FL Studio con una sola idea: <span style="color:var(--accent)">haceros disfrutar</span>."</p>
         <p>Soy <strong>Daviz Garzia</strong>, DJ y productor musical originario de <strong>Cantabria</strong>. Mi sonido mezcla la actitud del <strong>reggaeton</strong>, el ritmo hipnótico del <strong>tech house / house</strong> y la contundencia del <strong>techno</strong> (Hard Groove y Schranz) para crear algo diseñado específicamente para romper el suelo de cualquier club.</p>
         <p>CEO de <a href="https://www.instagram.com/thenorthrecordlabel/" target="_blank" style="color:var(--accent2);text-decoration:none;font-weight:700">@thenorthrecordlabel</a> · Co-fundador de <a href="https://www.instagram.com/planbpalencia/" target="_blank" style="color:var(--accent2);text-decoration:none;font-weight:700">@planbpalencia</a> <span style="color:var(--muted2);font-size:12px">(fiesta de reggaeton old school &amp; trap antiguo en Palencia)</span> · Actuaciones en cinco provincias de España.</p>
@@ -594,8 +605,8 @@
 <div class="music-bg" id="musica">
   <div class="sw">
     <div data-anim style="text-align:center">
-      <div class="section-eye">Música</div>
-      <h2 class="section-h">Discografía &amp; Spotify</h2>
+      <div class="section-eye" data-i18n="music_eye">Música</div>
+      <h2 class="section-h" data-i18n="music_h2">Discografía &amp; Spotify</h2>
     </div>
     <div class="music-split">
 
@@ -674,9 +685,9 @@
 <div class="yt-bg" id="youtube">
   <div class="sw">
     <div data-anim style="text-align:center">
-      <div class="section-eye">YouTube</div>
-      <h2 class="section-h">Dos canales,<br>un artista</h2>
-      <p class="section-p" style="margin:0 auto">Canciones originales y sesiones completas. Todo en YouTube.</p>
+      <div class="section-eye" data-i18n="yt_eye">YouTube</div>
+      <h2 class="section-h" data-i18n="yt_h2">Dos canales,<br>un artista</h2>
+      <p class="section-p" style="margin:0 auto" data-i18n="yt_p">Canciones originales y sesiones completas. Todo en YouTube.</p>
     </div>
     <div class="yt-split">
 
@@ -741,9 +752,9 @@
           <path fill="white" d="M1537.31,1222.11c169.23,22.67,296.87,167.9,284.18,330.13-13.58,173.78-154.85,305.17-325.34,303.22-168.93-1.94-306.45-132.84-317.31-302.58-10.97-171.5,113.62-310.98,286.89-331.17l34.78-170.87,36.8,171.28ZM1448.56,1411.79c-76.75,29.42-104.61,113.49-76.54,178.16,30.54,70.36,110.32,102.45,177.57,75.93,69.99-27.6,105.02-106.32,80.89-172.61-26.46-72.7-105.11-110.93-181.92-81.49Z"/>
         </svg>
       </div>
-      <div class="section-eye">Sello Discográfico</div>
-      <h2 class="section-h">The North<br>Record Label</h2>
-      <p class="section-p" style="margin:0 auto">Recursos para DJs. Sample packs, mashup packs y herramientas de producción hechas por DJs, para DJs.</p>
+      <div class="section-eye" data-i18n="tnl_eye">Sello Discográfico</div>
+      <h2 class="section-h" data-i18n="tnl_h2">The North<br>Record Label</h2>
+      <p class="section-p" style="margin:0 auto" data-i18n="tnl_p">Recursos para DJs. Sample packs, mashup packs y herramientas de producción hechas por DJs, para DJs.</p>
     </div>
 
     <div class="tnl-header">
@@ -833,8 +844,8 @@
 <div class="upcoming-bg" id="proximas">
   <div class="sw">
     <div data-anim>
-      <div class="section-eye">Próximas fechas</div>
-      <h2 class="section-h">Actuaciones confirmadas</h2>
+      <div class="section-eye" data-i18n="shows_eye">Próximas fechas</div>
+      <h2 class="section-h" data-i18n="shows_h2">Actuaciones confirmadas</h2>
     </div>
 
     <!-- AUTO-SHOWS:START -->
@@ -876,9 +887,9 @@
 <section id="shows">
   <div class="sw">
     <div data-anim>
-      <div class="section-eye">Historial</div>
-      <h2 class="section-h">Actuaciones recientes</h2>
-      <p class="section-p">DJ Cantabria con actuaciones en Santander, Torrelavega, Solares, Logroño, Ávila, Palencia y Álava — más de 10 venues en toda España.</p>
+      <div class="section-eye" data-i18n="hist_eye">Historial</div>
+      <h2 class="section-h" data-i18n="hist_h2">Actuaciones recientes</h2>
+      <p class="section-p" data-i18n="hist_p">DJ Cantabria con actuaciones en Santander, Torrelavega, Solares, Logroño, Ávila, Palencia y Álava — más de 10 venues en toda España.</p>
     </div>
 
     <div class="shows-grid">
@@ -1004,9 +1015,9 @@
 <div class="gallery-bg" id="galeria">
   <div class="sw">
     <div data-anim>
-      <div class="section-eye">En directo</div>
-      <h2 class="section-h">El show en<br>imágenes</h2>
-      <p class="section-p">Festivals, clubs, bodas — cada set es una experiencia única. <a href="https://www.instagram.com/davizgarzia.music/" target="_blank" style="color:var(--accent2);text-decoration:none;font-weight:700">@davizgarzia.music ↗</a></p>
+      <div class="section-eye" data-i18n="gal_eye">En directo</div>
+      <h2 class="section-h" data-i18n="gal_h2">El show en<br>imágenes</h2>
+      <p class="section-p" data-i18n="gal_p">Festivals, clubs, bodas — cada set es una experiencia única. <a href="https://www.instagram.com/davizgarzia.music/" target="_blank" style="color:var(--accent2);text-decoration:none;font-weight:700">@davizgarzia.music ↗</a></p>
     </div>
     <div class="gallery-grid" style="margin-top:50px;">
 
@@ -1069,8 +1080,8 @@
 <section id="cuenta-atras">
   <div class="sw">
     <div data-anim style="text-align:center;margin-bottom:48px;">
-      <div class="section-eye">¡Nos vemos pronto!</div>
-      <h2 class="section-h">Cuenta atrás al<br>próximo show</h2>
+      <div class="section-eye" data-i18n="cd_eye">¡Nos vemos pronto!</div>
+      <h2 class="section-h" data-i18n="cd_h2">Cuenta atrás al<br>próximo show</h2>
     </div>
     <div class="cdwn-wrap" data-anim="scale">
       <div class="cdwn-eye" id="cdwn-label">PRÓXIMO SHOW</div>
@@ -1119,9 +1130,9 @@ window.davizShows=[
 <div class="booking-bg">
   <div class="sw" id="booking">
     <div data-anim>
-      <div class="section-eye">Contrataciones</div>
-      <h2 class="section-h">¿Quieres que pinche<br>en tu evento?</h2>
-      <p class="section-p">Contratar DJ en Cantabria y toda España. Disponible para clubs, festivales, bodas y eventos privados. Respuesta en menos de 24h.</p>
+      <div class="section-eye" data-i18n="book_eye">Contrataciones</div>
+      <h2 class="section-h" data-i18n="book_h2">¿Quieres que pinche<br>en tu evento?</h2>
+      <p class="section-p" data-i18n="book_p">Contratar DJ en Cantabria y toda España. Disponible para clubs, festivales, bodas y eventos privados. Respuesta en menos de 24h.</p>
     </div>
     <div class="booking-grid">
       <div data-anim="left">
@@ -1180,8 +1191,8 @@ window.davizShows=[
 <section>
   <div class="sw social-sec">
     <div data-anim>
-      <div class="section-eye">Sígueme</div>
-      <h2 class="section-h">Encuentra mi música<br>en todas partes</h2>
+      <div class="section-eye" data-i18n="soc_eye">Sígueme</div>
+      <h2 class="section-h" data-i18n="soc_h2">Encuentra mi música<br>en todas partes</h2>
     </div>
     <div class="social-grid">
       <a href="https://www.instagram.com/davizgarzia.music/" target="_blank" class="scard" data-anim data-delay="1"><span class="scard-icon">📸</span><div><div class="scard-name">Instagram</div><div class="scard-handle">@davizgarzia.music</div></div></a>
@@ -1220,6 +1231,78 @@ window.davizShows=[
   document.querySelectorAll('[data-anim]').forEach(el => io.observe(el));
   // Cookie banner
   if(localStorage.getItem('cookies_ok')) document.getElementById('cookie-banner').classList.add('hidden');
+
+  // ── LANG SWITCHER ────────────────────────────────────────────────────────────
+  var T={
+    es:{
+      nav_about:'Sobre mí', nav_music:'Música', nav_shows:'Shows', nav_gallery:'Galería',
+      hero_badge:'<span class="hero-dot"></span>DJ &amp; Producer · Cantabria · España',
+      hero_sub:'DJ &amp; Productor · <b>Cantabria</b> · <b>Reggaeton</b> &nbsp;·&nbsp; <b>Tech House</b> &nbsp;·&nbsp; <b>Techno</b>',
+      btn_book:'Contratar ahora', btn_spotify:'Escuchar en Spotify ↗',
+      stat_ig:'Seguidores IG', stat_tik:'Likes TikTok', stat_yt:'Vistas YouTube', stat_rel:'Lanzamientos 2025',
+      about_eye:'Sobre mí', about_h2:'Música pensada<br>para romper el club',
+      music_eye:'Música', music_h2:'Discografía &amp; Spotify',
+      yt_eye:'YouTube', yt_h2:'Dos canales,<br>un artista', yt_p:'Canciones originales y sesiones completas. Todo en YouTube.',
+      tnl_eye:'Sello Discográfico', tnl_h2:'The North<br>Record Label', tnl_p:'Recursos para DJs. Sample packs, mashup packs y herramientas de producción hechas por DJs, para DJs.',
+      shows_eye:'Próximas fechas', shows_h2:'Actuaciones confirmadas',
+      hist_eye:'Historial', hist_h2:'Actuaciones recientes', hist_p:'DJ Cantabria con actuaciones en Santander, Torrelavega, Solares, Logroño, Ávila, Palencia y Álava — más de 10 venues en toda España.',
+      gal_eye:'En directo', gal_h2:'El show en<br>imágenes', gal_p:'Festivales, clubs, bodas — cada set es una experiencia única. <a href="https://www.instagram.com/davizgarzia.music/" target="_blank" style="color:var(--accent2);text-decoration:none;font-weight:700">@davizgarzia.music ↗</a>',
+      cd_eye:'¡Nos vemos pronto!', cd_h2:'Cuenta atrás al<br>próximo show',
+      book_eye:'Contrataciones', book_h2:'¿Quieres que pinche<br>en tu evento?', book_p:'Contratar DJ en Cantabria y toda España. Disponible para clubs, festivales, bodas y eventos privados. Respuesta en menos de 24h.',
+      soc_eye:'Sígueme', soc_h2:'Encuentra mi música<br>en todas partes'
+    },
+    en:{
+      nav_about:'About me', nav_music:'Music', nav_shows:'Shows', nav_gallery:'Gallery',
+      hero_badge:'<span class="hero-dot"></span>DJ &amp; Producer · Cantabria · Spain',
+      hero_sub:'DJ &amp; Producer · <b>Cantabria</b> · <b>Reggaeton</b> &nbsp;·&nbsp; <b>Tech House</b> &nbsp;·&nbsp; <b>Techno</b>',
+      btn_book:'Book now', btn_spotify:'Listen on Spotify ↗',
+      stat_ig:'IG Followers', stat_tik:'TikTok Likes', stat_yt:'YouTube Views', stat_rel:'Releases 2025',
+      about_eye:'About me', about_h2:'Music designed<br>to break the dancefloor',
+      music_eye:'Music', music_h2:'Discography &amp; Spotify',
+      yt_eye:'YouTube', yt_h2:'Two channels,<br>one artist', yt_p:'Original tracks and full sessions. All on YouTube.',
+      tnl_eye:'Record Label', tnl_h2:'The North<br>Record Label', tnl_p:'Resources for DJs. Sample packs, mashup packs and production tools made by DJs, for DJs.',
+      shows_eye:'Upcoming shows', shows_h2:'Confirmed shows',
+      hist_eye:'History', hist_h2:'Recent shows', hist_p:'DJ from Cantabria with shows in Santander, Torrelavega, Solares, Logroño, Ávila, Palencia and Álava — 10+ venues across Spain.',
+      gal_eye:'Live', gal_h2:'The show in<br>pictures', gal_p:'Festivals, clubs, weddings — every set is a unique experience. <a href="https://www.instagram.com/davizgarzia.music/" target="_blank" style="color:var(--accent2);text-decoration:none;font-weight:700">@davizgarzia.music ↗</a>',
+      cd_eye:'See you soon!', cd_h2:'Countdown to<br>next show',
+      book_eye:'Booking', book_h2:'Want me to play<br>at your event?', book_p:'Book a DJ in Cantabria and all over Spain. Available for clubs, festivals, weddings and private events. Reply within 24h.',
+      soc_eye:'Follow me', soc_h2:'Find my music<br>everywhere'
+    },
+    fr:{
+      nav_about:'À propos', nav_music:'Musique', nav_shows:'Shows', nav_gallery:'Galerie',
+      hero_badge:'<span class="hero-dot"></span>DJ &amp; Producteur · Cantabria · Espagne',
+      hero_sub:'DJ &amp; Producteur · <b>Cantabria</b> · <b>Reggaeton</b> &nbsp;·&nbsp; <b>Tech House</b> &nbsp;·&nbsp; <b>Techno</b>',
+      btn_book:'Réserver', btn_spotify:'Écouter sur Spotify ↗',
+      stat_ig:'Abonnés IG', stat_tik:'Likes TikTok', stat_yt:'Vues YouTube', stat_rel:'Sorties 2025',
+      about_eye:'À propos', about_h2:'Musique conçue<br>pour faire vibrer le club',
+      music_eye:'Musique', music_h2:'Discographie &amp; Spotify',
+      yt_eye:'YouTube', yt_h2:'Deux chaînes,<br>un artiste', yt_p:'Titres originaux et sessions complètes. Tout sur YouTube.',
+      tnl_eye:'Label Discographique', tnl_h2:'The North<br>Record Label', tnl_p:'Ressources pour DJs. Sample packs, mashup packs et outils de production créés par des DJs, pour des DJs.',
+      shows_eye:'Prochains shows', shows_h2:'Shows confirmés',
+      hist_eye:'Historique', hist_h2:'Shows récents', hist_p:'DJ de Cantabrie avec des shows à Santander, Torrelavega, Solares, Logroño, Ávila, Palencia et Álava — plus de 10 salles en Espagne.',
+      gal_eye:'En direct', gal_h2:'Le show en<br>images', gal_p:'Festivals, clubs, mariages — chaque set est une expérience unique. <a href="https://www.instagram.com/davizgarzia.music/" target="_blank" style="color:var(--accent2);text-decoration:none;font-weight:700">@davizgarzia.music ↗</a>',
+      cd_eye:'À bientôt !', cd_h2:'Compte à rebours<br>du prochain show',
+      book_eye:'Booking', book_h2:'Tu veux que je joue<br>à ton événement ?', book_p:'Réserver un DJ en Cantabrie et dans toute l\'Espagne. Disponible pour clubs, festivals, mariages et événements privés. Réponse sous 24h.',
+      soc_eye:'Suivez-moi', soc_h2:'Retrouvez ma musique<br>partout'
+    }
+  };
+  function setLang(lang){
+    if(!T[lang])return;
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var k=el.getAttribute('data-i18n');
+      if(T[lang][k]!==undefined)el.innerHTML=T[lang][k];
+    });
+    document.querySelectorAll('.lang-btn').forEach(function(b){
+      b.classList.toggle('active',b.getAttribute('data-lang')===lang);
+    });
+    localStorage.setItem('lang',lang);
+    document.documentElement.lang=lang;
+  }
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    b.addEventListener('click',function(){setLang(this.getAttribute('data-lang'));});
+  });
+  var savedLang=localStorage.getItem('lang');
+  if(savedLang&&savedLang!=='es')setLang(savedLang);
 </script>
 
 <!-- WHATSAPP FLOATING BUTTON -->
