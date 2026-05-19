@@ -227,7 +227,8 @@
 
     /* HERO */
     .hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 24px;position:relative;overflow:hidden}
-    .hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 65% 60% at 50% 42%,rgba(255,107,0,.11) 0%,rgba(255,107,0,.04) 40%,transparent 70%);pointer-events:none}
+    .hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 65% 60% at 50% 42%,rgba(255,107,0,.11) 0%,rgba(255,107,0,.04) 40%,transparent 70%);pointer-events:none;animation:heroBreath 6s ease-in-out infinite}
+    @keyframes heroBreath{0%,100%{opacity:.7}50%{opacity:1.15}}
     .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,107,0,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,107,0,.025) 1px,transparent 1px);background-size:80px 80px;pointer-events:none}
     .hero-content{position:relative;z-index:2;max-width:960px}
     .hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,107,0,.08);border:1px solid rgba(255,107,0,.22);color:var(--accent2);font-size:10px;font-weight:800;letter-spacing:3px;text-transform:uppercase;padding:8px 22px;border-radius:999px;margin-bottom:36px}
@@ -453,6 +454,27 @@
     .sp-cd{font-size:22px;font-weight:900;color:var(--accent2);font-variant-numeric:tabular-nums}
     .sp-sub{font-size:9px;color:var(--muted);margin-top:3px}
 
+    /* THE NORTH RECORD LABEL */
+    .tnl-bg{background:linear-gradient(180deg,var(--bg2) 0%,var(--bg) 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .tnl-header{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;margin-top:50px}
+    .tnl-sc-embed{border-radius:14px;overflow:hidden;border:1px solid rgba(255,107,0,.15)}
+    .tnl-vol1-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(255,107,0,.15),rgba(255,154,0,.08));border:1px solid rgba(255,107,0,.25);color:var(--accent2);font-size:9px;font-weight:800;padding:4px 12px;border-radius:999px;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px}
+    .tnl-soon-stack{display:flex;flex-direction:column;gap:10px}
+    .tnl-soon-card{background:var(--surface2);border:1px solid var(--border);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden;display:flex;align-items:flex-start;gap:14px;transition:border-color .2s}
+    .tnl-soon-card:hover{border-color:rgba(255,107,0,.2)}
+    .tnl-soon-card::after{content:'PRÓXIMAMENTE';position:absolute;top:10px;right:10px;background:rgba(255,107,0,.1);color:var(--accent);font-size:7px;font-weight:900;padding:2px 8px;border-radius:999px;letter-spacing:1.5px}
+    .tnl-soon-icon{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;margin-top:2px}
+    .tnl-soon-title{font-size:14px;font-weight:800;color:var(--text);margin-bottom:3px}
+    .tnl-soon-desc{font-size:11px;color:var(--muted);line-height:1.5}
+    .tnl-cat-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+    .tnl-chip{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);color:var(--muted);font-size:9px;font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:.5px}
+
+    /* HERO CANVAS */
+    #hero-canvas{position:absolute;inset:0;pointer-events:none;z-index:1;opacity:.75}
+
+    /* CURSOR GLOW */
+    #cursor-glow{pointer-events:none;position:fixed;top:-300px;left:-300px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle at center,rgba(255,107,0,.05) 0%,transparent 65%);transform:translate(-50%,-50%);z-index:0;will-change:left,top}
+
     /* FOOTER */
     footer{border-top:1px solid var(--border);padding:52px 40px;text-align:center}
     .foot-logo{display:flex;justify-content:center;margin-bottom:14px}
@@ -474,7 +496,7 @@
       .releases-grid{grid-template-columns:repeat(2,1fr)}
       .shows-grid,.upcoming-grid{grid-template-columns:1fr}
       .gallery-grid{grid-template-columns:repeat(2,1fr)}
-      .music-split,.yt-split{grid-template-columns:1fr}
+      .music-split,.yt-split,.tnl-header{grid-template-columns:1fr}
       #show-pill{right:12px;bottom:80px}
       footer{padding:40px 24px}
     }
@@ -500,6 +522,7 @@
 
 <!-- HERO -->
 <section class="hero">
+  <canvas id="hero-canvas"></canvas>
   <div class="hero-glow"></div>
   <div class="hero-grid"></div>
   <div class="hero-content">
@@ -707,6 +730,96 @@
     this.innerHTML='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/8MTWzI7FjH8?autoplay=1&rel=0" allow="autoplay;encrypted-media;picture-in-picture" allowfullscreen style="border:none;display:block;border-radius:12px"></iframe>';
   });
 </script>
+
+<!-- THE NORTH RECORD LABEL -->
+<div class="tnl-bg" id="thenorth">
+  <div class="sw">
+    <div data-anim style="text-align:center">
+      <div style="display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:18px;margin-bottom:18px">
+        <svg width="40" height="40" viewBox="0 0 3000 3000" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path fill="white" d="M962.88,2716.28C329.32,2429.09,44.35,1700.74,292.79,1061,539.99,424.45,1243.92,80.11,1898.02,295.45c712.56,234.58,1076.28,1006.89,813.39,1702.32-262.04,693.18-1061.13,1030.11-1748.52,718.51ZM385.68,1500.2l331.86-58.98c44.43-373.28,331.65-657.83,698.46-696.73l61.08-330.12c-274.39.13-535.57,110.57-741.84,298.36l138.42,188.15c-66.59-41.84-122.83-85.3-190.39-134.72-186.11,201.66-296.31,464.4-297.59,734.04ZM2086.92,1005.18c110.53,119.53,171.38,269.8,194.91,434.01l334.93,64.25c-3.71-280.17-113.63-535.66-298.29-735.58-65.42,47.89-119.84,87.62-183.01,127.9l125.39-184.44c-202.26-190.39-463.77-295.21-738.78-297.43l62.96,330.24c183.58,23.1,348.13,93.08,469.85,228.91l-232.22,43.22c-323.12-200.66-738.87-71.55-884.39,278.41-143.35,344.74,50.91,737.53,414.81,828.37,362.29,90.44,721.97-163.67,755.27-540.64l-174.61-27.6,153.17-549.61ZM1477.75,2650.79l-65.19-332.45c-368.25-47.84-650.04-326.08-694.24-693.93l-334.89-67.32c3.34,280.87,114.59,538.03,297.15,739.84l193.73-145.24c-45.01,69.85-89.65,129.91-141.22,199.62,203.68,185.66,462.26,299.42,744.66,299.48ZM2267.47,2350.42l-132.54-187c69.84,42.54,124.09,87.18,187.4,134.77,183.74-204.44,287.78-462.08,295.03-739.35l-336.86,65.52c-42.71,372.52-329.58,647.54-694.55,693.51l-63.61,334.61c281.94-3.51,542.46-113.22,745.14-302.06Z"/>
+          <path fill="white" d="M1537.31,1222.11c169.23,22.67,296.87,167.9,284.18,330.13-13.58,173.78-154.85,305.17-325.34,303.22-168.93-1.94-306.45-132.84-317.31-302.58-10.97-171.5,113.62-310.98,286.89-331.17l34.78-170.87,36.8,171.28ZM1448.56,1411.79c-76.75,29.42-104.61,113.49-76.54,178.16,30.54,70.36,110.32,102.45,177.57,75.93,69.99-27.6,105.02-106.32,80.89-172.61-26.46-72.7-105.11-110.93-181.92-81.49Z"/>
+        </svg>
+      </div>
+      <div class="section-eye">Sello Discográfico</div>
+      <h2 class="section-h">The North<br>Record Label</h2>
+      <p class="section-p" style="margin:0 auto">Recursos para DJs. Sample packs, mashup packs y herramientas de producción hechas por DJs, para DJs.</p>
+    </div>
+
+    <div class="tnl-header">
+
+      <!-- SoundCloud Vol 1 -->
+      <div data-anim="left">
+        <span class="tnl-vol1-badge">🔥 Disponible ahora · Vol. 1</span>
+        <div style="margin-bottom:14px">
+          <div style="font-size:16px;font-weight:900;color:var(--text);margin-bottom:4px">Reggaeton Mashup Pack 2026</div>
+          <div style="font-size:12px;color:var(--muted2);line-height:1.6">Pack completo de mashups de reggaeton listos para usar en tus sets. Descárgalo y lleva tu actuación al siguiente nivel.</div>
+        </div>
+        <div class="tnl-sc-embed">
+          <iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay"
+            src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/the-north-record-label/reggaeton-mashup-pack-2026-1&color=%23FF6B00&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true"
+            style="display:block"></iframe>
+        </div>
+        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+          <a href="https://soundcloud.com/the-north-record-label/reggaeton-mashup-pack-2026-1" target="_blank" class="btn-orange">Escuchar en SoundCloud ↗</a>
+          <a href="https://www.instagram.com/thenorthrecordlabel/" target="_blank" class="btn-ghost">@thenorthrecordlabel ↗</a>
+        </div>
+      </div>
+
+      <!-- Próximamente -->
+      <div data-anim="right">
+        <div class="section-eye" style="margin-bottom:10px">Próximamente</div>
+        <h3 style="font-size:15px;font-weight:800;color:var(--text);margin-bottom:8px">Lo que viene al catálogo</h3>
+        <p style="font-size:13px;color:var(--muted2);line-height:1.75;margin-bottom:20px">El sello está en pleno lavado de cara. Llegan nuevos mashup packs de más géneros y el primer sample pack de producción para FL Studio.</p>
+        <div class="tnl-soon-stack">
+
+          <div class="tnl-soon-card" data-anim data-delay="1">
+            <div class="tnl-soon-icon" style="background:rgba(255,107,0,.1)">🎛️</div>
+            <div>
+              <div class="tnl-soon-title">Mashup Pack Vol. 2</div>
+              <div class="tnl-soon-desc">Nuevos géneros · House · Hard Techno · Trap · Dembow</div>
+              <div class="tnl-cat-chips">
+                <span class="tnl-chip">House</span>
+                <span class="tnl-chip">Hard Techno</span>
+                <span class="tnl-chip">Trap</span>
+                <span class="tnl-chip">Dembow</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tnl-soon-card" data-anim data-delay="2">
+            <div class="tnl-soon-icon" style="background:rgba(99,102,241,.1)">🎹</div>
+            <div>
+              <div class="tnl-soon-title">Sample Pack Reggaeton</div>
+              <div class="tnl-soon-desc">Loops + One Shots + FX · Listo para FL Studio y DAW</div>
+              <div class="tnl-cat-chips">
+                <span class="tnl-chip">Loops</span>
+                <span class="tnl-chip">One Shots</span>
+                <span class="tnl-chip">FX</span>
+                <span class="tnl-chip">FL Studio</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tnl-soon-card" data-anim data-delay="3">
+            <div class="tnl-soon-icon" style="background:rgba(6,182,212,.08)">🌊</div>
+            <div>
+              <div class="tnl-soon-title">+ Géneros en producción</div>
+              <div class="tnl-soon-desc">Hard Techno loops · Schranz · Tech House</div>
+              <div class="tnl-cat-chips">
+                <span class="tnl-chip">Hard Techno</span>
+                <span class="tnl-chip">Schranz</span>
+                <span class="tnl-chip">Tech House</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 <!-- MARQUEE 2 -->
 <div class="marquee-wrap">
@@ -1139,6 +1252,77 @@ window.davizShows=[
   }
   tick();setInterval(tick,30000);
   window.addEventListener('scroll',function(){pill.classList.toggle('visible',window.scrollY>400);},{passive:true});
+})();
+</script>
+
+<!-- CURSOR GLOW -->
+<div id="cursor-glow"></div>
+
+<!-- HERO PARTICLES + CURSOR GLOW JS -->
+<script>
+(function(){
+  var c=document.getElementById('hero-canvas');
+  if(!c)return;
+  var ctx=c.getContext('2d'),W,H,mouse={x:-999,y:-999};
+  var pts=[],N=55;
+  function resize(){
+    var hero=c.parentElement;
+    W=c.width=hero.offsetWidth;
+    H=c.height=hero.offsetHeight;
+  }
+  window.addEventListener('resize',resize,{passive:true});
+  resize();
+  for(var i=0;i<N;i++){
+    pts.push({
+      x:Math.random()*W,y:Math.random()*H,
+      vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,
+      r:Math.random()*1.6+.5,a:Math.random()*.55+.15
+    });
+  }
+  var hero=document.querySelector('.hero');
+  if(hero)hero.addEventListener('mousemove',function(e){
+    var r=c.getBoundingClientRect();
+    mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;
+  },{passive:true});
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<N;i++){
+      var p=pts[i],dx=mouse.x-p.x,dy=mouse.y-p.y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<200&&d>1){p.vx+=dx/d*.006;p.vy+=dy/d*.006;}
+      p.vx*=.985;p.vy*=.985;
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<-5)p.x=W+5;else if(p.x>W+5)p.x=-5;
+      if(p.y<-5)p.y=H+5;else if(p.y>H+5)p.y=-5;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,6.283);
+      ctx.fillStyle='rgba(255,107,0,'+p.a+')';
+      ctx.shadowColor='rgba(255,107,0,.4)';ctx.shadowBlur=7;
+      ctx.fill();ctx.shadowBlur=0;
+    }
+    for(var i=0;i<N-1;i++){
+      for(var j=i+1;j<N;j++){
+        var dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<110){
+          ctx.beginPath();
+          ctx.strokeStyle='rgba(255,107,0,'+(0.07*(1-d/110))+')';
+          ctx.lineWidth=.5;
+          ctx.moveTo(pts[i].x,pts[i].y);
+          ctx.lineTo(pts[j].x,pts[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+(function(){
+  var el=document.getElementById('cursor-glow');
+  if(!el)return;
+  document.addEventListener('mousemove',function(e){
+    el.style.left=e.clientX+'px';
+    el.style.top=e.clientY+'px';
+  },{passive:true});
 })();
 </script>
 
