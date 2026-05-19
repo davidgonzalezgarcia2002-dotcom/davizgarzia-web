@@ -119,23 +119,21 @@ function buildCountdownEvents(shows) {
 
 // ── GALERÍA ──────────────────────────────────────────────────────────────────
 
-const VENUE_LABELS = {
-  'roxel-labrador': 'Roxel · Labrador',
-  'feria-roxel':    'Feria de Abril · Roxel',
-  'planb-live':     'Plan B · Palencia',
-  'roxel':          'Roxel · Solares',
-  'planb':          'Plan B · Palencia',
-};
+function slugToLabel(slug) {
+  // Convierte "feria-de-abril" → "Feria de Abril", "roxel-labrador" → "Roxel Labrador"
+  const lower = ['de','del','la','las','los','el','en','con','y','a'];
+  return slug.split('-')
+    .map((w, i) => (i === 0 || !lower.includes(w)) ? w.charAt(0).toUpperCase() + w.slice(1) : w)
+    .join(' ');
+}
 
 function buildGalleryHTML(photos) {
   const shuffled = [...photos].sort(() => Math.random() - 0.5);
   const selected = shuffled.slice(0, Math.min(6, shuffled.length));
   return selected.map((photoPath, i) => {
-    const base = path.basename(photoPath, path.extname(photoPath)).toLowerCase();
-    let venue = 'En directo · 2026';
-    for (const [key, label] of Object.entries(VENUE_LABELS)) {
-      if (base.startsWith(key)) { venue = label; break; }
-    }
+    const base  = path.basename(photoPath, path.extname(photoPath));
+    const slug  = base.replace(/-\d+$/, '');  // quitar el número final
+    const venue = slugToLabel(slug);
     return `
       <div class="gal-item" data-anim data-delay="${i + 1}">
         <img src="${photoPath}" alt="Daviz Garzia DJ set" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
