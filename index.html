@@ -26,7 +26,25 @@
   <link rel="canonical" href="https://www.davizgarziamusic.com">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23060606'/%3E%3Ctext x='50' y='68' font-family='Inter,Arial,sans-serif' font-size='42' font-weight='900' text-anchor='middle' fill='%23FF6B00'%3EDG%3C/text%3E%3C/svg%3E">
 
+  <!-- Preconnect: acelera recursos externos críticos -->
+  <link rel="preconnect" href="https://www.youtube.com">
+  <link rel="preconnect" href="https://img.youtube.com">
+  <link rel="preconnect" href="https://open.spotify.com">
+  <link rel="preconnect" href="https://image-cdn-fa.spotifycdn.com">
+  <link rel="preconnect" href="https://i1.sndcdn.com">
+  <link rel="dns-prefetch" href="https://www.google-analytics.com">
+
   <meta name="google-site-verification" content="XufTJ6KEIiJyiDqCHkUtefyQ8ftL_HVb8iWJmdpMO5w" />
+
+  <!-- Google Analytics 4 — reemplaza G-XXXXXXXXXX con tu ID de medición -->
+  <!-- Para obtenerlo: analytics.google.com → Admin → Flujos de datos → ID de medición -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer=window.dataLayer||[];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js',new Date());
+    gtag('config','G-XXXXXXXXXX',{anonymize_ip:true});
+  </script>
 
   <!-- Schema.org Structured Data -->
   <script type="application/ld+json">
@@ -515,9 +533,53 @@
       .hero-btns{flex-direction:column;align-items:center}
       .releases-grid{grid-template-columns:repeat(2,1fr);gap:10px}
     }
+
+    /* SCROLL PROGRESS BAR */
+    #scroll-progress{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#FF6B00,#FF9A00,#FF6B00);background-size:200%;z-index:10000;transition:width .1s linear;border-radius:0 2px 2px 0}
+
+    /* BACK TO TOP */
+    #back-top{position:fixed;bottom:100px;right:28px;z-index:997;width:44px;height:44px;border-radius:50%;background:rgba(13,13,13,.9);border:1px solid rgba(255,107,0,.3);color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s,box-shadow .2s;backdrop-filter:blur(12px)}
+    #back-top.visible{opacity:1;pointer-events:auto}
+    #back-top:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(255,107,0,.3)}
+
+    /* LIGHTBOX */
+    #lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.92);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(8px)}
+    #lightbox.open{opacity:1;pointer-events:auto}
+    #lightbox img{max-width:90vw;max-height:85vh;border-radius:12px;object-fit:contain;box-shadow:0 24px 80px rgba(0,0,0,.8)}
+    #lightbox-close{position:absolute;top:20px;right:24px;color:#fff;font-size:28px;cursor:pointer;background:rgba(255,255,255,.1);border:none;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;transition:background .2s}
+    #lightbox-close:hover{background:rgba(255,107,0,.4)}
+    #lightbox-caption{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.8);font-size:13px;font-weight:600;letter-spacing:.5px;background:rgba(0,0,0,.5);padding:8px 20px;border-radius:999px;white-space:nowrap}
+    #lightbox-prev,#lightbox-next{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:22px;width:50px;height:50px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+    #lightbox-prev{left:20px}#lightbox-next{right:20px}
+    #lightbox-prev:hover,#lightbox-next:hover{background:rgba(255,107,0,.3)}
+
+    /* TOAST */
+    #toast{position:fixed;bottom:40px;left:50%;transform:translateX(-50%) translateY(20px);background:rgba(13,13,13,.97);border:1px solid rgba(255,107,0,.4);color:#fff;font-size:13px;font-weight:600;padding:12px 24px;border-radius:999px;z-index:10001;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s;backdrop-filter:blur(12px);white-space:nowrap}
+    #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+    /* NAV ACTIVE */
+    .nav-links a.nav-active{color:var(--accent)!important}
   </style>
 </head>
 <body>
+
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress"></div>
+
+<!-- BACK TO TOP -->
+<button id="back-top" aria-label="Volver arriba">&#8679;</button>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" role="dialog" aria-modal="true">
+  <button id="lightbox-close" aria-label="Cerrar">&times;</button>
+  <button id="lightbox-prev" aria-label="Anterior">&#8249;</button>
+  <img id="lightbox-img" src="" alt="">
+  <button id="lightbox-next" aria-label="Siguiente">&#8250;</button>
+  <div id="lightbox-caption"></div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
 
 <nav id="navbar">
   <a href="#" class="nav-logo"><img src="logo-blanco.svg" alt="Daviz Garzia" height="38"></a>
@@ -574,7 +636,7 @@
         <div class="about-photo-wrap">
           <div class="about-photo-card">
             <img src="photos/perfil-3.jpg"
-                 alt="Daviz Garzia DJ Producer Cantabria" loading="lazy"
+                 alt="Daviz Garzia DJ Producer Cantabria" loading="eager" fetchpriority="high"
                  onerror="this.parentNode.style.background='linear-gradient(135deg,#1a1a1a,#0a0a0a)';this.style.display='none'">
             <div class="about-photo-name"><h3>Daviz Garzia</h3><p>DJ &amp; Music Producer</p></div>
           </div>
@@ -699,7 +761,8 @@
       <div class="yt-card" data-anim="left">
         <div>
           <span class="yt-badge">🎵 Canal Oficial</span>
-          <h3>@Davizgarziamusic</h3>
+          <h3 data-i18n="yt_ch1">Canal Oficial</h3>
+          <div style="font-size:11px;font-weight:800;color:var(--accent2);letter-spacing:.5px;margin:-2px 0 6px">@Davizgarziamusic</div>
           <div class="yt-handle">Canciones originales · Remixes · Mashups</div>
           <div class="yt-stats">
             <span class="yt-stat">🔥 144K en un vídeo</span>
@@ -723,7 +786,8 @@
       <div class="yt-card" data-anim="right">
         <div>
           <span class="yt-badge">📹 Sesiones</span>
-          <h3>@DavizGarziaSessions</h3>
+          <h3 data-i18n="yt_ch2">Canal de Sesiones</h3>
+          <div style="font-size:11px;font-weight:800;color:var(--accent2);letter-spacing:.5px;margin:-2px 0 6px">@DavizGarziaSessions</div>
           <div class="yt-handle">Sets completos · Vlogs · Behind the scenes</div>
           <div class="yt-stats">
             <span class="yt-stat">14.000 vistas</span>
@@ -1029,7 +1093,7 @@
     <!-- AUTO-GALLERY:START -->
 
       <div class="gal-item" data-anim data-delay="1">
-        <img src="photos/live/roxel-labrador-1.jpg" alt="Daviz Garzia DJ set en directo" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
+        <img src="photos/live/roxel-labrador-1.jpg" alt="Daviz Garzia DJ pinchando en Roxel con Labrador, Solares Cantabria 2026" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
         <div class="gal-overlay">
           <div><div class="gal-label">Roxel Labrador</div><div class="gal-sub">En directo · 2026</div></div>
         </div>
@@ -1037,7 +1101,7 @@
       </div>
 
       <div class="gal-item" data-anim data-delay="2">
-        <img src="photos/live/feria-roxel-5.jpg" alt="Daviz Garzia DJ set en directo" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
+        <img src="photos/live/feria-roxel-5.jpg" alt="Daviz Garzia DJ en la Feria de Abril de Roxel, Cantabria 2026" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
         <div class="gal-overlay">
           <div><div class="gal-label">Feria de Abril</div><div class="gal-sub">En directo · 2026</div></div>
         </div>
@@ -1045,7 +1109,7 @@
       </div>
 
       <div class="gal-item" data-anim data-delay="3">
-        <img src="photos/live/roxel-labrador-3.jpg" alt="Daviz Garzia DJ set en directo" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
+        <img src="photos/live/roxel-labrador-3.jpg" alt="Set de DJ Daviz Garzia en Roxel Sala Musical con Labrador, Solares 2026" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
         <div class="gal-overlay">
           <div><div class="gal-label">Roxel Labrador</div><div class="gal-sub">En directo · 2026</div></div>
         </div>
@@ -1053,7 +1117,7 @@
       </div>
 
       <div class="gal-item" data-anim data-delay="4">
-        <img src="photos/live/feria-roxel-13.jpg" alt="Daviz Garzia DJ set en directo" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
+        <img src="photos/live/feria-roxel-13.jpg" alt="Daviz Garzia actuando como DJ en la Feria de Roxel, Cantabria" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
         <div class="gal-overlay">
           <div><div class="gal-label">Feria de Abril</div><div class="gal-sub">En directo · 2026</div></div>
         </div>
@@ -1061,7 +1125,7 @@
       </div>
 
       <div class="gal-item" data-anim data-delay="5">
-        <img src="photos/live/planb-live-3.jpg" alt="Daviz Garzia DJ set en directo" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
+        <img src="photos/live/planb-live-3.jpg" alt="Daviz Garzia DJ set en Plan B Palencia, actuacion en directo 2026" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
         <div class="gal-overlay">
           <div><div class="gal-label">Plan B · Palencia</div><div class="gal-sub">En directo · 2026</div></div>
         </div>
@@ -1069,7 +1133,7 @@
       </div>
 
       <div class="gal-item" data-anim data-delay="6">
-        <img src="photos/live/feria-roxel-8.jpg" alt="Daviz Garzia DJ set en directo" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
+        <img src="photos/live/feria-roxel-8.jpg" alt="DJ Daviz Garzia en directo Feria de Roxel Cantabria reggaeton tech house" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
         <div class="gal-overlay">
           <div><div class="gal-label">Feria de Abril</div><div class="gal-sub">En directo · 2026</div></div>
         </div>
@@ -1250,7 +1314,7 @@ window.davizShows=[
       stat_ig:'Seguidores IG', stat_tik:'Likes TikTok', stat_yt:'Vistas YouTube', stat_rel:'Lanzamientos 2025',
       about_eye:'Sobre mí', about_h2:'Música pensada<br>para romper el club',
       music_eye:'Música', music_h2:'Discografía &amp; Spotify',
-      yt_eye:'YouTube', yt_h2:'Dos canales,<br>un artista', yt_p:'Canciones originales y sesiones completas. Todo en YouTube.',
+      yt_eye:'YouTube', yt_h2:'Dos canales,<br>un artista', yt_p:'Canciones originales y sesiones completas. Todo en YouTube.', yt_ch1:'Canal Oficial', yt_ch2:'Canal de Sesiones',
       tnl_eye:'Sello Discográfico', tnl_h2:'The North<br>Record Label', tnl_p:'Recursos para DJs. Sample packs, mashup packs y herramientas de producción hechas por DJs, para DJs.',
       shows_eye:'Próximas fechas', shows_h2:'Actuaciones confirmadas',
       hist_eye:'Historial', hist_h2:'Actuaciones recientes', hist_p:'DJ Cantabria con actuaciones en Santander, Torrelavega, Solares, Logroño, Ávila, Palencia y Álava — más de 10 venues en toda España.',
@@ -1267,7 +1331,7 @@ window.davizShows=[
       stat_ig:'IG Followers', stat_tik:'TikTok Likes', stat_yt:'YouTube Views', stat_rel:'Releases 2025',
       about_eye:'About me', about_h2:'Music designed<br>to break the dancefloor',
       music_eye:'Music', music_h2:'Discography &amp; Spotify',
-      yt_eye:'YouTube', yt_h2:'Two channels,<br>one artist', yt_p:'Original tracks and full sessions. All on YouTube.',
+      yt_eye:'YouTube', yt_h2:'Two channels,<br>one artist', yt_p:'Original tracks and full sessions. All on YouTube.', yt_ch1:'Official Channel', yt_ch2:'Sessions Channel',
       tnl_eye:'Record Label', tnl_h2:'The North<br>Record Label', tnl_p:'Resources for DJs. Sample packs, mashup packs and production tools made by DJs, for DJs.',
       shows_eye:'Upcoming shows', shows_h2:'Confirmed shows',
       hist_eye:'History', hist_h2:'Recent shows', hist_p:'DJ from Cantabria with shows in Santander, Torrelavega, Solares, Logroño, Ávila, Palencia and Álava — 10+ venues across Spain.',
@@ -1284,7 +1348,7 @@ window.davizShows=[
       stat_ig:'Abonnés IG', stat_tik:'Likes TikTok', stat_yt:'Vues YouTube', stat_rel:'Sorties 2025',
       about_eye:'À propos', about_h2:'Musique conçue<br>pour faire vibrer le club',
       music_eye:'Musique', music_h2:'Discographie &amp; Spotify',
-      yt_eye:'YouTube', yt_h2:'Deux chaînes,<br>un artiste', yt_p:'Titres originaux et sessions complètes. Tout sur YouTube.',
+      yt_eye:'YouTube', yt_h2:'Deux chaînes,<br>un artiste', yt_p:'Titres originaux et sessions complètes. Tout sur YouTube.', yt_ch1:'Chaîne Officielle', yt_ch2:'Chaîne Sessions',
       tnl_eye:'Label Discographique', tnl_h2:'The North<br>Record Label', tnl_p:'Ressources pour DJs. Sample packs, mashup packs et outils de production créés par des DJs, pour des DJs.',
       shows_eye:'Prochains shows', shows_h2:'Shows confirmés',
       hist_eye:'Historique', hist_h2:'Shows récents', hist_p:'DJ de Cantabrie avec des shows à Santander, Torrelavega, Solares, Logroño, Ávila, Palencia et Álava — plus de 10 salles en Espagne.',
@@ -1422,6 +1486,144 @@ window.davizShows=[
   <span>🍪 Esta web usa cookies propias para mejorar tu experiencia. <a href="privacidad.html">Más info</a></span>
   <button class="cookie-btn" onclick="document.getElementById('cookie-banner').classList.add('hidden');localStorage.setItem('cookies_ok','1')">Aceptar</button>
 </div>
+
+<script>
+// ── SCROLL PROGRESS BAR ──────────────────────────────────────────────────────
+(function(){
+  var bar=document.getElementById('scroll-progress');
+  window.addEventListener('scroll',function(){
+    var s=document.documentElement.scrollTop||document.body.scrollTop;
+    var h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+    bar.style.width=(h>0?Math.min(100,s/h*100):0)+'%';
+  },{passive:true});
+})();
+
+// ── BACK TO TOP ──────────────────────────────────────────────────────────────
+(function(){
+  var btn=document.getElementById('back-top');
+  window.addEventListener('scroll',function(){
+    btn.classList.toggle('visible',window.scrollY>500);
+  },{passive:true});
+  btn.addEventListener('click',function(){
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+})();
+
+// ── GALLERY LIGHTBOX ─────────────────────────────────────────────────────────
+(function(){
+  var lb=document.getElementById('lightbox'),lbImg=document.getElementById('lightbox-img'),lbCap=document.getElementById('lightbox-caption');
+  var lbClose=document.getElementById('lightbox-close'),lbPrev=document.getElementById('lightbox-prev'),lbNext=document.getElementById('lightbox-next');
+  var items=[],cur=0;
+
+  function openAt(i){
+    cur=i;
+    var item=items[cur];
+    lbImg.src=item.src;
+    lbCap.textContent=item.caption;
+    lb.classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function close(){lb.classList.remove('open');document.body.style.overflow='';}
+  function prev(){openAt((cur-1+items.length)%items.length);}
+  function next(){openAt((cur+1)%items.length);}
+
+  function init(){
+    items=[];
+    document.querySelectorAll('.gal-item img').forEach(function(img,i){
+      var label=img.closest('.gal-item').querySelector('.gal-label');
+      items.push({src:img.src,caption:label?label.textContent:''});
+      img.closest('.gal-item').addEventListener('click',function(){openAt(i);});
+    });
+  }
+  init();
+
+  // Refresh items when gallery updates (MutationObserver)
+  var galleryGrid=document.querySelector('.gallery-grid');
+  if(galleryGrid){
+    new MutationObserver(init).observe(galleryGrid,{childList:true,subtree:true});
+  }
+
+  lbClose.addEventListener('click',close);
+  lb.addEventListener('click',function(e){if(e.target===lb)close();});
+  lbPrev.addEventListener('click',prev);
+  lbNext.addEventListener('click',next);
+  document.addEventListener('keydown',function(e){
+    if(!lb.classList.contains('open'))return;
+    if(e.key==='Escape')close();
+    if(e.key==='ArrowLeft')prev();
+    if(e.key==='ArrowRight')next();
+  });
+})();
+
+// ── COPY EMAIL TOAST ─────────────────────────────────────────────────────────
+(function(){
+  var toast=document.getElementById('toast');
+  function showToast(msg){
+    toast.textContent=msg;
+    toast.classList.add('show');
+    setTimeout(function(){toast.classList.remove('show');},2500);
+  }
+  document.querySelectorAll('a[href="mailto:hola@davizgarziamusic.com"]').forEach(function(a){
+    a.addEventListener('click',function(e){
+      e.preventDefault();
+      navigator.clipboard.writeText('hola@davizgarziamusic.com').then(function(){
+        showToast('Email copiado al portapapeles!');
+      }).catch(function(){
+        window.location.href='mailto:hola@davizgarziamusic.com';
+      });
+    });
+  });
+})();
+
+// ── ACTIVE NAV SECTION ───────────────────────────────────────────────────────
+(function(){
+  var sections=document.querySelectorAll('section[id],div[id]');
+  var navLinks=document.querySelectorAll('.nav-links a[href^="#"]');
+  if(!navLinks.length)return;
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        var id='#'+entry.target.id;
+        navLinks.forEach(function(a){a.classList.toggle('nav-active',a.getAttribute('href')===id);});
+      }
+    });
+  },{rootMargin:'-40% 0px -55% 0px'});
+  sections.forEach(function(s){if(s.id)io.observe(s);});
+})();
+
+// ── STAT COUNTER ANIMATION ───────────────────────────────────────────────────
+(function(){
+  function animCount(el,end,suffix){
+    var start=0,dur=1400,startTime=null;
+    function step(ts){
+      if(!startTime)startTime=ts;
+      var p=Math.min((ts-startTime)/dur,1);
+      var eased=1-Math.pow(1-p,3);
+      el.textContent=Math.round(start+(end-start)*eased)+suffix;
+      if(p<1)requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting)return;
+      var el=entry.target;
+      var raw=el.getAttribute('data-count');
+      if(!raw)return;
+      io.unobserve(el);
+      var num=parseFloat(raw);
+      var suffix=raw.replace(/[\d.]/g,'');
+      animCount(el,num,suffix);
+    });
+  },{threshold:.5});
+  document.querySelectorAll('.h-stat-num').forEach(function(el){
+    var txt=el.textContent.trim();
+    el.setAttribute('data-count',txt);
+    el.textContent='0';
+    io.observe(el);
+  });
+})();
+</script>
 </body>
 </html>
 
