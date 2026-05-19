@@ -525,19 +525,50 @@
       .gallery-grid{grid-template-columns:repeat(2,1fr)}
       .music-split,.yt-split,.tnl-header{grid-template-columns:1fr}
       #show-pill{right:12px;bottom:80px}
+      #back-top{bottom:176px;right:12px}
       footer{padding:40px 24px}
     }
     @media(max-width:480px){
-      .hero-stats{gap:28px}
-      .hero-btns{flex-direction:column;align-items:center}
+      /* Hero */
+      .hero h1{font-size:clamp(52px,18vw,100px);letter-spacing:-2px}
+      .hero-badge{font-size:9px;letter-spacing:1.5px;padding:7px 14px;margin-bottom:20px}
+      .hero-sub{font-size:11px;letter-spacing:1.5px;margin-bottom:32px}
+      .hero-btns{flex-direction:column;align-items:center;gap:10px;margin-bottom:40px}
+      .btn-orange,.btn-ghost{width:100%;max-width:260px;text-align:center;padding:14px 24px}
+      .hero-stats{gap:16px;flex-wrap:wrap}
+      .h-stat-num{font-size:24px}
+      .h-stat-lbl{font-size:9px}
+      /* Sections */
+      .sw{padding:56px 18px}
+      .section-h{letter-spacing:-.5px}
+      .about-text .big-quote{font-size:17px;line-height:1.4}
+      /* Countdown */
+      .cdwn-wrap{padding:24px 14px}
+      .cdwn-unit{padding:12px 8px;min-width:56px}
+      .cdwn-num{font-size:clamp(22px,8vw,34px)}
+      .cdwn-grid{gap:8px}
+      /* Releases */
       .releases-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+      /* Gallery */
+      .gallery-grid{grid-template-columns:repeat(2,1fr);gap:8px}
+      /* Floating buttons: WA solo icono, back-top al lado izquierdo */
+      .wa-float{padding:14px;border-radius:50%;bottom:20px;right:16px;gap:0}
+      .wa-float .wa-text{display:none}
+      #back-top{bottom:20px;left:16px;right:auto}
+      #show-pill{right:12px;bottom:80px;min-width:130px;padding:10px 12px}
+      /* Cookie banner */
+      #cookie-banner{left:12px;right:12px;max-width:none;bottom:14px;flex-direction:column;gap:10px;text-align:center}
+      /* Booking contact */
+      .citem{padding:14px 0}
+      /* Riders */
+      .rider-item{padding:12px 14px}
     }
 
     /* SCROLL PROGRESS BAR */
     #scroll-progress{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,#FF6B00,#FF9A00,#FF6B00);background-size:200%;z-index:10000;transition:width .1s linear;border-radius:0 2px 2px 0}
 
     /* BACK TO TOP */
-    #back-top{position:fixed;bottom:100px;right:28px;z-index:997;width:44px;height:44px;border-radius:50%;background:rgba(13,13,13,.9);border:1px solid rgba(255,107,0,.3);color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s,box-shadow .2s;backdrop-filter:blur(12px)}
+    #back-top{position:fixed;bottom:184px;right:28px;z-index:997;width:44px;height:44px;border-radius:50%;background:rgba(13,13,13,.9);border:1px solid rgba(255,107,0,.3);color:var(--accent);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;opacity:0;pointer-events:none;transition:opacity .3s,transform .3s,box-shadow .2s;backdrop-filter:blur(12px)}
     #back-top.visible{opacity:1;pointer-events:auto}
     #back-top:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(255,107,0,.3)}
 
@@ -1214,7 +1245,7 @@ window.davizShows=[
         </div>
         <div class="citem">
           <div class="cicon">📱</div>
-          <div><div class="clabel">WhatsApp mánager</div><div class="cval"><a href="https://wa.me/34660375685" target="_blank">Contactar por WhatsApp →</a></div></div>
+          <div><div class="clabel">WhatsApp mánager (Javier)</div><div class="cval"><a href="https://wa.me/34660375685?text=Hola%20Javier%2C%20me%20gustar%C3%ADa%20contratar%20a%20Daviz%20Garzia%20para%20un%20evento.%20%C2%BFPodemos%20hablar%3F" target="_blank">Contactar por WhatsApp →</a></div></div>
         </div>
         <div class="citem">
           <div class="cicon">📍</div>
@@ -1377,9 +1408,9 @@ window.davizShows=[
 </script>
 
 <!-- WHATSAPP FLOATING BUTTON -->
-<a href="https://wa.me/34660375685?text=Hola%20Daviz%2C%20quiero%20información%20para%20contratarte" target="_blank" class="wa-float" aria-label="Contactar por WhatsApp">
+<a href="https://wa.me/34660375685?text=Hola%20Javier%2C%20me%20gustar%C3%ADa%20contratar%20a%20Daviz%20Garzia%20para%20un%20evento.%20%C2%BFPodemos%20hablar%3F" target="_blank" class="wa-float" aria-label="Contactar al mánager por WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L.044 23.956l6.241-1.634A11.942 11.942 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.012-1.376l-.36-.213-3.705.972.988-3.608-.234-.372A9.808 9.808 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-  WhatsApp
+  <span class="wa-text">Contratar</span>
 </a>
 
 <!-- FLOATING SHOW PILL -->
