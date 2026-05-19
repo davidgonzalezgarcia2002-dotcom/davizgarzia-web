@@ -76,6 +76,7 @@ function htmlCard(show, delay) {
   const dt = parseDate(show.date);
   if (!dt) return '';
   const loc = [show.venue, show.city].filter(Boolean).join(', ');
+  const ticket = show.url ? `<a href="${show.url}" target="_blank" class="uc-ticket">🎟️ Entradas</a>` : '';
   return `
       <div class="upcoming-card" data-anim data-delay="${delay}">
         <div class="uc-date"><div class="uc-day">${dt.day}</div><div class="uc-month">${dt.mon} ${dt.yr2}</div></div>
@@ -83,6 +84,7 @@ function htmlCard(show, delay) {
           <div class="uc-venue">${show.name}</div>
           <div class="uc-loc">${loc ? '📍 ' + loc : ''}</div>
         </div>
+        ${ticket}
       </div>`;
 }
 
@@ -113,6 +115,36 @@ function buildCountdownEvents(shows) {
     const loc = [s.venue, s.city].filter(Boolean).join(', ');
     return `    {date:new Date('${isoDate}'),name:'${esc(s.name)}',venue:'📍 ${esc(loc)}',url:'${s.url}'}`;
   }).filter(Boolean).join(',\n');
+}
+
+// ── GALERÍA ──────────────────────────────────────────────────────────────────
+
+const VENUE_LABELS = {
+  'roxel-labrador': 'Roxel · Labrador',
+  'feria-roxel':    'Feria de Abril · Roxel',
+  'planb-live':     'Plan B · Palencia',
+  'roxel':          'Roxel · Solares',
+  'planb':          'Plan B · Palencia',
+};
+
+function buildGalleryHTML(photos) {
+  const shuffled = [...photos].sort(() => Math.random() - 0.5);
+  const selected = shuffled.slice(0, Math.min(6, shuffled.length));
+  return selected.map((photoPath, i) => {
+    const base = path.basename(photoPath, path.extname(photoPath)).toLowerCase();
+    let venue = 'En directo · 2026';
+    for (const [key, label] of Object.entries(VENUE_LABELS)) {
+      if (base.startsWith(key)) { venue = label; break; }
+    }
+    return `
+      <div class="gal-item" data-anim data-delay="${i + 1}">
+        <img src="${photoPath}" alt="Daviz Garzia DJ set" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
+        <div class="gal-overlay">
+          <div><div class="gal-label">${venue}</div><div class="gal-sub">En directo · 2026</div></div>
+        </div>
+        <a href="https://www.instagram.com/davizgarzia.music/" target="_blank" class="gal-ig-link">📸 @davizgarzia.music</a>
+      </div>`;
+  }).join('');
 }
 
 // ── HISTORIAL ────────────────────────────────────────────────────────────────
@@ -225,6 +257,31 @@ async function main() {
     }
   } else {
     console.log('No past DJ shows in last 90 days — keeping existing historial content.');
+  }
+
+  // --- Gallery photos (photos/live/) ---
+  const liveDir = path.join(__dirname, '..', 'photos', 'live');
+  let livePhotos = [];
+  if (fs.existsSync(liveDir)) {
+    livePhotos = fs.readdirSync(liveDir)
+      .filter(f => /\.(jpg|jpeg|png|webp)$/i.test(f))
+      .map(f => `photos/live/${f}`);
+  }
+  console.log(`Found ${livePhotos.length} photo(s) in photos/live/`);
+  if (livePhotos.length > 0) {
+    const galleryBlock = buildGalleryHTML(livePhotos);
+    const newHtml4 = html.replace(
+      /<!-- AUTO-GALLERY:START -->[\s\S]*?<!-- AUTO-GALLERY:END -->/,
+      `<!-- AUTO-GALLERY:START -->${galleryBlock}\n    <!-- AUTO-GALLERY:END -->`
+    );
+    if (newHtml4 === html) {
+      console.warn('WARNING: AUTO-GALLERY markers not found in index.html');
+    } else {
+      html = newHtml4;
+      console.log(`Gallery updated with ${Math.min(6, livePhotos.length)} random photos.`);
+    }
+  } else {
+    console.log('No live photos found — keeping existing gallery.');
   }
 
   fs.writeFileSync(htmlPath, html, 'utf8');
