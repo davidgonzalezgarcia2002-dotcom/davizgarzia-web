@@ -420,6 +420,39 @@
     .gal-ig-link{position:absolute;top:12px;right:12px;background:rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:999px;text-decoration:none;opacity:0;transition:opacity .25s;backdrop-filter:blur(8px)}
     .gal-item:hover .gal-ig-link{opacity:1}
 
+    /* MUSIC SPLIT */
+    .music-split{display:grid;grid-template-columns:2fr 3fr;gap:48px;margin-top:50px;align-items:start}
+    .music-split .spotify-wrap{margin-top:16px;max-width:none}
+    .rel-list{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+    .rel-item{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;background:rgba(255,255,255,.025);border:1px solid var(--border);text-decoration:none;color:var(--text);transition:border-color .2s,background .2s}
+    .rel-item:hover{border-color:rgba(255,107,0,.2);background:rgba(255,107,0,.02)}
+    .rel-thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;flex-shrink:0;background:var(--surface)}
+    .rel-inf{flex:1;min-width:0}
+    .rel-inf-title{font-size:13px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .rel-inf-meta{font-size:10px;color:var(--muted);margin-top:2px}
+    .rel-badge-new{background:var(--accent);color:#fff;font-size:8px;font-weight:800;padding:2px 6px;border-radius:999px;margin-left:6px;vertical-align:middle}
+    .rel-play-btn{flex-shrink:0;color:var(--accent2);font-size:15px;opacity:.6;transition:opacity .2s}
+    .rel-item:hover .rel-play-btn{opacity:1}
+
+    /* YOUTUBE */
+    .yt-bg{background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .yt-split{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:50px}
+    .yt-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:24px 28px;display:flex;flex-direction:column;gap:20px}
+    .yt-badge{display:inline-block;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent);background:rgba(255,107,0,.1);border:1px solid rgba(255,107,0,.2);border-radius:999px;padding:3px 10px;margin-bottom:6px}
+    .yt-card h3{font-size:17px;font-weight:900;color:var(--text);margin-bottom:4px}
+    .yt-handle{font-size:12px;color:var(--muted2);margin-bottom:10px}
+    .yt-stats{display:flex;gap:8px;flex-wrap:wrap}
+    .yt-stat{font-size:10px;color:var(--muted2);background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:999px;padding:3px 10px}
+
+    /* SHOW PILL */
+    #show-pill{position:fixed;right:20px;bottom:96px;z-index:800;background:rgba(6,6,6,.95);border:1px solid rgba(255,107,0,.3);border-radius:16px;padding:14px 16px;backdrop-filter:blur(16px);min-width:152px;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.5);opacity:0;transform:translateX(16px);transition:opacity .4s,transform .4s;pointer-events:none}
+    #show-pill.visible{opacity:1;transform:none;pointer-events:auto}
+    #show-pill a{display:block;margin-top:8px;font-size:9px;color:var(--accent2);text-decoration:none;font-weight:700}
+    .sp-label{font-size:8px;color:var(--accent);font-weight:800;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+    .sp-name{font-size:12px;font-weight:800;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:140px;margin:0 auto 6px}
+    .sp-cd{font-size:22px;font-weight:900;color:var(--accent2);font-variant-numeric:tabular-nums}
+    .sp-sub{font-size:9px;color:var(--muted);margin-top:3px}
+
     /* FOOTER */
     footer{border-top:1px solid var(--border);padding:52px 40px;text-align:center}
     .foot-logo{display:flex;justify-content:center;margin-bottom:14px}
@@ -441,6 +474,8 @@
       .releases-grid{grid-template-columns:repeat(2,1fr)}
       .shows-grid,.upcoming-grid{grid-template-columns:1fr}
       .gallery-grid{grid-template-columns:repeat(2,1fr)}
+      .music-split,.yt-split{grid-template-columns:1fr}
+      #show-pill{right:12px;bottom:80px}
       footer{padding:40px 24px}
     }
     @media(max-width:480px){
@@ -532,204 +567,146 @@
   </div>
 </section>
 
-<!-- SPOTIFY PLAYER -->
-<div style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-  <div class="sw spotify-sec">
-    <div data-anim>
-      <div class="section-eye">Escucha ahora</div>
-      <h2 class="section-h">Mi música en<br>Spotify</h2>
-      <p class="section-p" style="margin:0 auto;text-align:center;">Reggaeton, Tech House, Techno. Más de 9 lanzamientos propios. Escucha sin salir de aquí.</p>
-    </div>
-    <div class="spotify-wrap" data-anim="scale">
-      <iframe src="https://open.spotify.com/embed/artist/6kuKoUwoqmzqP0vXmkgOH1?utm_source=generator&theme=0"
-              width="100%" height="352" frameborder="0"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              loading="lazy"></iframe>
-    </div>
-  </div>
-</div>
-
 <!-- MÚSICA -->
-<div class="music-bg">
-  <div class="sw" id="musica">
-    <div data-anim>
-      <div class="section-eye">Discografía</div>
-      <h2 class="section-h">Últimos lanzamientos</h2>
-      <p class="section-p">9 singles publicados en 2025 en todas las plataformas. Producción propia desde FL Studio.</p>
+<div class="music-bg" id="musica">
+  <div class="sw">
+    <div data-anim style="text-align:center">
+      <div class="section-eye">Música</div>
+      <h2 class="section-h">Discografía &amp; Spotify</h2>
     </div>
-    <div class="releases-grid">
+    <div class="music-split">
 
-      <div class="rel-card" data-anim data-delay="1">
-        <div class="rel-img-box">
-          <img src="https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02625c59668d0c6298043d294a" alt="ESE FRONTEO - Daviz Garzia" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'rel-img-fallback\' style=\'background:linear-gradient(135deg,#FF6B00,#FF2200)\'>🎵</div>'">
-          <div class="rel-overlay"><div class="rel-play">▶</div></div>
+      <!-- Spotify -->
+      <div data-anim>
+        <div class="section-eye" style="margin-bottom:10px">Escucha ahora</div>
+        <h3 style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:16px">Mi artista en Spotify</h3>
+        <div class="spotify-wrap" style="margin-top:0">
+          <iframe src="https://open.spotify.com/embed/artist/6kuKoUwoqmzqP0vXmkgOH1?utm_source=generator&theme=0"
+                  width="100%" height="352" frameborder="0"
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                  loading="lazy"></iframe>
         </div>
-        <div class="rel-info">
-          <div class="rel-title">ESE FRONTEO <span class="rel-new">Nuevo</span></div>
-          <div class="rel-meta">Sencillo · 2025</div>
-          <div class="rel-stat">Último lanzamiento</div>
-        </div>
-        <div class="rel-links">
-          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-link-btn rel-link-spotify">▶ Spotify</a>
+        <div style="margin-top:18px;text-align:center">
+          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="btn-orange">Ver discografía completa ↗</a>
         </div>
       </div>
 
-      <div class="rel-card" data-anim data-delay="2">
-        <div class="rel-img-box">
-          <img src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e022626fc82e16494cfd326caaa" alt="Voy a llevarte pa PR - Daviz Garzia" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'rel-img-fallback\' style=\'background:linear-gradient(135deg,#7c3aed,#06b6d4)\'>🌊</div>'">
-          <div class="rel-overlay"><div class="rel-play">▶</div></div>
-        </div>
-        <div class="rel-info">
-          <div class="rel-title">Voy a llevarte pa' PR</div>
-          <div class="rel-meta">Tech House · 2025</div>
-          <div class="rel-stat">8.415 plays en Spotify</div>
-        </div>
-        <div class="rel-links">
-          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-link-btn rel-link-spotify">▶ Spotify</a>
+      <!-- Últimos lanzamientos -->
+      <div data-anim>
+        <div class="section-eye" style="margin-bottom:10px">Últimos lanzamientos</div>
+        <h3 style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px">9 singles · Producción propia</h3>
+        <p style="font-size:12px;color:var(--muted);margin-bottom:0">Desde FL Studio · 2025</p>
+        <div class="rel-list">
+
+          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-item">
+            <img class="rel-thumb" src="https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02625c59668d0c6298043d294a" alt="ESE FRONTEO">
+            <div class="rel-inf"><div class="rel-inf-title">ESE FRONTEO <span class="rel-badge-new">Nuevo</span></div><div class="rel-inf-meta">Sencillo · 2025 · Último lanzamiento</div></div>
+            <span class="rel-play-btn">▶</span>
+          </a>
+
+          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-item">
+            <img class="rel-thumb" src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e022626fc82e16494cfd326caaa" alt="Voy a llevarte pa PR">
+            <div class="rel-inf"><div class="rel-inf-title">Voy a llevarte pa' PR</div><div class="rel-inf-meta">Tech House · 2025 · 8.415 plays</div></div>
+            <span class="rel-play-btn">▶</span>
+          </a>
+
+          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-item">
+            <img class="rel-thumb" src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02d145ed6256f604c914a7e2d7" alt="Anxiety tech">
+            <div class="rel-inf"><div class="rel-inf-title">Anxiety (tech)</div><div class="rel-inf-meta">Tech House · 2025 · 2.085 plays</div></div>
+            <span class="rel-play-btn">▶</span>
+          </a>
+
+          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-item">
+            <img class="rel-thumb" src="https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02528fc542d26da6fa46b278ca" alt="Dance First After Dark">
+            <div class="rel-inf"><div class="rel-inf-title">Dance First (After Dark)</div><div class="rel-inf-meta">Sencillo · 2025</div></div>
+            <span class="rel-play-btn">▶</span>
+          </a>
+
+          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-item">
+            <img class="rel-thumb" src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02475af1458cc4bf3ebbdf8e39" alt="Girls Just Want to Have Fun">
+            <div class="rel-inf"><div class="rel-inf-title">Girls Just Want to Have Fun</div><div class="rel-inf-meta">Tech House · 2025 · 716 vistas YouTube</div></div>
+            <span class="rel-play-btn">▶</span>
+          </a>
+
+          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-item">
+            <img class="rel-thumb" src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0213d9a227efffbbd243807dab" alt="Capaz Tech House">
+            <div class="rel-inf"><div class="rel-inf-title">Capaz (Tech House)</div><div class="rel-inf-meta">Tech House · 2025</div></div>
+            <span class="rel-play-btn">▶</span>
+          </a>
+
+          <a href="https://soundcloud.com/davizgarziamusic" target="_blank" class="rel-item">
+            <img class="rel-thumb" src="https://i1.sndcdn.com/artworks-nIjAGCT5vvp0qi76-Qb25Hw-t500x500.png" alt="Waterfalls Schranz Rework" onerror="this.style.background='linear-gradient(135deg,#1a1a2e,#16213e)'">
+            <div class="rel-inf"><div class="rel-inf-title">Waterfalls (Schranz Rework)</div><div class="rel-inf-meta">Schranz · 2025 · 699 vistas YouTube · SoundCloud</div></div>
+            <span class="rel-play-btn">▶</span>
+          </a>
+
         </div>
       </div>
 
-      <div class="rel-card" data-anim data-delay="3">
-        <div class="rel-img-box">
-          <img src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02d145ed6256f604c914a7e2d7" alt="Anxiety tech - Daviz Garzia" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'rel-img-fallback\' style=\'background:linear-gradient(135deg,#1d4ed8,#7c3aed)\'>⚡</div>'">
-          <div class="rel-overlay"><div class="rel-play">▶</div></div>
-        </div>
-        <div class="rel-info">
-          <div class="rel-title">Anxiety (tech)</div>
-          <div class="rel-meta">Tech House · 2025</div>
-          <div class="rel-stat">2.085 plays en Spotify</div>
-        </div>
-        <div class="rel-links">
-          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-link-btn rel-link-spotify">▶ Spotify</a>
-        </div>
-      </div>
-
-      <div class="rel-card" data-anim data-delay="4">
-        <div class="rel-img-box">
-          <img src="https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02528fc542d26da6fa46b278ca" alt="Dance First After Dark - Daviz Garzia" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'rel-img-fallback\' style=\'background:linear-gradient(135deg,#0f766e,#06b6d4)\'>🌙</div>'">
-          <div class="rel-overlay"><div class="rel-play">▶</div></div>
-        </div>
-        <div class="rel-info">
-          <div class="rel-title">Dance First (After Dark)</div>
-          <div class="rel-meta">Sencillo · 2025</div>
-          <div class="rel-stat">Disponible en streaming</div>
-        </div>
-        <div class="rel-links">
-          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-link-btn rel-link-spotify">▶ Spotify</a>
-        </div>
-      </div>
-
-      <div class="rel-card" data-anim data-delay="5">
-        <div class="rel-img-box">
-          <img src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e02475af1458cc4bf3ebbdf8e39" alt="Girls Just Want to Have Fun - Daviz Garzia" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'rel-img-fallback\' style=\'background:linear-gradient(135deg,#be185d,#7c3aed)\'>💃</div>'">
-          <div class="rel-overlay"><div class="rel-play">▶</div></div>
-        </div>
-        <div class="rel-info">
-          <div class="rel-title">Girls Just Want to Have Fun</div>
-          <div class="rel-meta">Tech House · 2025</div>
-          <div class="rel-stat">716 vistas YouTube</div>
-        </div>
-        <div class="rel-links">
-          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-link-btn rel-link-spotify">▶ Spotify</a>
-        </div>
-      </div>
-
-      <div class="rel-card" data-anim data-delay="6">
-        <div class="rel-img-box">
-          <img src="https://image-cdn-fa.spotifycdn.com/image/ab67616d00001e0213d9a227efffbbd243807dab" alt="Capaz Tech House - Daviz Garzia" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\'rel-img-fallback\' style=\'background:linear-gradient(135deg,#FF6B00,#FF9A00)\'>🔥</div>'">
-          <div class="rel-overlay"><div class="rel-play">▶</div></div>
-        </div>
-        <div class="rel-info">
-          <div class="rel-title">Capaz (Tech House)</div>
-          <div class="rel-meta">Tech House · 2025</div>
-          <div class="rel-stat">Disponible en streaming</div>
-        </div>
-        <div class="rel-links">
-          <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="rel-link-btn rel-link-spotify">▶ Spotify</a>
-        </div>
-      </div>
-
-      <div class="rel-card" data-anim data-delay="3">
-        <div class="rel-img-box">
-          <img src="https://i1.sndcdn.com/artworks-nIjAGCT5vvp0qi76-Qb25Hw-t500x500.png" alt="Waterfalls Schranz Rework - Daviz Garzia" loading="lazy"
-               onerror="this.style.display='none';this.parentNode.style.background='linear-gradient(135deg,#1a1a2e,#16213e)';this.parentNode.innerHTML+='<div style=\'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:36px\'>🌊</div>'">
-          <div class="rel-overlay"><div class="rel-play">▶</div></div>
-        </div>
-        <div class="rel-info">
-          <div class="rel-title">Waterfalls (Schranz Rework)</div>
-          <div class="rel-meta">Schranz · 2025</div>
-          <div class="rel-stat">699 vistas YouTube</div>
-        </div>
-        <div class="rel-links">
-          <a href="https://www.youtube.com/@Davizgarziamusic" target="_blank" class="rel-link-btn rel-link-youtube">▶ YouTube</a>
-          <a href="https://soundcloud.com/davizgarziamusic" target="_blank" class="rel-link-btn rel-link-soundcloud">☁ SC</a>
-        </div>
-      </div>
-
-    </div>
-    <div class="music-cta" data-anim>
-      <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" class="btn-orange">Ver discografía completa en Spotify ↗</a>
     </div>
   </div>
 </div>
 
-<!-- VIDEO VIRAL -->
-<section>
-  <div class="sw video-sec">
-    <div data-anim>
-      <div class="viral-badge">🔥 144K vistas</div>
-      <h2 class="video-title">El mashup que lo empezó todo</h2>
-      <p class="video-desc">Calor x Que Calor x Loco &middot; El vídeo más visto del canal &middot; Daviz Garzia</p>
+<!-- YOUTUBE -->
+<div class="yt-bg" id="youtube">
+  <div class="sw">
+    <div data-anim style="text-align:center">
+      <div class="section-eye">YouTube</div>
+      <h2 class="section-h">Dos canales,<br>un artista</h2>
+      <p class="section-p" style="margin:0 auto">Canciones originales y sesiones completas. Todo en YouTube.</p>
     </div>
-    <div class="zona-card" data-anim="scale" style="max-width:720px;margin:0 auto;flex-direction:column;align-items:stretch;">
-      <div id="video-mashup" style="position:relative;border-radius:14px;overflow:hidden;cursor:pointer;aspect-ratio:16/9;">
-        <img src="https://img.youtube.com/vi/8MTWzI7FjH8/maxresdefault.jpg" alt="Calor x Que Calor x Loco Mash Up - Daviz Garzia DJ Cantabria" style="width:100%;height:100%;object-fit:cover;display:block;">
-        <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.5),rgba(0,0,0,.1));display:flex;align-items:center;justify-content:center;">
-          <div style="width:80px;height:80px;background:rgba(255,107,0,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;padding-left:5px;box-shadow:0 8px 32px rgba(255,107,0,.5);">&#9654;</div>
+    <div class="yt-split">
+
+      <!-- Canal Oficial -->
+      <div class="yt-card" data-anim="left">
+        <div>
+          <span class="yt-badge">🎵 Canal Oficial</span>
+          <h3>@Davizgarziamusic</h3>
+          <div class="yt-handle">Canciones originales · Remixes · Mashups</div>
+          <div class="yt-stats">
+            <span class="yt-stat">🔥 144K en un vídeo</span>
+            <span class="yt-stat">Singles propios</span>
+          </div>
         </div>
-        <div style="position:absolute;bottom:16px;left:16px;">
-          <div style="font-size:15px;font-weight:800;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.8);">Calor x Que Calor x Loco (Mash Up)</div>
-          <div style="font-size:12px;color:rgba(255,255,255,.75);margin-top:3px;">Daviz Garzia &middot; 144K vistas</div>
+        <div id="video-mashup" style="position:relative;border-radius:12px;overflow:hidden;cursor:pointer;aspect-ratio:16/9;flex-shrink:0">
+          <img src="https://img.youtube.com/vi/8MTWzI7FjH8/maxresdefault.jpg" alt="Calor x Que Calor x Loco Mash Up" style="width:100%;height:100%;object-fit:cover;display:block">
+          <div style="position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center">
+            <div style="width:60px;height:60px;background:rgba(255,107,0,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;padding-left:4px;box-shadow:0 6px 24px rgba(255,107,0,.5)">&#9654;</div>
+          </div>
+          <div style="position:absolute;bottom:10px;left:12px">
+            <div style="font-size:12px;font-weight:800;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.7)">Calor x Que Calor x Loco</div>
+            <div style="font-size:10px;color:rgba(255,255,255,.7);margin-top:2px">Daviz Garzia &middot; 🔥 144K vistas</div>
+          </div>
         </div>
+        <a href="https://www.youtube.com/@Davizgarziamusic" target="_blank" class="btn-orange" style="text-align:center">Ver canal oficial ↗</a>
       </div>
-      <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;">
-        <a href="https://www.youtube.com/watch?v=8MTWzI7FjH8" target="_blank" class="btn-orange" style="flex:1;text-align:center;">&#9654; Ver en YouTube &uarr;</a>
-        <a href="https://www.youtube.com/@Davizgarziamusic" target="_blank" class="btn-ghost" style="flex:1;text-align:center;">Canal completo &rarr;</a>
+
+      <!-- Canal Sesiones -->
+      <div class="yt-card" data-anim="right">
+        <div>
+          <span class="yt-badge">📹 Sesiones</span>
+          <h3>@DavizGarziaSessions</h3>
+          <div class="yt-handle">Sets completos · Vlogs · Behind the scenes</div>
+          <div class="yt-stats">
+            <span class="yt-stat">14.000 vistas</span>
+            <span class="yt-stat">45 min</span>
+            <span class="yt-stat">Serie Zona Cero</span>
+          </div>
+        </div>
+        <div style="border-radius:12px;overflow:hidden;aspect-ratio:16/9;flex-shrink:0">
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/0NdlOOEJZGg?rel=0" title="Zona Cero - Daviz Garzia Sessions" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display:block;border:none"></iframe>
+        </div>
+        <a href="https://www.youtube.com/@DavizGarziaSessions" target="_blank" class="btn-ghost" style="text-align:center">Ver sesiones completas ↗</a>
       </div>
+
     </div>
   </div>
-</section>
+</div>
 <script>
   document.getElementById('video-mashup').addEventListener('click',function(){
-    this.innerHTML='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/8MTWzI7FjH8?autoplay=1&rel=0" allow="autoplay;encrypted-media;picture-in-picture" allowfullscreen style="border:none;display:block;"></iframe>';
+    this.innerHTML='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/8MTWzI7FjH8?autoplay=1&rel=0" allow="autoplay;encrypted-media;picture-in-picture" allowfullscreen style="border:none;display:block;border-radius:12px"></iframe>';
   });
 </script>
-
-
-<!-- ZONA CERO -->
-<div class="zona-bg">
-  <div class="sw">
-    <div data-anim>
-      <div class="section-eye">Serie exclusiva</div>
-      <h2 class="section-h">Zona Cero — Sessions</h2>
-      <p class="section-p">Sets completos de 45 minutos. Dembow, Reggaeton, Afro House y más. Disponibles en YouTube.</p>
-    </div>
-    <div class="zona-card" data-anim style="flex-direction:column;align-items:stretch;">
-      <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:22px;">
-        <div class="zona-icon">🌊</div>
-        <div class="zona-info">
-          <div class="zona-title">Zona Cero · Daviz Garzia</div>
-          <div class="zona-desc">Dembow · Reggaeton · Afro · Edits &amp; More · 45 min</div>
-          <div class="zona-chips"><span class="zchip">14.000 vistas</span><span class="zchip">Sessions completas</span><span class="zchip">YouTube</span></div>
-        </div>
-        <a href="https://www.youtube.com/watch?v=0NdlOOEJZGg" target="_blank" class="btn-orange" style="white-space:nowrap;">Ver en YouTube →</a>
-      </div>
-      <div style="border-radius:14px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5);aspect-ratio:16/9;">
-        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/0NdlOOEJZGg?rel=0" title="Zona Cero - Daviz Garzia" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display:block;border:none;"></iframe>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- MARQUEE 2 -->
 <div class="marquee-wrap">
@@ -792,6 +769,7 @@
     </div>
 
     <div class="shows-grid">
+    <!-- AUTO-HISTORIAL:START -->
 
       <!-- Sala Kaya -->
       <div class="show-card" data-anim data-delay="1">
@@ -888,10 +866,9 @@
         </div>
       </div>
 
-    </div>
-  
+
       <!-- Sala Chapo -->
-      <div class="show-card" data-anim data-delay="6">
+      <div class="show-card" data-anim data-delay="7">
         <div class="show-card-top">
           <div class="show-logo-placeholder" style="background:linear-gradient(135deg,#7c3aed,#a855f7)">CH</div>
           <div>
@@ -903,7 +880,10 @@
           <span class="show-loc-chip">📍 Palencia</span>
           <a href="https://www.instagram.com/chapo_discoteca/" target="_blank" class="show-ig-btn">📸 @chapo_discoteca</a>
         </div>
-      </div></div>
+      </div>
+
+    <!-- AUTO-HISTORIAL:END -->
+    </div>
 </section>
 
 <!-- GALERÍA DE DIRECTO -->
@@ -994,14 +974,15 @@
   </div>
 </section>
 <script>
+window.davizShows=[
+/* AUTO-COUNTDOWN:START */
+  {date:new Date('2026-05-23T22:00:00'),name:'Roxel Sala Musical',venue:'📍 Solares, Cantabria',url:''},
+  {date:new Date('2026-07-04T12:00:00'),name:'Gamoneo — Todos al Prao',venue:'📍 Torrelavega, Cantabria',url:''},
+  {date:new Date('2026-07-19T17:00:00'),name:'Bahía Sun Festival',venue:'📍 La Magdalena, Santander',url:'https://www.bahiasunfestival.com/'}
+/* AUTO-COUNTDOWN:END */
+];
 (function(){
-  var events=[
-  /* AUTO-COUNTDOWN:START */
-    {date:new Date('2026-05-23T22:00:00'),name:'Roxel Sala Musical',venue:'📍 Solares, Cantabria',url:''},
-    {date:new Date('2026-07-04T12:00:00'),name:'Gamoneo — Todos al Prao',venue:'📍 Torrelavega, Cantabria',url:''},
-    {date:new Date('2026-07-19T17:00:00'),name:'Bahía Sun Festival',venue:'📍 La Magdalena, Santander',url:'https://www.bahiasunfestival.com/'}
-  /* AUTO-COUNTDOWN:END */
-  ];
+  var events=window.davizShows||[];
   var el={d:document.getElementById('cdwn-d'),h:document.getElementById('cdwn-h'),m:document.getElementById('cdwn-m'),s:document.getElementById('cdwn-s'),event:document.getElementById('cdwn-event'),venue:document.getElementById('cdwn-venue'),cta:document.getElementById('cdwn-cta')};
   function pad(n){return String(n).padStart(2,'0');}
   function tick(){
@@ -1133,6 +1114,33 @@
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L.044 23.956l6.241-1.634A11.942 11.942 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.012-1.376l-.36-.213-3.705.972.988-3.608-.234-.372A9.808 9.808 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
   WhatsApp
 </a>
+
+<!-- FLOATING SHOW PILL -->
+<div id="show-pill">
+  <div class="sp-label">Próximo show</div>
+  <div class="sp-name" id="sp-evt">—</div>
+  <div class="sp-cd" id="sp-cd">—</div>
+  <div class="sp-sub" id="sp-dt"></div>
+</div>
+<script>
+(function(){
+  var events=window.davizShows||[];
+  var eName=document.getElementById('sp-evt'),eCd=document.getElementById('sp-cd'),eDt=document.getElementById('sp-dt'),pill=document.getElementById('show-pill');
+  if(!events||!events.length)return;
+  function pad(n){return String(n).padStart(2,'0');}
+  function tick(){
+    var now=Date.now(),next=null;
+    for(var i=0;i<events.length;i++){if(events[i].date.getTime()>now){next=events[i];break;}}
+    if(!next){pill.style.display='none';return;}
+    eName.textContent=next.name;
+    var diff=next.date.getTime()-now,d=Math.floor(diff/86400000),h=pad(Math.floor((diff%86400000)/3600000)),m=pad(Math.floor((diff%3600000)/60000));
+    eCd.textContent=d>0?d+'d '+h+'h ':h+'h '+m+'m';
+    eDt.textContent=(next.venue||'').replace('📍 ','');
+  }
+  tick();setInterval(tick,30000);
+  window.addEventListener('scroll',function(){pill.classList.toggle('visible',window.scrollY>400);},{passive:true});
+})();
+</script>
 
 <!-- COOKIE BANNER -->
 <div id="cookie-banner">
