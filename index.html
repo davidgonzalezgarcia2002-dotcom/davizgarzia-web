@@ -647,10 +647,10 @@
       <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" rel="noopener noreferrer" class="btn-ghost" data-i18n="btn_spotify">Escuchar en Spotify ↗</a>
     </div>
     <div class="hero-stats">
-      <div class="h-stat"><div class="h-stat-num">2.5K</div><div class="h-stat-lbl" data-i18n="stat_ig">Seguidores IG</div></div>
-      <div class="h-stat"><div class="h-stat-num">47K</div><div class="h-stat-lbl" data-i18n="stat_tik">Likes TikTok</div></div>
-      <div class="h-stat"><div class="h-stat-num">144K</div><div class="h-stat-lbl" data-i18n="stat_yt">Vistas YouTube</div></div>
-      <div class="h-stat"><div class="h-stat-num">9+</div><div class="h-stat-lbl" data-i18n="stat_rel">Lanzamientos 2025</div></div>
+      <div class="h-stat"><div class="h-stat-num" data-metric="ig_followers">2.5K</div><div class="h-stat-lbl" data-i18n="stat_ig">Seguidores IG</div></div>
+      <div class="h-stat"><div class="h-stat-num" data-metric="tiktok_likes">47K</div><div class="h-stat-lbl" data-i18n="stat_tik">Likes TikTok</div></div>
+      <div class="h-stat"><div class="h-stat-num" data-metric="yt_views">144K</div><div class="h-stat-lbl" data-i18n="stat_yt">Vistas YouTube</div></div>
+      <div class="h-stat"><div class="h-stat-num" data-metric="spotify_releases">9+</div><div class="h-stat-lbl" data-i18n="stat_rel">Lanzamientos 2025</div></div>
     </div>
   </div>
   <div class="hero-scroll"><div class="hero-scroll-line"></div><span class="hero-scroll-txt">scroll</span></div>
@@ -730,10 +730,10 @@
       <!-- Últimos lanzamientos -->
       <div data-anim>
         <div class="section-eye" style="margin-bottom:10px">Últimos lanzamientos</div>
-        <h3 style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px">9 singles · Producción propia</h3>
+        <h3 style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:4px" data-metric="releases_heading">9 singles · Producción propia</h3>
         <p style="font-size:12px;color:var(--muted);margin-bottom:0">Desde FL Studio · 2025</p>
         <div class="rel-list">
-
+          <!-- AUTO-RELEASES:START -->
           <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" rel="noopener noreferrer" class="rel-item">
             <img class="rel-thumb" src="https://image-cdn-ak.spotifycdn.com/image/ab67616d00001e02625c59668d0c6298043d294a" alt="ESE FRONTEO">
             <div class="rel-inf"><div class="rel-inf-title">ESE FRONTEO <span class="rel-badge-new">Nuevo</span></div><div class="rel-inf-meta">Sencillo · 2025 · Último lanzamiento</div></div>
@@ -775,7 +775,7 @@
             <div class="rel-inf"><div class="rel-inf-title">Waterfalls (Schranz Rework)</div><div class="rel-inf-meta">Schranz · 2025 · 699 vistas YouTube · SoundCloud</div></div>
             <span class="rel-play-btn">▶</span>
           </a>
-
+          <!-- AUTO-RELEASES:END -->
         </div>
       </div>
 
@@ -801,7 +801,7 @@
           <div style="font-size:11px;font-weight:800;color:var(--accent2);letter-spacing:.5px;margin:-2px 0 6px">@Davizgarziamusic</div>
           <div class="yt-handle">Canciones originales · Remixes · Mashups</div>
           <div class="yt-stats">
-            <span class="yt-stat">🔥 144K en un vídeo</span>
+            <span class="yt-stat" data-metric="yt_views_fmt">🔥 144K en un vídeo</span>
             <span class="yt-stat">Singles propios</span>
           </div>
         </div>
