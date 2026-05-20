@@ -111,6 +111,18 @@ def youtube_views(yt_key):
     return int(items[0]["statistics"]["viewCount"])
 
 
+def youtube_channel_subs(yt_key, handle="Davizgarziamusic"):
+    url = (
+        f"https://www.googleapis.com/youtube/v3/channels"
+        f"?part=statistics&forHandle={handle}&key={yt_key}"
+    )
+    data = http_get(url)
+    items = data.get("items", [])
+    if not items:
+        return None
+    return int(items[0]["statistics"]["subscriberCount"])
+
+
 # ── HTML patching ─────────────────────────────────────────────────────────────
 
 def patch_data_metric(html, metric, value):
@@ -198,6 +210,17 @@ def main():
             if new_html != html:
                 html = new_html
                 changed = True
+
+        # suscriptores canal oficial
+        subs = youtube_channel_subs(yt_key)
+        if subs is not None:
+            print(f"YouTube suscriptores: {subs:,}")
+            subs_str = f"{subs} suscriptores"
+            new_html = patch_data_metric(html, "yt_subs", subs_str)
+            if new_html != html:
+                html = new_html
+                changed = True
+
     except Exception as e:
         print(f"⚠️  YouTube error: {e}")
 
