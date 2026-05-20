@@ -2,7 +2,9 @@
 """
 Actualización semanal automática de davizgarziamusic.com
 - Spotify: últimos lanzamientos + total de singles del artista
-- YouTube: vistas del vídeo 8MTWzI7FjH8 (Calor x Que Calor x Loco)
+- YouTube: vistas del vídeo 8MTWzI7FjH8 + suscriptores canal oficial
+- Instagram: seguidores scraping público
+- TikTok: likes scraping og:description público
 - HTML: actualiza data-metric y bloque AUTO-RELEASES
 
 Variables de entorno requeridas:
@@ -22,6 +24,9 @@ from datetime import datetime
 
 SPOTIFY_ARTIST_ID = "6kuKoUwoqmzqP0vXmkgOH1"
 YT_VIDEO_ID = "8MTWzI7FjH8"
+YT_CHANNEL_HANDLE = "Davizgarziamusic"
+IG_USERNAME = "davizgarzia.music"
+TIKTOK_USERNAME = "davizgarzia.music"
 HTML_FILE = "index.html"
 
 ARTIST_SPOTIFY_URL = "https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1"
@@ -121,6 +126,44 @@ def youtube_channel_subs(yt_key, handle="Davizgarziamusic"):
     if not items:
         return None
     return int(items[0]["statistics"]["subscriberCount"])
+
+
+# ── Instagram ─────────────────────────────────────────────────────────────────
+
+def instagram_followers(username):
+    url = f"https://www.instagram.com/{username}/"
+    req = urllib.request.Request(url, headers={
+        "User-Agent": "facebookexternalhit/1.1",
+        "Accept-Language": "es-ES,es;q=0.9",
+    })
+    with urllib.request.urlopen(req, timeout=15) as r:
+        html = r.read().decode("utf-8", errors="ignore")
+    m = re.search(r'([\d][,\d]+)\s*[Ff]ollower', html)
+    if not m:
+        return None
+    return int(m.group(1).replace(",", ""))
+
+
+# ── TikTok ────────────────────────────────────────────────────────────────────
+
+def tiktok_likes(username):
+    url = f"https://www.tiktok.com/@{username}"
+    req = urllib.request.Request(url, headers={
+        "User-Agent": "facebookexternalhit/1.1",
+        "Accept-Language": "es-ES,es;q=0.9",
+    })
+    with urllib.request.urlopen(req, timeout=15) as r:
+        html = r.read().decode("utf-8", errors="ignore")
+    # og:description: "@user N seguidores, N siguiendo, Xk me gusta: ..."
+    m = re.search(r'content="[^"]*?([\d]+\.?[\d]*[kKmM]?)\s*me gusta', html)
+    if not m:
+        return None
+    raw = m.group(1).lower()
+    if 'm' in raw:
+        return int(float(raw.replace('m', '')) * 1_000_000)
+    if 'k' in raw:
+        return int(float(raw.replace('k', '')) * 1_000)
+    return int(raw)
 
 
 # ── HTML patching ─────────────────────────────────────────────────────────────
@@ -223,6 +266,32 @@ def main():
 
     except Exception as e:
         print(f"⚠️  YouTube error: {e}")
+
+    # ── Instagram ──
+    try:
+        ig_followers = instagram_followers(IG_USERNAME)
+        if ig_followers is not None:
+            print(f"Instagram: {ig_followers:,} seguidores")
+            ig_fmt = fmt_number(ig_followers)
+            new_html = patch_data_metric(html, "ig_followers", ig_fmt)
+            if new_html != html:
+                html = new_html
+                changed = True
+    except Exception as e:
+        print(f"⚠️  Instagram error: {e}")
+
+    # ── TikTok ──
+    try:
+        tk_likes = tiktok_likes(TIKTOK_USERNAME)
+        if tk_likes is not None:
+            print(f"TikTok: {tk_likes:,} likes")
+            tk_fmt = fmt_number(tk_likes)
+            new_html = patch_data_metric(html, "tiktok_likes", tk_fmt)
+            if new_html != html:
+                html = new_html
+                changed = True
+    except Exception as e:
+        print(f"⚠️  TikTok error: {e}")
 
     if changed:
         with open(HTML_FILE, "w", encoding="utf-8") as f:
