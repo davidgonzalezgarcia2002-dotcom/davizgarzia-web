@@ -296,7 +296,17 @@ def main():
     if changed:
         with open(HTML_FILE, "w", encoding="utf-8") as f:
             f.write(html)
-        print(f"✅  {HTML_FILE} actualizado — {datetime.utcnow().strftime('%Y-%m-%d %H:%M UTC')}")
+        # Update sitemap lastmod
+        today = datetime.utcnow().strftime("%Y-%m-%d")
+        sitemap_file = "sitemap.xml"
+        if os.path.exists(sitemap_file):
+            with open(sitemap_file, encoding="utf-8") as f:
+                sm = f.read()
+            sm_new = re.sub(r'(<loc>https://www\.davizgarziamusic\.com/</loc>\s*<lastmod>)[^<]*(</lastmod>)', rf'\g<1>{today}\2', sm)
+            if sm_new != sm:
+                with open(sitemap_file, "w", encoding="utf-8") as f:
+                    f.write(sm_new)
+        print(f"✅  {HTML_FILE} + sitemap.xml actualizados — {today}")
     else:
         print("ℹ️  Sin cambios detectados")
 
