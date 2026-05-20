@@ -1,0 +1,47 @@
+name: Actualización semanal de métricas
+
+on:
+  schedule:
+    # Lunes a las 08:00 UTC (09:00 España invierno, 10:00 verano)
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Motivo de la ejecución manual"
+        required: false
+        default: "Manual"
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Actualizar métricas
+        env:
+          SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
+          SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
+          YT_API_KEY: ${{ secrets.YT_API_KEY }}
+        run: python scripts/update_metrics.py
+
+      - name: Commit y push si hay cambios
+        run: |
+          git config user.name "Daviz Garzia Bot"
+          git config user.email "davidgonzalezgarcia2002@gmail.com"
+          git add index.html
+          if git diff --cached --quiet; then
+            echo "Sin cambios, nada que commitear"
+          else
+            DATE=$(date -u '+%Y-%m-%d')
+            git commit -m "🤖 Auto-update ${DATE}: Spotify + YouTube métricas"
+            git push
+          fi
