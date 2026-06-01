@@ -159,7 +159,7 @@ function buildGalleryHTML(photos) {
 function htmlHistorialCard(show, i) {
   const dt = parseDate(show.date);
   if (!dt) return '';
-  const displayName = show.venue || show.name;
+  const displayName = show.name || show.venue;
   const initial = displayName.slice(0, 2).toUpperCase();
   const color = HIST_COLORS[i % HIST_COLORS.length];
   const dateStr = `${dt.day} ${dt.monFull} ${dt.yr}`;
@@ -180,7 +180,7 @@ function htmlHistorialCard(show, i) {
 
 function buildHistorialHTML(shows) {
   if (!shows.length) return '';
-  return shows.map((s, i) => htmlHistorialCard(s, i)).join('');
+  return shows.slice(0, 6).map((s, i) => htmlHistorialCard(s, i)).join('');
 }
 
 // ── MAIN ─────────────────────────────────────────────────────────────────────
