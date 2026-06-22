@@ -5,6 +5,10 @@ on:
     - cron: '0 8 * * 1'   # Cada lunes a las 8:00 UTC
   workflow_dispatch:        # También se puede lanzar manualmente
 
+concurrency:
+  group: update-web
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -16,7 +20,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Actualizar shows desde Notion
         env:
@@ -29,4 +33,5 @@ jobs:
           git config user.email "bot@davizgarziamusic.com"
           git add index.html
           git diff --staged --quiet || git commit -m "auto: actualizar próximas fechas desde Notion [$(date '+%Y-%m-%d')]"
+          git pull --rebase origin main
           git push
