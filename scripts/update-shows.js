@@ -41,8 +41,47 @@ function parseShow(page) {
     date:   props['Fecha']?.date?.start || '',
     venue:  props['Cliente']?.rich_text?.[0]?.plain_text || '',
     city:   props['Ciudad']?.rich_text?.[0]?.plain_text || '',
-    url:    props['URL Entradas']?.url || ''
+    url:    props['URL Entradas']?.url || '',
+    estado: props['Estado de Pago']?.select?.name || ''
   };
+}
+
+// ── SANEADO PARA LA WEB PÚBLICA ──────────────────────────────────────────────
+// Regla de oro: nunca notas internas, nombres de clientes ni eventos cancelados.
+
+const PRIVATE_KEYWORDS = /graduaci|cumple|boda|comuni[oó]n|privad|particular|jard[ií]n|despedida|aniversario/i;
+const CANCELLED_RE = /cancelad/i;
+
+// Fuera cualquier nota entre paréntesis o tras guiones dobles: "(Cancelado me debe otra)" etc.
+function cleanTitle(str) {
+  return (str || '')
+    .replace(/\([^)]*\)/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function isCancelled(show) {
+  return CANCELLED_RE.test(show.estado) || CANCELLED_RE.test(show.name);
+}
+
+// Nombre apto para publicar: eventos privados → "Evento privado"; resto limpio y capitalizado
+function publicName(show) {
+  if (PRIVATE_KEYWORDS.test(show.name) || PRIVATE_KEYWORDS.test(show.venue)) return 'Evento privado';
+  const cleaned = cleanTitle(show.name);
+  if (!cleaned) return 'Evento privado';
+  return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
+}
+
+// Ciudad limpia y con primera letra en mayúscula por palabra
+function publicCity(str) {
+  const cleaned = cleanTitle(str);
+  if (!cleaned) return '';
+  return cleaned.split(' ').map(w => w.length > 2 ? w.charAt(0).toUpperCase() + w.slice(1) : w).join(' ');
+}
+
+// Solo URLs http(s) reales; cualquier otro texto en el campo se descarta
+function validUrl(url) {
+  return /^https?:\/\//i.test(url || '') ? url : '';
 }
 
 function parseDate(dateStr) {
@@ -58,13 +97,15 @@ function esc(str) { return str.replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
 function htmlFeatured(show) {
   const dt = parseDate(show.date);
   if (!dt) return '';
-  const loc = [show.venue, show.city].filter(Boolean).join(' · ');
-  const btn = show.url ? `<a href="${show.url}" target="_blank" class="btn-orange">Entradas ↗</a>` : '';
+  // Solo ciudad en la ubicación pública — nunca el nombre del cliente
+  const loc = publicCity(show.city);
+  const url = validUrl(show.url);
+  const btn = url ? `<a href="${url}" target="_blank" class="btn-orange">Entradas ↗</a>` : '';
   return `
     <div class="upcoming-featured" data-anim="scale">
       <div class="upcoming-featured-date"><div class="uf-day">${dt.day}</div><div class="uf-month">${dt.mon} ${dt.yr}</div></div>
       <div class="upcoming-featured-info">
-        <div class="uf-event">${show.name}</div>
+        <div class="uf-event">${publicName(show)}</div>
         <div class="uf-desc">${loc || 'Cantabria'}</div>
         <div class="uf-tags">${loc ? `<span class="uf-tag">📍 ${loc}</span>` : ''}</div>
       </div>
@@ -75,13 +116,16 @@ function htmlFeatured(show) {
 function htmlCard(show, delay) {
   const dt = parseDate(show.date);
   if (!dt) return '';
-  const loc = [show.venue, show.city].filter(Boolean).join(', ');
-  const ticket = show.url ? `<a href="${show.url}" target="_blank" class="uc-ticket">🎟️ Entradas</a>` : '';
+  const loc = publicCity(show.city);
+  const url = validUrl(show.url);
+  const ticket = url
+    ? `<a href="${url}" target="_blank" class="uc-ticket">🎟️ Entradas</a>`
+    : `<span class="uc-ticket" style="opacity:0.5;pointer-events:none;">Próximamente</span>`;
   return `
       <div class="upcoming-card" data-anim data-delay="${delay}">
         <div class="uc-date"><div class="uc-day">${dt.day}</div><div class="uc-month">${dt.mon} ${dt.yr2}</div></div>
         <div class="uc-info">
-          <div class="uc-venue">${show.name}</div>
+          <div class="uc-venue">${publicName(show)}</div>
           <div class="uc-loc">${loc ? '📍 ' + loc : ''}</div>
         </div>
         ${ticket}
@@ -112,8 +156,8 @@ function buildCountdownEvents(shows) {
     const dt = parseDate(s.date);
     if (!dt) return null;
     const isoDate = new Date(s.date + 'T22:00:00').toISOString();
-    const loc = [s.venue, s.city].filter(Boolean).join(', ');
-    return `    {date:new Date('${isoDate}'),name:'${esc(s.name)}',venue:'📍 ${esc(loc)}',url:'${s.url}'}`;
+    const loc = publicCity(s.city);
+    return `    {date:new Date('${isoDate}'),name:'${esc(publicName(s))}',venue:'📍 ${esc(loc)}',url:'${validUrl(s.url)}'}`;
   }).filter(Boolean).join(',\n');
 }
 
@@ -159,10 +203,11 @@ function buildGalleryHTML(photos) {
 function htmlHistorialCard(show, i) {
   const dt = parseDate(show.date);
   if (!dt) return '';
-  const displayName = show.name || show.venue;
+  const displayName = publicName(show);
   const initial = displayName.slice(0, 2).toUpperCase();
   const color = HIST_COLORS[i % HIST_COLORS.length];
   const dateStr = `${dt.day} ${dt.monFull} ${dt.yr}`;
+  const city = publicCity(show.city);
   return `
       <div class="show-card" data-anim data-delay="${(i % 6) + 1}">
         <div class="show-card-top">
@@ -173,7 +218,7 @@ function htmlHistorialCard(show, i) {
           </div>
         </div>
         <div class="show-bottom">
-          ${show.city ? `<span class="show-loc-chip">📍 ${show.city}</span>` : ''}
+          ${city ? `<span class="show-loc-chip">📍 ${city}</span>` : ''}
         </div>
       </div>`;
 }
@@ -200,7 +245,7 @@ async function main() {
     ]},
     [{ property: 'Fecha', direction: 'ascending' }]
   );
-  const upcomingShows = upcomingPages.map(parseShow).filter(s => s.date);
+  const upcomingShows = upcomingPages.map(parseShow).filter(s => s.date && !isCancelled(s));
   console.log(`Found ${upcomingShows.length} upcoming show(s):`);
   upcomingShows.forEach(s => console.log(`  • ${s.date}  ${s.name}  |  ${s.venue}  |  ${s.city}`));
 
@@ -214,7 +259,7 @@ async function main() {
     ]},
     [{ property: 'Fecha', direction: 'descending' }]
   );
-  const histShows = histPages.map(parseShow).filter(s => s.date);
+  const histShows = histPages.map(parseShow).filter(s => s.date && !isCancelled(s));
   console.log(`Found ${histShows.length} past show(s) for historial:`);
   histShows.forEach(s => console.log(`  · ${s.date}  ${s.venue || s.name}  |  ${s.city}`));
 
