@@ -1,4 +1,4 @@
-// Automation: reads shows from Notion → updates index.html
+// Automation: reads shows from Notion → updates shows.html
 // Runs automatically every Monday via GitHub Actions
 // Notion database: Control de Ingresos David (306a485045d780c3ad62f6ac5a907da7)
 
@@ -10,15 +10,6 @@ const DB_ID = '306a485045d780c3ad62f6ac5a907da7';
 
 const MONTHS_SHORT = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 const MONTHS_FULL  = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-const HIST_COLORS  = [
-  'linear-gradient(135deg,#7c3aed,#4f46e5)',
-  'linear-gradient(135deg,#FF6B00,#FF9A00)',
-  'linear-gradient(135deg,#0284c7,#06b6d4)',
-  'linear-gradient(135deg,#059669,#10b981)',
-  'linear-gradient(135deg,#ca8a04,#fbbf24)',
-  'linear-gradient(135deg,#dc2626,#f97316)',
-];
-
 async function queryNotion(filter, sorts) {
   const resp = await fetch(`https://api.notion.com/v1/databases/${DB_ID}/query`, {
     method: 'POST',
@@ -92,44 +83,26 @@ function parseDate(dateStr) {
 
 function esc(str) { return str.replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
 
-// ── UPCOMING SHOWS ───────────────────────────────────────────────────────────
+// ── UPCOMING SHOWS — formato lista compacta (.slist-row) ─────────────────────
 
-function htmlFeatured(show) {
+function htmlSlistRow(show, delay) {
   const dt = parseDate(show.date);
   if (!dt) return '';
   // Solo ciudad en la ubicación pública — nunca el nombre del cliente
   const loc = publicCity(show.city);
   const url = validUrl(show.url);
-  const btn = url ? `<a href="${url}" target="_blank" class="btn-orange">Entradas ↗</a>` : '';
-  return `
-    <div class="upcoming-featured" data-anim="scale">
-      <div class="upcoming-featured-date"><div class="uf-day">${dt.day}</div><div class="uf-month">${dt.mon} ${dt.yr}</div></div>
-      <div class="upcoming-featured-info">
-        <div class="uf-event">${publicName(show)}</div>
-        <div class="uf-desc">${loc || 'Cantabria'}</div>
-        <div class="uf-tags">${loc ? `<span class="uf-tag">📍 ${loc}</span>` : ''}</div>
-      </div>
-      ${btn}
-    </div>`;
-}
-
-function htmlCard(show, delay) {
-  const dt = parseDate(show.date);
-  if (!dt) return '';
-  const loc = publicCity(show.city);
-  const url = validUrl(show.url);
   const ticket = url
-    ? `<a href="${url}" target="_blank" class="uc-ticket">🎟️ Entradas</a>`
-    : `<span class="uc-ticket" style="opacity:0.5;pointer-events:none;">Próximamente</span>`;
+    ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="slist-ticket">Entradas →</a>`
+    : `<span class="slist-ticket is-soon">Próximamente</span>`;
   return `
-      <div class="upcoming-card" data-anim data-delay="${delay}">
-        <div class="uc-date"><div class="uc-day">${dt.day}</div><div class="uc-month">${dt.mon} ${dt.yr2}</div></div>
-        <div class="uc-info">
-          <div class="uc-venue">${publicName(show)}</div>
-          <div class="uc-loc">${loc ? '📍 ' + loc : ''}</div>
-        </div>
-        ${ticket}
-      </div>`;
+    <div class="slist-row" data-anim data-delay="${delay}">
+      <div class="slist-date">${dt.day} ${dt.monFull} ${dt.yr}</div>
+      <div class="slist-info">
+        <div class="slist-name">${publicName(show)}</div>
+        <div class="slist-loc">${loc ? '📍 ' + loc : ''}</div>
+      </div>
+      ${ticket}
+    </div>`;
 }
 
 function buildShowsHTML(shows) {
@@ -137,17 +110,10 @@ function buildShowsHTML(shows) {
     return `
     <div style="text-align:center;padding:60px 0;color:var(--muted2);">
       <p style="font-size:16px;margin-bottom:18px;">Próximas fechas en camino...</p>
-      <a href="#booking" class="btn-orange">¿Quieres contratarme? →</a>
+      <a href="contacto.html" class="btn-orange">¿Quieres contratarme? →</a>
     </div>`;
   }
-  const [first, ...rest] = shows;
-  let html = htmlFeatured(first);
-  if (rest.length) {
-    html += `\n    <div class="upcoming-grid" style="margin-top:16px;">`;
-    rest.forEach((s, i) => { html += htmlCard(s, i + 1); });
-    html += `\n    </div>`;
-  }
-  return html;
+  return shows.map((s, i) => htmlSlistRow(s, i)).join('');
 }
 
 function buildCountdownEvents(shows) {
@@ -161,71 +127,33 @@ function buildCountdownEvents(shows) {
   }).filter(Boolean).join(',\n');
 }
 
-// ── GALERÍA ──────────────────────────────────────────────────────────────────
+// ── STRUCTURED DATA (JSON-LD) — solo shows con nombre público real ──────────
+// Los eventos anonimizados como "Evento privado" no aportan nada a un buscador
+// y no deben salir aquí (misma regla que en la web visible).
 
-function slugToLabel(slug) {
-  // Convierte "feria-de-abril" → "Feria de Abril", "roxel-labrador" → "Roxel Labrador"
-  const lower = ['de','del','la','las','los','el','en','con','y','a'];
-  return slug.split('-')
-    .map((w, i) => (i === 0 || !lower.includes(w)) ? w.charAt(0).toUpperCase() + w.slice(1) : w)
-    .join(' ');
-}
-
-function buildGalleryHTML(photos) {
-  const shuffled = [...photos].sort(() => Math.random() - 0.5);
-  const selected = shuffled.slice(0, Math.min(6, shuffled.length));
-  const altTemplates = [
-    v => `Daviz Garzia DJ pinchando en ${v}, Cantabria 2026`,
-    v => `Set de DJ Daviz Garzia en ${v}, actuacion en directo 2026`,
-    v => `Daviz Garzia DJ en directo en ${v}, Cantabria`,
-    v => `DJ Daviz Garzia actuando en ${v}, reggaeton tech house 2026`,
-    v => `Daviz Garzia en ${v}, DJ Cantabria en directo`,
-    v => `Actuacion DJ Daviz Garzia en ${v} 2026`,
-  ];
-  return selected.map((photoPath, i) => {
-    const base  = path.basename(photoPath, path.extname(photoPath));
-    const slug  = base.replace(/-\d+$/, '');
-    const venue = slugToLabel(slug);
-    const alt   = altTemplates[i % altTemplates.length](venue);
-    return `
-      <div class="gal-item" data-anim data-delay="${i + 1}">
-        <img src="${photoPath}" alt="${alt}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease">
-        <div class="gal-overlay">
-          <div><div class="gal-label">${venue}</div><div class="gal-sub">En directo · 2026</div></div>
-        </div>
-        <a href="https://www.instagram.com/davizgarzia.music/" target="_blank" class="gal-ig-link">📸 @davizgarzia.music</a>
-      </div>`;
-  }).join('');
-}
-
-// ── HISTORIAL ────────────────────────────────────────────────────────────────
-
-function htmlHistorialCard(show, i) {
-  const dt = parseDate(show.date);
-  if (!dt) return '';
-  const displayName = publicName(show);
-  const initial = displayName.slice(0, 2).toUpperCase();
-  const color = HIST_COLORS[i % HIST_COLORS.length];
-  const dateStr = `${dt.day} ${dt.monFull} ${dt.yr}`;
-  const city = publicCity(show.city);
-  return `
-      <div class="show-card" data-anim data-delay="${(i % 6) + 1}">
-        <div class="show-card-top">
-          <div class="show-logo-placeholder" style="background:${color}">${initial}</div>
-          <div>
-            <div class="show-venue-name">${displayName}</div>
-            <div class="show-date-badge">${dateStr}</div>
-          </div>
-        </div>
-        <div class="show-bottom">
-          ${city ? `<span class="show-loc-chip">📍 ${city}</span>` : ''}
-        </div>
-      </div>`;
-}
-
-function buildHistorialHTML(shows) {
-  if (!shows.length) return '';
-  return shows.slice(0, 6).map((s, i) => htmlHistorialCard(s, i)).join('');
+function buildEventsJsonLd(shows) {
+  const events = shows
+    .map(s => ({ show: s, name: publicName(s) }))
+    .filter(x => x.name !== 'Evento privado')
+    .map(({ show: s, name }) => {
+      const city = publicCity(s.city);
+      const url = validUrl(s.url);
+      const ev = {
+        '@type': 'MusicEvent',
+        name: `Daviz Garzia en ${name}`,
+        startDate: new Date(s.date + 'T20:00:00').toISOString(),
+        location: {
+          '@type': 'Place',
+          name: name,
+          address: { '@type': 'PostalAddress', addressLocality: city, addressCountry: 'ES' }
+        },
+        performer: { '@type': 'MusicGroup', name: 'Daviz Garzia' }
+      };
+      if (url) ev.url = url;
+      return ev;
+    });
+  const graph = { '@context': 'https://schema.org', '@graph': events };
+  return `<script type="application/ld+json">\n${JSON.stringify(graph, null, 2)}\n  </script>`;
 }
 
 // ── MAIN ─────────────────────────────────────────────────────────────────────
@@ -234,7 +162,6 @@ async function main() {
   if (!NOTION_TOKEN) throw new Error('NOTION_TOKEN is not set');
 
   const today = new Date().toISOString().split('T')[0];
-  const ninetyDaysAgo = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
   // --- Upcoming shows ---
   console.log('Querying upcoming shows...');
@@ -249,21 +176,7 @@ async function main() {
   console.log(`Found ${upcomingShows.length} upcoming show(s):`);
   upcomingShows.forEach(s => console.log(`  • ${s.date}  ${s.name}  |  ${s.venue}  |  ${s.city}`));
 
-  // --- Past shows (historial, last 90 days) ---
-  console.log('Querying historial...');
-  const histPages = await queryNotion(
-    { and: [
-      { property: 'Fecha', date: { before: today } },
-      { property: 'Fecha', date: { on_or_after: ninetyDaysAgo } },
-      { property: 'Categoría', multi_select: { contains: '🎧 DJ' } }
-    ]},
-    [{ property: 'Fecha', direction: 'descending' }]
-  );
-  const histShows = histPages.map(parseShow).filter(s => s.date && !isCancelled(s));
-  console.log(`Found ${histShows.length} past show(s) for historial:`);
-  histShows.forEach(s => console.log(`  · ${s.date}  ${s.venue || s.name}  |  ${s.city}`));
-
-  const htmlPath = path.join(__dirname, '..', 'index.html');
+  const htmlPath = path.join(__dirname, '..', 'shows.html');
   let html = fs.readFileSync(htmlPath, 'utf8');
 
   // --- Update upcoming shows section ---
@@ -273,7 +186,7 @@ async function main() {
     `<!-- AUTO-SHOWS:START -->${showsBlock}\n    <!-- AUTO-SHOWS:END -->`
   );
   if (newHtml1 === html) {
-    console.warn('WARNING: AUTO-SHOWS markers not found in index.html');
+    console.warn('WARNING: AUTO-SHOWS markers not found in shows.html');
   } else {
     html = newHtml1;
     console.log('Shows section updated.');
@@ -287,57 +200,28 @@ async function main() {
       `/* AUTO-COUNTDOWN:START */\n${cdwnBlock}\n/* AUTO-COUNTDOWN:END */`
     );
     if (newHtml2 === html) {
-      console.warn('WARNING: AUTO-COUNTDOWN markers not found in index.html');
+      console.warn('WARNING: AUTO-COUNTDOWN markers not found in shows.html');
     } else {
       html = newHtml2;
       console.log('Countdown section updated.');
     }
   }
 
-  // --- Update historial section (only if Notion has data) ---
-  if (histShows.length > 0) {
-    const histBlock = buildHistorialHTML(histShows);
-    const newHtml3 = html.replace(
-      /<!-- AUTO-HISTORIAL:START -->[\s\S]*?<!-- AUTO-HISTORIAL:END -->/,
-      `<!-- AUTO-HISTORIAL:START -->${histBlock}\n    <!-- AUTO-HISTORIAL:END -->`
-    );
-    if (newHtml3 === html) {
-      console.warn('WARNING: AUTO-HISTORIAL markers not found in index.html');
-    } else {
-      html = newHtml3;
-      console.log('Historial section updated.');
-    }
+  // --- Update structured data (JSON-LD) ---
+  const eventsBlock = buildEventsJsonLd(upcomingShows);
+  const newHtml3 = html.replace(
+    /<!-- AUTO-EVENTS:START -->[\s\S]*?<!-- AUTO-EVENTS:END -->/,
+    `<!-- AUTO-EVENTS:START -->\n  ${eventsBlock}\n  <!-- AUTO-EVENTS:END -->`
+  );
+  if (newHtml3 === html) {
+    console.warn('WARNING: AUTO-EVENTS markers not found in shows.html');
   } else {
-    console.log('No past DJ shows in last 90 days — keeping existing historial content.');
-  }
-
-  // --- Gallery photos (photos/live/) ---
-  const liveDir = path.join(__dirname, '..', 'photos', 'live');
-  let livePhotos = [];
-  if (fs.existsSync(liveDir)) {
-    livePhotos = fs.readdirSync(liveDir)
-      .filter(f => /\.(jpg|jpeg|png|webp)$/i.test(f))
-      .map(f => `photos/live/${f}`);
-  }
-  console.log(`Found ${livePhotos.length} photo(s) in photos/live/`);
-  if (livePhotos.length > 0) {
-    const galleryBlock = buildGalleryHTML(livePhotos);
-    const newHtml4 = html.replace(
-      /<!-- AUTO-GALLERY:START -->[\s\S]*?<!-- AUTO-GALLERY:END -->/,
-      `<!-- AUTO-GALLERY:START -->${galleryBlock}\n    <!-- AUTO-GALLERY:END -->`
-    );
-    if (newHtml4 === html) {
-      console.warn('WARNING: AUTO-GALLERY markers not found in index.html');
-    } else {
-      html = newHtml4;
-      console.log(`Gallery updated with ${Math.min(6, livePhotos.length)} random photos.`);
-    }
-  } else {
-    console.log('No live photos found — keeping existing gallery.');
+    html = newHtml3;
+    console.log('Events JSON-LD updated.');
   }
 
   fs.writeFileSync(htmlPath, html, 'utf8');
-  console.log('index.html saved successfully.');
+  console.log('shows.html saved successfully.');
 }
 
 main().catch(err => { console.error('ERROR:', err.message); process.exit(1); });

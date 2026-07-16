@@ -28,6 +28,7 @@ YT_CHANNEL_HANDLE = "Davizgarziamusic"
 IG_USERNAME = "davizgarzia.music"
 TIKTOK_USERNAME = "davizgarzia.music"
 HTML_FILE = "index.html"
+MUSICA_FILE = "musica.html"
 
 ARTIST_SPOTIFY_URL = "https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1"
 
@@ -193,10 +194,14 @@ def patch_releases_block(html, releases_html):
 # ── main ─────────────────────────────────────────────────────────────────────
 
 def main():
+    # index.html = home corta (stats del hero) · musica.html = discografía/YouTube
     with open(HTML_FILE, encoding="utf-8") as f:
         html = f.read()
+    with open(MUSICA_FILE, encoding="utf-8") as f:
+        musica_html = f.read()
 
     changed = False
+    musica_changed = False
 
     # ── Spotify ──
     try:
@@ -205,16 +210,21 @@ def main():
         total = len(albums)
         print(f"Spotify: {total} lanzamientos encontrados")
 
-        # stat hero
+        # stat hero (index.html)
         releases_str = f"{total}+" if total >= 9 else str(total)
         new_html = patch_data_metric(html, "spotify_releases", releases_str)
-        new_html = patch_data_metric(new_html, "releases_heading",
-                                     f"{total} singles · Producción propia")
         if new_html != html:
             html = new_html
             changed = True
 
-        # releases block (max 7 más recientes)
+        # encabezado de discografía (musica.html)
+        new_musica = patch_data_metric(musica_html, "releases_heading",
+                                        f"{total} singles · Producción propia")
+        if new_musica != musica_html:
+            musica_html = new_musica
+            musica_changed = True
+
+        # releases block (max 7 más recientes) — vive en musica.html
         top = albums[:7]
         lines = []
         for i, alb in enumerate(top):
@@ -227,10 +237,10 @@ def main():
                 )
             lines.append(item_html)
 
-        new_html = patch_releases_block(html, "".join(lines))
-        if new_html != html:
-            html = new_html
-            changed = True
+        new_musica = patch_releases_block(musica_html, "".join(lines))
+        if new_musica != musica_html:
+            musica_html = new_musica
+            musica_changed = True
 
     except Exception as e:
         print(f"⚠️  Spotify error: {e}")
@@ -242,27 +252,33 @@ def main():
         if views is not None:
             print(f"YouTube: {views:,} vistas")
             views_fmt = fmt_number(views)
+            # stat hero (index.html)
             new_html = patch_data_metric(html, "yt_views", views_fmt)
-            new_html = patch_data_metric(new_html, "yt_views_fmt", f"🔥 {views_fmt} en un vídeo")
-            # also patch inline text in video card
-            new_html = re.sub(
-                r'(Daviz Garzia &middot; 🔥 )\d+[\d.,]*[KM]? vistas',
-                rf'\g<1>{views_fmt} vistas',
-                new_html
-            )
             if new_html != html:
                 html = new_html
                 changed = True
 
-        # suscriptores canal oficial
+            # detalle en musica.html
+            new_musica = patch_data_metric(musica_html, "yt_views_fmt", f"🔥 {views_fmt} en un vídeo")
+            # also patch inline text in video card
+            new_musica = re.sub(
+                r'(Daviz Garzia &middot; 🔥 )\d+[\d.,]*[KM]? vistas',
+                rf'\g<1>{views_fmt} vistas',
+                new_musica
+            )
+            if new_musica != musica_html:
+                musica_html = new_musica
+                musica_changed = True
+
+        # suscriptores canal oficial (musica.html)
         subs = youtube_channel_subs(yt_key)
         if subs is not None:
             print(f"YouTube suscriptores: {subs:,}")
             subs_str = f"{subs} suscriptores"
-            new_html = patch_data_metric(html, "yt_subs", subs_str)
-            if new_html != html:
-                html = new_html
-                changed = True
+            new_musica = patch_data_metric(musica_html, "yt_subs", subs_str)
+            if new_musica != musica_html:
+                musica_html = new_musica
+                musica_changed = True
 
     except Exception as e:
         print(f"⚠️  YouTube error: {e}")
@@ -296,17 +312,24 @@ def main():
     if changed:
         with open(HTML_FILE, "w", encoding="utf-8") as f:
             f.write(html)
-        # Update sitemap lastmod
+    if musica_changed:
+        with open(MUSICA_FILE, "w", encoding="utf-8") as f:
+            f.write(musica_html)
+
+    if changed or musica_changed:
+        # Update sitemap lastmod for every page touched
         today = datetime.utcnow().strftime("%Y-%m-%d")
         sitemap_file = "sitemap.xml"
         if os.path.exists(sitemap_file):
             with open(sitemap_file, encoding="utf-8") as f:
                 sm = f.read()
             sm_new = re.sub(r'(<loc>https://www\.davizgarziamusic\.com/</loc>\s*<lastmod>)[^<]*(</lastmod>)', rf'\g<1>{today}\2', sm)
+            sm_new = re.sub(r'(<loc>https://www\.davizgarziamusic\.com/musica\.html</loc>\s*<lastmod>)[^<]*(</lastmod>)', rf'\g<1>{today}\2', sm_new)
             if sm_new != sm:
                 with open(sitemap_file, "w", encoding="utf-8") as f:
                     f.write(sm_new)
-        print(f"✅  {HTML_FILE} + sitemap.xml actualizados — {today}")
+        touched = ", ".join(f for f, c in [(HTML_FILE, changed), (MUSICA_FILE, musica_changed)] if c)
+        print(f"✅  {touched} + sitemap.xml actualizados — {today}")
     else:
         print("ℹ️  Sin cambios detectados")
 

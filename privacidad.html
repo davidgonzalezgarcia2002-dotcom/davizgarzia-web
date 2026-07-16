@@ -3,47 +3,67 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Política de Privacidad — Daviz Garzia</title>
+  <title>Política de Privacidad · Daviz Garzia</title>
   <meta name="robots" content="noindex, follow">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%23060606'/%3E%3Ctext x='50' y='68' font-family='Inter,Arial,sans-serif' font-size='42' font-weight='900' text-anchor='middle' fill='%23FF6B00'%3EDG%3C/text%3E%3C/svg%3E">
+  <meta name="theme-color" content="#FF6B00">
+  <link rel="icon" type="image/svg+xml" href="logos/gorra-blanco.svg">
+  <link rel="apple-touch-icon" href="logos/gorra-blanco.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@300;400;600;700;900&display=swap">
+  <link rel="stylesheet" href="styles.css">
   <style>
-    :root{--bg:#060606;--surface:#0d0d0d;--border:#1c1c1c;--accent:#FF6B00;--accent2:#FF9A00;--text:#F2F2F2;--muted:#888}
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    body{background:var(--bg);color:var(--text);font-family:'Inter','Segoe UI',system-ui,sans-serif;line-height:1.7}
-    nav{position:sticky;top:0;z-index:100;background:rgba(6,6,6,.95);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);padding:18px 40px;display:flex;align-items:center;justify-content:space-between}
-    nav img{height:34px;width:auto}
-    nav a.back{color:var(--muted);font-size:12px;text-decoration:none;font-weight:600;letter-spacing:.5px;transition:color .2s}
-    nav a.back:hover{color:var(--accent2)}
-    .wrap{max-width:760px;margin:0 auto;padding:64px 40px 100px}
-    h1{font-size:clamp(28px,5vw,44px);font-weight:900;letter-spacing:-1px;margin-bottom:8px;background:linear-gradient(120deg,#FF6B00,#FF9A00);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .date{font-size:12px;color:var(--muted);margin-bottom:48px;text-transform:uppercase;letter-spacing:1.5px}
-    h2{font-size:18px;font-weight:800;color:var(--text);margin-top:40px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
-    p{font-size:14px;color:#aaa;line-height:1.85;margin-bottom:14px}
-    p strong{color:var(--text)}
-    ul{margin:10px 0 14px 20px}
-    ul li{font-size:14px;color:#aaa;line-height:1.8;margin-bottom:4px}
-    a{color:var(--accent2);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .highlight{background:rgba(255,107,0,.07);border:1px solid rgba(255,107,0,.15);border-radius:12px;padding:16px 20px;margin:24px 0}
-    .highlight p{margin-bottom:0}
-    footer{border-top:1px solid var(--border);padding:32px 40px;text-align:center;color:var(--muted);font-size:11px}
-    @media(max-width:600px){nav{padding:14px 20px}.wrap{padding:40px 20px 80px}footer{padding:24px 20px}}
+    .legal-wrap{max-width:760px;margin:0 auto;padding:140px 24px 100px}
+    .legal-date{font-family:var(--cond);font-size:12px;color:var(--muted);margin-bottom:40px;text-transform:uppercase;letter-spacing:1.5px}
+    .legal-highlight{background:var(--surface2);border:1px solid var(--border);padding:20px 24px;margin-bottom:40px}
+    .legal-highlight p{margin-bottom:0}
+    .legal-wrap h2{font-family:var(--cond);text-transform:uppercase;font-size:18px;font-weight:700;letter-spacing:.5px;color:var(--text);margin-top:40px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+    .legal-wrap p{font-size:14px;color:var(--muted2);line-height:1.85;margin-bottom:14px}
+    .legal-wrap p strong{color:var(--text)}
+    .legal-wrap ul{margin:10px 0 14px 20px}
+    .legal-wrap ul li{font-size:14px;color:var(--muted2);line-height:1.8;margin-bottom:4px}
+    .legal-wrap a{color:var(--accent2);text-decoration:none}
+    .legal-wrap a:hover{text-decoration:underline}
   </style>
 </head>
 <body>
 
-<nav>
-  <a href="/"><img src="logo-blanco.svg" alt="Daviz Garzia"></a>
-  <a href="/" class="back">← Volver a la web</a>
+<!-- GRAIN TEXTURE -->
+<div class="grain"></div>
+
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress"></div>
+
+<!-- BACK TO TOP -->
+<button id="back-top" aria-label="Volver arriba">&#8679;</button>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">DAVIZ <span>GARZIA</span></a>
+  <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menú">&#9776;</button>
+  <ul class="nav-links" id="nav-menu">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="shows.html">Shows</a></li>
+    <li><a href="musica.html">Música</a></li>
+    <li><a href="thenorth.html">The North</a></li>
+    <li><a href="contacto.html" class="nav-cta">Contacto</a></li>
+  </ul>
+  <div class="nav-socials">
+    <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" rel="noopener noreferrer">Spotify</a>
+    <a href="https://www.youtube.com/@Davizgarziamusic" target="_blank" rel="noopener noreferrer">YouTube</a>
+    <a href="https://www.instagram.com/davizgarzia.music/" target="_blank" rel="noopener noreferrer">Instagram</a>
+  </div>
+  <div class="lang-sw" id="lang-sw">
+    <button class="lang-btn active" data-lang="es" title="Español">ES</button>
+    <button class="lang-btn" data-lang="en" title="English">EN</button>
+    <button class="lang-btn" data-lang="fr" title="Français">FR</button>
+  </div>
 </nav>
 
-<div class="wrap">
-  <h1>Política de Privacidad</h1>
-  <div class="date">Última actualización: Mayo 2026</div>
+<div class="legal-wrap">
+  <h1 class="section-h" style="font-size:clamp(28px,5vw,44px)">Política de Privacidad</h1>
+  <div class="legal-date">Última actualización: Mayo 2026</div>
 
-  <div class="highlight">
+  <div class="legal-highlight">
     <p>Esta política explica cómo <strong>Daviz Garzia</strong> (David González García) trata los datos personales que recopila a través de <strong>www.davizgarziamusic.com</strong>, en cumplimiento del Reglamento General de Protección de Datos (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD).</p>
   </div>
 
@@ -101,7 +121,19 @@
   <p>Podemos actualizar esta política en cualquier momento. La fecha de última actualización siempre estará visible en la parte superior. Te recomendamos revisarla periódicamente.</p>
 </div>
 
-<footer>© 2026 Daviz Garzia · <a href="/">Volver a la web</a></footer>
+<footer>
+  <div class="foot-row">
+    <div class="foot-logo"><a href="index.html">DAVIZ <span>GARZIA</span></a></div>
+    <div class="foot-links">
+      <a href="mailto:hola@davizgarziamusic.com">hola@davizgarziamusic.com</a>
+      <a href="https://linktr.ee/davizgarzia.music" target="_blank">Linktree</a>
+      <a href="contacto.html">Booking</a>
+      <a href="privacidad.html">Política de Privacidad</a>
+    </div>
+    <div class="foot-copy">© 2026 Daviz Garzia · Todos los derechos reservados</div>
+  </div>
+</footer>
 
+<script src="app.js" defer></script>
 </body>
 </html>
