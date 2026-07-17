@@ -16,6 +16,24 @@
   if(cb&&localStorage.getItem('cookies_ok'))cb.classList.add('hidden');
 })();
 
+// ── GOOGLE ANALYTICS (solo se carga tras aceptar cookies, no antes) ──────────
+(function(){
+  if(typeof gtag!=='function')return; // la página no incluye el stub de GA (ej. privacidad.html)
+  var GA_ID='G-BJWT1W9HER';
+  function loadGA(){
+    if(window.gaLoaded)return;
+    window.gaLoaded=true;
+    var s=document.createElement('script');
+    s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;
+    document.head.appendChild(s);
+    gtag('config',GA_ID,{anonymize_ip:true});
+  }
+  if(localStorage.getItem('cookies_ok'))loadGA();
+  var acceptBtn=document.querySelector('#cookie-banner .cookie-btn');
+  if(acceptBtn)acceptBtn.addEventListener('click',loadGA);
+})();
+
 // ── MENÚ MÓVIL (hamburguesa) ─────────────────────────────────────────────────
 (function(){
   var toggle=document.getElementById('nav-toggle'),menu=document.getElementById('nav-menu');
@@ -267,4 +285,26 @@
   vm.addEventListener('click',function(){
     this.innerHTML='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/8MTWzI7FjH8?autoplay=1&rel=0" allow="autoplay;encrypted-media;picture-in-picture" allowfullscreen style="border:none;display:block;border-radius:0"></iframe>';
   });
+})();
+
+// ── SPOTIFY EMBED (solo si existe — carga el iframe al hacer clic, no antes) ─
+(function(){
+  var el=document.getElementById('spotify-embed');
+  if(!el)return;
+  function load(){
+    el.outerHTML='<iframe src="https://open.spotify.com/embed/artist/6kuKoUwoqmzqP0vXmkgOH1?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" title="Daviz Garzia en Spotify — Discografía completa" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" style="border:none;display:block"></iframe>';
+  }
+  el.addEventListener('click',load);
+  el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();load();}});
+})();
+
+// ── SOUNDCLOUD EMBED (solo si existe — carga el iframe al hacer clic, no antes) ─
+(function(){
+  var el=document.getElementById('soundcloud-embed');
+  if(!el)return;
+  function load(){
+    el.outerHTML='<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/the-north-record-label/reggaeton-mashup-pack-2026-the&color=%23FF6B00&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true" title="Reggaeton Mashup Pack 2026 Vol.02 — The North Record Label" style="display:block"></iframe>';
+  }
+  el.addEventListener('click',load);
+  el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();load();}});
 })();
