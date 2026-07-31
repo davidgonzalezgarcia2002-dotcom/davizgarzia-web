@@ -43,6 +43,14 @@ function parseShow(page) {
 const PRIVATE_KEYWORDS = /graduaci|cumple|boda|comuni[oó]n|privad|particular|jard[ií]n|despedida|aniversario/i;
 const CANCELLED_RE = /cancelad/i;
 
+// Nombres reales de venues que coinciden con PRIVATE_KEYWORDS por casualidad
+// (ej. "El Jardin" es un local real, no una fiesta casera en un jardín).
+const PUBLIC_NAME_ALLOWLIST = [/^el jard[ií]n$/i];
+
+function isAllowlisted(show) {
+  return PUBLIC_NAME_ALLOWLIST.some(re => re.test((show.name || '').trim()) || re.test((show.venue || '').trim()));
+}
+
 // Fuera cualquier nota entre paréntesis o tras guiones dobles: "(Cancelado me debe otra)" etc.
 function cleanTitle(str) {
   return (str || '')
@@ -57,7 +65,7 @@ function isCancelled(show) {
 
 // Nombre apto para publicar: eventos privados → "Evento privado"; resto limpio y capitalizado
 function publicName(show) {
-  if (PRIVATE_KEYWORDS.test(show.name) || PRIVATE_KEYWORDS.test(show.venue)) return 'Evento privado';
+  if (!isAllowlisted(show) && (PRIVATE_KEYWORDS.test(show.name) || PRIVATE_KEYWORDS.test(show.venue))) return 'Evento privado';
   const cleaned = cleanTitle(show.name);
   if (!cleaned) return 'Evento privado';
   return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
