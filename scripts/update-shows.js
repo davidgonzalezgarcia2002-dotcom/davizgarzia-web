@@ -103,8 +103,8 @@ function htmlSlistRow(show, delay) {
     ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="slist-ticket">Entradas →</a>`
     : `<span class="slist-ticket is-soon">Próximamente</span>`;
   return `
-    <div class="slist-row" data-anim data-delay="${delay}">
-      <div class="slist-date">${dt.day} ${dt.monFull} ${dt.yr}</div>
+    <div class="slist-row" data-anim data-delay="${delay}" data-date="${show.date}">
+      <div class="slist-date">${dt.day} ${dt.monFull} ${dt.yr}<span class="slist-countdown"></span></div>
       <div class="slist-info">
         <div class="slist-name">${publicName(show)}</div>
         <div class="slist-loc">${loc ? '📍 ' + loc : ''}</div>

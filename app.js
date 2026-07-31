@@ -241,6 +241,30 @@
   tick();setInterval(tick,1000);
 })();
 
+// ── CUENTA ATRÁS PEQUEÑA EN CADA FILA DE LA LISTA ─────────────────────────────
+(function(){
+  var rows=document.querySelectorAll('.slist-row[data-date]');
+  if(!rows.length)return;
+  function daysUntil(dateStr){
+    var target=new Date(dateStr+'T00:00:00');
+    var today=new Date();
+    today.setHours(0,0,0,0);
+    target.setHours(0,0,0,0);
+    return Math.round((target-today)/86400000);
+  }
+  function fmt(days){
+    if(days<0)return'';
+    if(days===0)return'Hoy';
+    if(days===1)return'Mañana';
+    return'En '+days+' días';
+  }
+  rows.forEach(function(row){
+    var el=row.querySelector('.slist-countdown');
+    if(!el)return;
+    el.textContent=fmt(daysUntil(row.getAttribute('data-date')));
+  });
+})();
+
 // ── FLOATING SHOW PILL (solo si existe) ──────────────────────────────────────
 (function(){
   var events=window.davizShows||[];
