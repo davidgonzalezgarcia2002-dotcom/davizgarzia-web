@@ -2,7 +2,7 @@ name: Actualizar Shows desde Notion
 
 on:
   schedule:
-    - cron: '0 8 * * 1'   # Cada lunes a las 8:00 UTC
+    - cron: '0 6 * * *'   # Cada día a las 6:00 UTC, para quitar shows pasados a diario
   workflow_dispatch:        # También se puede lanzar manualmente
 
 concurrency:
