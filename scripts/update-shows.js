@@ -254,9 +254,33 @@ async function main() {
     if (newIndex === indexHtml) {
       console.warn('WARNING: AUTO-COUNTDOWN markers not found in index.html');
     } else {
-      fs.writeFileSync(indexPath, newIndex, 'utf8');
+      indexHtml = newIndex;
       console.log('index.html: countdown section updated.');
     }
+
+    // --- Fila "Próximo" del bloque "Ahora" (hero, bajo el botón Contratar) ---
+    // Era texto escrito a mano ("Bahía Sun Festival · 19 Jul") que nunca se
+    // tocaba -- se quedó fechado semanas después de que ese show pasara.
+    // Detectado por David 20 ago 2026. Las filas "Nuevo" y "Sello" de este
+    // mismo bloque las actualiza update_metrics.py, esta solo toca "Próximo".
+    if (upcomingShows.length) {
+      const first = upcomingShows[0];
+      const dt = parseDate(first.date);
+      if (dt) {
+        const htmlEsc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const label = htmlEsc(`${publicName(first)} · ${dt.day} ${dt.mon}`);
+        const heroRe = /(<a class="hero-now-row" href="shows\.html#proximas"><span class="hn-tag">Próximo<\/span><span class="hn-title">)[^<]*(<\/span>)/;
+        const newHero = indexHtml.replace(heroRe, (m, pre, post) => pre + label + post);
+        if (newHero === indexHtml) {
+          console.warn('WARNING: fila "Próximo" del bloque hero-now no encontrada en index.html');
+        } else {
+          indexHtml = newHero;
+          console.log(`index.html: fila "Próximo" actualizada -> ${label}`);
+        }
+      }
+    }
+
+    fs.writeFileSync(indexPath, indexHtml, 'utf8');
   }
 }
 
