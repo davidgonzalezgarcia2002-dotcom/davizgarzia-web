@@ -169,6 +169,23 @@ def tiktok_likes(username):
 
 # ── HTML patching ─────────────────────────────────────────────────────────────
 
+def patch_hero_now_nuevo(html, release_name):
+    """Fila 'Nuevo' del bloque 'Ahora' en index.html (bajo el botón Contratar).
+    Estaba escrita a mano ('Baila Salvaje · Out Now') y nunca se tocaba desde
+    aquí -- funcionaba de casualidad porque no habia salido single nuevo desde
+    que se escribió. Detectado por David 20 ago 2026."""
+    pattern = (
+        r'(<a class="hero-now-row" href="musica\.html#musica">'
+        r'<span class="hn-tag">Nuevo</span><span class="hn-title">)[^<]*(</span>)'
+    )
+    escaped = release_name.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;')
+
+    def replacer(m):
+        return f"{m.group(1)}{escaped} · Out Now{m.group(2)}"
+
+    return re.sub(pattern, replacer, html)
+
+
 def patch_data_metric(html, metric, value):
     """Replace content of <... data-metric="X">...</...>"""
     def replacer(m):
@@ -223,6 +240,13 @@ def main():
         if new_musica != musica_html:
             musica_html = new_musica
             musica_changed = True
+
+        # fila "Nuevo" del bloque "Ahora" en index.html
+        if albums:
+            new_html = patch_hero_now_nuevo(html, albums[0]["name"])
+            if new_html != html:
+                html = new_html
+                changed = True
 
         # releases block (max 7 más recientes) — vive en musica.html
         top = albums[:7]
