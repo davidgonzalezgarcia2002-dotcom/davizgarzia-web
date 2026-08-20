@@ -187,52 +187,71 @@ async function main() {
   console.log(`Found ${upcomingShows.length} upcoming show(s):`);
   upcomingShows.forEach(s => console.log(`  • ${s.date}  ${s.name}  |  ${s.venue}  |  ${s.city}`));
 
-  const htmlPath = path.join(__dirname, '..', 'shows.html');
-  let html = fs.readFileSync(htmlPath, 'utf8');
-
-  // --- Update upcoming shows section ---
   const showsBlock = buildShowsHTML(upcomingShows);
-  const newHtml1 = html.replace(
+  const cdwnBlock = buildCountdownEvents(upcomingShows);
+  const eventsBlock = buildEventsJsonLd(upcomingShows);
+
+  // --- shows.html: lista completa (AUTO-SHOWS + AUTO-COUNTDOWN + AUTO-EVENTS) ---
+  const showsPath = path.join(__dirname, '..', 'shows.html');
+  let showsHtml = fs.readFileSync(showsPath, 'utf8');
+
+  const newShows1 = showsHtml.replace(
     /<!-- AUTO-SHOWS:START -->[\s\S]*?<!-- AUTO-SHOWS:END -->/,
     `<!-- AUTO-SHOWS:START -->${showsBlock}\n    <!-- AUTO-SHOWS:END -->`
   );
-  if (newHtml1 === html) {
+  if (newShows1 === showsHtml) {
     console.warn('WARNING: AUTO-SHOWS markers not found in shows.html');
   } else {
-    html = newHtml1;
-    console.log('Shows section updated.');
+    showsHtml = newShows1;
+    console.log('shows.html: shows section updated.');
   }
 
-  // --- Update countdown events array ---
-  const cdwnBlock = buildCountdownEvents(upcomingShows);
   if (cdwnBlock) {
-    const newHtml2 = html.replace(
+    const newShows2 = showsHtml.replace(
       /\/\* AUTO-COUNTDOWN:START \*\/[\s\S]*?\/\* AUTO-COUNTDOWN:END \*\//,
       `/* AUTO-COUNTDOWN:START */\n${cdwnBlock}\n/* AUTO-COUNTDOWN:END */`
     );
-    if (newHtml2 === html) {
+    if (newShows2 === showsHtml) {
       console.warn('WARNING: AUTO-COUNTDOWN markers not found in shows.html');
     } else {
-      html = newHtml2;
-      console.log('Countdown section updated.');
+      showsHtml = newShows2;
+      console.log('shows.html: countdown section updated.');
     }
   }
 
-  // --- Update structured data (JSON-LD) ---
-  const eventsBlock = buildEventsJsonLd(upcomingShows);
-  const newHtml3 = html.replace(
+  const newShows3 = showsHtml.replace(
     /<!-- AUTO-EVENTS:START -->[\s\S]*?<!-- AUTO-EVENTS:END -->/,
     `<!-- AUTO-EVENTS:START -->\n  ${eventsBlock}\n  <!-- AUTO-EVENTS:END -->`
   );
-  if (newHtml3 === html) {
+  if (newShows3 === showsHtml) {
     console.warn('WARNING: AUTO-EVENTS markers not found in shows.html');
   } else {
-    html = newHtml3;
-    console.log('Events JSON-LD updated.');
+    showsHtml = newShows3;
+    console.log('shows.html: events JSON-LD updated.');
   }
 
-  fs.writeFileSync(htmlPath, html, 'utf8');
+  fs.writeFileSync(showsPath, showsHtml, 'utf8');
   console.log('shows.html saved successfully.');
+
+  // --- index.html: solo el countdown de la portada (AUTO-COUNTDOWN) ---
+  // Antes index.html tenía su propio bloque AUTO-COUNTDOWN que nunca se
+  // tocaba desde aquí -- se quedaba con fechas de semanas atrás (ej. un
+  // "Evento especial · Próximamente" del 22 ago que ya no existía).
+  // Detectado y arreglado 20 ago 2026.
+  const indexPath = path.join(__dirname, '..', 'index.html');
+  if (fs.existsSync(indexPath) && cdwnBlock) {
+    let indexHtml = fs.readFileSync(indexPath, 'utf8');
+    const newIndex = indexHtml.replace(
+      /\/\* AUTO-COUNTDOWN:START \*\/[\s\S]*?\/\* AUTO-COUNTDOWN:END \*\//,
+      `/* AUTO-COUNTDOWN:START */\n${cdwnBlock}\n/* AUTO-COUNTDOWN:END */`
+    );
+    if (newIndex === indexHtml) {
+      console.warn('WARNING: AUTO-COUNTDOWN markers not found in index.html');
+    } else {
+      fs.writeFileSync(indexPath, newIndex, 'utf8');
+      console.log('index.html: countdown section updated.');
+    }
+  }
 }
 
 main().catch(err => { console.error('ERROR:', err.message); process.exit(1); });
