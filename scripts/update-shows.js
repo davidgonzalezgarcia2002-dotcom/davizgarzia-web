@@ -68,9 +68,15 @@ function isCancelled(show) {
 
 // Nombre apto para publicar: eventos privados → "Evento privado"; resto limpio y capitalizado
 function publicName(show) {
-  if (!isAllowlisted(show) && (PRIVATE_KEYWORDS.test(show.name) || PRIVATE_KEYWORDS.test(show.venue))) return 'Evento privado';
+  // El chequeo de privacidad va SIEMPRE sobre el nombre ya limpio (sin las
+  // notas entre paréntesis), nunca sobre el crudo. Si no, una nota interna
+  // tipo "Sala Kaya (30 Aniversario, con DJ Nano)" dispara "Evento privado"
+  // por la palabra "Aniversario" dentro del paréntesis, aunque el nombre real
+  // del venue (Sala Kaya) sea completamente público. Detectado 20 ago 2026.
   const cleaned = cleanTitle(show.name);
+  const cleanedVenue = cleanTitle(show.venue);
   if (!cleaned) return 'Evento privado';
+  if (!isAllowlisted(show) && (PRIVATE_KEYWORDS.test(cleaned) || PRIVATE_KEYWORDS.test(cleanedVenue))) return 'Evento privado';
   return cleaned.charAt(0).toUpperCase() + cleaned.slice(1);
 }
 
