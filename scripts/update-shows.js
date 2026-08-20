@@ -45,7 +45,10 @@ const CANCELLED_RE = /cancelad/i;
 
 // Nombres reales de venues que coinciden con PRIVATE_KEYWORDS por casualidad
 // (ej. "El Jardin" es un local real, no una fiesta casera en un jardín).
-const PUBLIC_NAME_ALLOWLIST = [/^el jard[ií]n$/i];
+// "Solo Se Cumple Una Vez" contiene "cumple" y disparaba el filtro de privacidad
+// (pensado para bolos privados tipo cumpleaños), pero es justo lo contrario: el
+// evento propio de David, público y promocionado. Añadido 20 ago 2026.
+const PUBLIC_NAME_ALLOWLIST = [/^el jard[ií]n$/i, /^solo se cumple una vez$/i];
 
 function isAllowlisted(show) {
   return PUBLIC_NAME_ALLOWLIST.some(re => re.test((show.name || '').trim()) || re.test((show.venue || '').trim()));
