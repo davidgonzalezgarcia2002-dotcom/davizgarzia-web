@@ -13,6 +13,7 @@ Variables de entorno requeridas:
   YT_API_KEY
 """
 
+import sys
 import os
 import re
 import json
@@ -21,6 +22,11 @@ import urllib.request
 import urllib.parse
 import urllib.error
 from datetime import datetime
+
+if sys.stdout.encoding != 'utf-8':
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 SPOTIFY_ARTIST_ID = "6kuKoUwoqmzqP0vXmkgOH1"
 YT_VIDEO_ID = "8MTWzI7FjH8"
