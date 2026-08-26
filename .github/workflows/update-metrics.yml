@@ -43,5 +43,6 @@ jobs:
           else
             DATE=$(date -u '+%Y-%m-%d')
             git commit -m "🤖 Auto-update ${DATE}: Spotify + YouTube métricas"
+            git pull --rebase origin main
             git push
           fi
