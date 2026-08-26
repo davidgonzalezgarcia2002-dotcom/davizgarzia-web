@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write
 
     steps:
       - uses: actions/checkout@v4
@@ -35,3 +36,16 @@ jobs:
           git diff --staged --quiet || git commit -m "auto: actualizar próximas fechas desde Notion [$(date '+%Y-%m-%d')]"
           git pull --rebase origin main
           git push
+
+      - name: Avisar con un Issue si algo falló
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Fallo en workflow "Actualizar Shows desde Notion" — ${new Date().toISOString().slice(0, 10)}`,
+              body: `El job **${context.job}** ha fallado en la ejecución [#${context.runNumber}](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}).\n\nRevisa el log del run para ver el error concreto.`,
+              labels: ["bug", "automatizacion"]
+            })
