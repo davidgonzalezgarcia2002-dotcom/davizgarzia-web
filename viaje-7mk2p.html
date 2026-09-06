@@ -6,6 +6,9 @@
 <title>Manchester 2026</title>
 <meta name="description" content="Guía privada del viaje a Manchester: techno, comida, copas, turismo, mapa en vivo y cómo moverte, con checklist y notas que se guardan solas.">
 <meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#060606" id="themeColorMeta">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
@@ -32,6 +35,21 @@
     --maxw:640px;
     color-scheme:dark;
   }
+  :root[data-theme="light"]{
+    --bg:#f5f2ea;
+    --surface:#ffffff;
+    --surface-2:#ece7db;
+    --border:#ddd6c4;
+    --ink:#161310;
+    --ink-muted:#6e6858;
+    --accent:#ff6b00;
+    --accent-ink:#0a0a0a;
+    --done:#1f9e52;
+    --done-bg:rgba(31,158,82,.12);
+    --free:#1f9e52;
+    --paid:#93650a;
+    color-scheme:light;
+  }
   *{box-sizing:border-box;}
   body{
     margin:0;
@@ -40,6 +58,17 @@
     font-family:'Barlow',system-ui,sans-serif;
     -webkit-font-smoothing:antialiased;
     padding-bottom:64px;
+    position:relative;
+  }
+  body::after{
+    content:'';
+    position:fixed; inset:0;
+    pointer-events:none;
+    z-index:999;
+    opacity:.05;
+    mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
   }
   h1,h2,.eyebrow,.chip,.count-badge{font-family:'Barlow Condensed',system-ui,sans-serif;}
   a{color:inherit;}
@@ -56,6 +85,7 @@
   .fechas{color:var(--ink-muted);font-size:13.5px;margin-top:2px;}
   .progreso{font-family:'Barlow Condensed',system-ui,sans-serif;font-size:15px;font-weight:700;color:var(--accent);white-space:nowrap;}
   .progreso span{color:var(--ink-muted);font-weight:600;}
+  #themeBtn{width:36px;height:36px;border:1px solid var(--border);background:var(--surface);font-size:17px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;flex:0 0 auto;}
   .barra{height:3px;background:var(--surface-2);margin-top:12px;overflow:hidden;}
   .barra > i{display:block;height:100%;background:var(--accent);width:0%;transition:width .3s ease;}
 
@@ -138,6 +168,9 @@
   footer{max-width:var(--maxw);margin:36px auto 0;padding:16px 18px 0;border-top:1px solid var(--border);color:var(--ink-muted);font-size:12px;line-height:1.6;}
   #syncTag{position:fixed;bottom:calc(10px + env(safe-area-inset-bottom));right:calc(10px + env(safe-area-inset-right));font-size:10.5px;color:var(--ink-muted);background:var(--surface);border:1px solid var(--border);padding:4px 8px;letter-spacing:.3px;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase;}
   #syncTag b{color:var(--accent);}
+  #topBtn{position:fixed;left:calc(10px + env(safe-area-inset-left));bottom:calc(10px + env(safe-area-inset-bottom));z-index:30;display:none;align-items:center;gap:6px;padding:10px 14px;border:1px solid var(--accent);background:var(--bg);color:var(--accent);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.3px;text-transform:uppercase;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.4);}
+  #topBtn.show{display:flex;}
+  #topBtn:active{background:var(--accent);color:var(--accent-ink);}
 </style>
 </head>
 <body>
@@ -148,7 +181,10 @@
       <h1>Manchester</h1>
       <div class="fechas">7&ndash;9 sept 2026 &middot; guía privada del viaje</div>
     </div>
-    <div class="progreso" id="progresoTxt">0<span>/30</span></div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <button type="button" id="themeBtn" aria-label="Cambiar a modo día">☀️</button>
+      <div class="progreso" id="progresoTxt">0<span>/30</span></div>
+    </div>
   </div>
   <div class="barra"><i id="barraFill"></i></div>
   <nav class="chips" id="chips"></nav>
@@ -162,6 +198,7 @@
 </footer>
 
 <div id="syncTag">&#9679; <span id="syncTxt">cargando</span></div>
+<button type="button" id="topBtn" aria-label="Subir arriba, al menú">&#8593; <span>Menú</span></button>
 
 <script>
 (function(){
@@ -239,15 +276,38 @@
   }
   function mapsUrl(addr){ return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(addr); }
 
+  var EXTRA_SECTIONS = [
+    {id:'plan',  label:'Plan por día', icon:'🗓️'},
+    {id:'mapa',  label:'Mapa',         icon:'🗺️'}
+  ];
+  var EXTRA_SECTIONS_END = [
+    {id:'mover', label:'Cómo moverte', icon:'🚕'},
+    {id:'info',  label:'Info útil',    icon:'ℹ️'}
+  ];
+
   function buildChips(){
     var nav = document.getElementById('chips');
     nav.innerHTML = '';
+    EXTRA_SECTIONS.forEach(function(s){
+      var a = document.createElement('a');
+      a.href = '#sec-' + s.id;
+      a.className = 'chip';
+      a.innerHTML = s.icon + ' <b>' + s.label + '</b>';
+      nav.appendChild(a);
+    });
     CATS.forEach(function(c){
       var a = document.createElement('a');
       a.href = '#sec-' + c.id;
       a.className = 'chip';
       a.id = 'chip-' + c.id;
       a.innerHTML = c.icon + ' <b>' + c.label + '</b> <span class="n" id="n-' + c.id + '"></span>';
+      nav.appendChild(a);
+    });
+    EXTRA_SECTIONS_END.forEach(function(s){
+      var a = document.createElement('a');
+      a.href = '#sec-' + s.id;
+      a.className = 'chip';
+      a.innerHTML = s.icon + ' <b>' + s.label + '</b>';
       nav.appendChild(a);
     });
   }
@@ -629,6 +689,10 @@
     var c = CATS.filter(function(x){ return x.id === cat; })[0];
     return c ? c.color : '#999';
   }
+  function categoryIcon(cat){
+    var c = CATS.filter(function(x){ return x.id === cat; })[0];
+    return c ? c.icon : '📍';
+  }
   function pinIcon(color, label, size){
     size = size || 26;
     return L.divIcon({
@@ -675,7 +739,7 @@
       return;
     }
     var mainPoints = ITEMS.map(function(it){
-      return { lat: it.lat, lon: it.lon, icon: pinIcon(categoryColor(it.cat)), popup: popupHtml(it) };
+      return { lat: it.lat, lon: it.lon, icon: pinIcon(categoryColor(it.cat), categoryIcon(it.cat), 28), popup: popupHtml(it) };
     });
     mainPoints.push({
       lat: HOTEL.lat, lon: HOTEL.lon,
@@ -695,7 +759,10 @@
         var icon = L.divIcon({className:'', html:'<div class="pin-live" style="width:16px;height:16px;"></div>', iconSize:[16,16], iconAnchor:[8,8]});
         if(!liveMarker){ liveMarker = L.marker(e.latlng, {icon:icon, zIndexOffset:1000}).addTo(mainLeafletMap); }
         else { liveMarker.setLatLng(e.latlng); }
-        if(status) status.textContent = 'Ubicación en vivo activa.';
+        var lejos = e.latlng.distanceTo(L.latLng(HOTEL.lat, HOTEL.lon)) > 50000;
+        if(status) status.textContent = lejos
+          ? 'Ubicación detectada muy lejos de Manchester (¿pruebas desde fuera?). El punto se ve igual, se colocará bien una vez estés allí.'
+          : 'Ubicación en vivo activa.';
       });
       mainLeafletMap.on('locationerror', function(e){
         var status = document.getElementById('geoStatus');
@@ -721,6 +788,40 @@
   marcarSync('cargando');
   iniciarSync();
   initMaps();
+
+  var topBtn = document.getElementById('topBtn');
+  window.addEventListener('scroll', function(){
+    topBtn.classList.toggle('show', window.scrollY > 500);
+  });
+  topBtn.addEventListener('click', function(){
+    window.scrollTo({top:0, behavior:'smooth'});
+  });
+
+  // --- Modo día / noche ---
+  var THEME_KEY = 'manchester_trip_tema';
+  var themeBtn = document.getElementById('themeBtn');
+  function aplicarTema(t){
+    var metaColor = document.getElementById('themeColorMeta');
+    if(t === 'light'){
+      document.documentElement.setAttribute('data-theme', 'light');
+      themeBtn.textContent = '🌙';
+      themeBtn.setAttribute('aria-label', 'Cambiar a modo noche');
+      if(metaColor) metaColor.setAttribute('content', '#f5f2ea');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+      themeBtn.textContent = '☀️';
+      themeBtn.setAttribute('aria-label', 'Cambiar a modo día');
+      if(metaColor) metaColor.setAttribute('content', '#060606');
+    }
+  }
+  var temaGuardado = 'dark';
+  try { temaGuardado = localStorage.getItem(THEME_KEY) || 'dark'; } catch(e){}
+  aplicarTema(temaGuardado);
+  themeBtn.addEventListener('click', function(){
+    temaGuardado = (temaGuardado === 'light') ? 'dark' : 'light';
+    aplicarTema(temaGuardado);
+    try { localStorage.setItem(THEME_KEY, temaGuardado); } catch(e){}
+  });
 })();
 </script>
 </body>
