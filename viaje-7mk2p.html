@@ -98,6 +98,13 @@
   textarea.nota.open{display:block;}
   textarea.nota::placeholder{color:var(--ink-muted);}
 
+  .plan-days{display:flex;flex-direction:column;gap:12px;}
+  .plan-day{border:1px solid var(--border);background:var(--surface);padding:12px 14px;}
+  .plan-day-h{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.3px;color:var(--accent);margin-bottom:8px;}
+  .plan-item{display:block;color:var(--ink);text-decoration:none;font-size:13.5px;padding:5px 0;border-top:1px solid var(--border);}
+  .plan-item:first-of-type{border-top:none;}
+  .share-btn{margin-top:10px;width:100%;padding:11px;border:1px solid var(--border);background:var(--surface);color:var(--ink);font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:.3px;text-transform:uppercase;cursor:pointer;}
+  .share-btn:active{background:var(--surface-2);}
   .leaflet-map{width:100%;height:380px;background:var(--surface-2);border:1px solid var(--border);}
   .leaflet-container{font-family:'Barlow',sans-serif;background:var(--surface-2)!important;}
   .leaflet-popup-content-wrapper{background:var(--surface);color:var(--ink);border-radius:0;}
@@ -356,6 +363,55 @@
     var main = document.getElementById('main');
     main.innerHTML = '';
 
+    // --- Sección Plan por día ---
+    var secPlan = document.createElement('section');
+    secPlan.id = 'sec-plan';
+    secPlan.innerHTML = '<div class="sec-head"><span class="icon">🗓️</span><h2>Plan por día</h2></div>' +
+      '<div class="sec-sub">Guía rápida, toca cada bloque para ir directo a esa sección.</div>';
+    var planList = document.createElement('div');
+    planList.className = 'plan-days';
+    var PLAN = [
+      {dia:'Lunes 7 — Llegada', items:[
+        {t:'Aterrizaje y check-in en Malacuna', href:'#sec-mover'},
+        {t:'Algo de cenar cerca del hotel', href:'#sec-cenar'},
+        {t:'Copas suaves por el Northern Quarter si queda cuerpo', href:'#sec-copas'}
+      ]},
+      {dia:'Martes 8 — Día completo', items:[
+        {t:'Desayuno con música en Eastern Bloc', href:'#sec-desayuno'},
+        {t:'Turismo y tiendas de vinilo por el centro', href:'#sec-turismo'},
+        {t:'Comida típica (Annies o Great North Pie)', href:'#sec-comida'},
+        {t:'Noche: techno si sale algo, si no, zona de copas', href:'#sec-techno'}
+      ]},
+      {dia:'Miércoles 9 — Vuelta', items:[
+        {t:'Último desayuno o vinilos de última hora', href:'#sec-vinilo'},
+        {t:'Camino al aeropuerto', href:'#sec-mover'}
+      ]}
+    ];
+    PLAN.forEach(function(d){
+      var block = document.createElement('div');
+      block.className = 'plan-day';
+      var h = document.createElement('div');
+      h.className = 'plan-day-h';
+      h.textContent = d.dia;
+      block.appendChild(h);
+      d.items.forEach(function(it){
+        var a = document.createElement('a');
+        a.className = 'plan-item';
+        a.href = it.href;
+        a.textContent = it.t;
+        block.appendChild(a);
+      });
+      planList.appendChild(block);
+    });
+    secPlan.appendChild(planList);
+    var shareBtn = document.createElement('button');
+    shareBtn.type = 'button';
+    shareBtn.className = 'share-btn';
+    shareBtn.textContent = '📤 Compartir lo marcado (WhatsApp)';
+    shareBtn.addEventListener('click', compartirProgreso);
+    secPlan.appendChild(shareBtn);
+    main.appendChild(secPlan);
+
     // --- Sección Mapa ---
     var secMap = document.createElement('section');
     secMap.id = 'sec-mapa';
@@ -409,7 +465,8 @@
     cardHotel.innerHTML = '<h3>🏠 Alojamiento</h3>' +
       '<div style="font-weight:600;font-size:15px;margin-bottom:2px;">Malacuna Manchester</div>' +
       '<a class="addr-line" target="_blank" rel="noopener" href="'+mapsUrl('15 Hilton Street, Manchester M1 1JJ, UK')+'">📍 15 Hilton Street, Manchester M1 1JJ</a>' +
-      '<p>Es el punto naranja grande del mapa de arriba, en pleno Northern Quarter.</p>';
+      '<p>Es el punto naranja grande del mapa de arriba, en pleno Northern Quarter.</p>' +
+      '<p>Teléfono para el check-in o cualquier lío: <a href="tel:+441616413337" style="color:var(--accent);">+44 161 641 3337</a></p>';
     secMove.appendChild(cardHotel);
 
     var cardAirport = document.createElement('div');
@@ -439,6 +496,31 @@
     secMove.appendChild(cardTaxi);
 
     main.appendChild(secMove);
+
+    // --- Sección Info útil ---
+    var secInfo = document.createElement('section');
+    secInfo.id = 'sec-info';
+    secInfo.innerHTML = '<div class="sec-head"><span class="icon">ℹ️</span><h2>Info útil</h2></div>' +
+      '<div class="sec-sub">Cosas del día a día que no piensas hasta que hacen falta.</div>';
+
+    var cardEmerg = document.createElement('div');
+    cardEmerg.className = 'move-card';
+    cardEmerg.innerHTML = '<h3>🚨 Emergencias</h3>' +
+      '<div class="taxi-row"><div><div class="taxi-name">Emergencia real (policía, ambulancia, bomberos)</div></div><a class="taxi-call" href="tel:999">999</a></div>' +
+      '<div class="taxi-row"><div><div class="taxi-name">Salud no urgente (NHS)</div></div><a class="taxi-call" href="tel:111">111</a></div>' +
+      '<p>El 112 europeo también funciona aquí y te redirige igual.</p>';
+    secInfo.appendChild(cardEmerg);
+
+    var cardCostumbres = document.createElement('div');
+    cardCostumbres.className = 'move-card';
+    cardCostumbres.innerHTML = '<h3>💷 Propinas y dinero</h3>' +
+      '<p><b style="color:var(--ink);">Restaurantes:</b> 10-15% si no viene ya incluido como "service charge" en la cuenta (mira antes de propinar dos veces).</p>' +
+      '<p><b style="color:var(--ink);">Bares y pubs:</b> normalmente no se da propina al pedir en barra.</p>' +
+      '<p><b style="color:var(--ink);">Taxis:</b> redondear hacia arriba es suficiente.</p>' +
+      '<p><b style="color:var(--ink);">Domingos:</b> las tiendas grandes solo pueden abrir 6 horas seguidas (típico 11-17h), no es como entre semana.</p>';
+    secInfo.appendChild(cardCostumbres);
+
+    main.appendChild(secInfo);
   }
 
   function renderItem(id){
@@ -471,6 +553,29 @@
   }
 
   function marcarSync(txt){ var el = document.getElementById('syncTxt'); if(el) el.textContent = txt; }
+
+  function compartirProgreso(){
+    var lines = ['Manchester 2026 — lo que llevamos marcado:'];
+    var algo = false;
+    CATS.forEach(function(c){
+      var items = ITEMS.filter(function(i){ return i.cat === c.id && getItemState(i.id).v; });
+      if(!items.length) return;
+      algo = true;
+      lines.push('');
+      lines.push(c.icon + ' ' + c.label + ':');
+      items.forEach(function(it){
+        var st = getItemState(it.id);
+        lines.push('- ' + it.name + (st.n ? ' (' + st.n + ')' : ''));
+      });
+    });
+    if(!algo) lines.push('(nada marcado todavía)');
+    var text = lines.join('\n');
+    if(navigator.share){
+      navigator.share({title:'Manchester 2026', text: text}).catch(function(){});
+    } else {
+      window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank');
+    }
+  }
 
   var reintentoAuthActivo = false;
   function usarSoloLocal(){
