@@ -2,6 +2,21 @@
    Cada bloque comprueba que su elemento existe antes de tocarlo, así ninguna
    página falla por no tener una sección concreta. */
 
+// ── LENIS SMOOTH SCROLL ───────────────────────────────────────────────────
+// Respeta "prefers-reduced-motion" (quien lo tenga activado sigue con el
+// scroll nativo del navegador, sin animación) y no rompe el resto del JS: el
+// scroll sigue disparando 'scroll'/window.scrollY con normalidad, solo se
+// suaviza el movimiento. Si el CDN falla, el sitio sigue funcionando igual
+// con scroll nativo (Lenis queda undefined y este bloque no hace nada).
+(function(){
+  if(typeof Lenis==='undefined')return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  var lenis=new Lenis();
+  window.__lenis=lenis;
+  function raf(time){lenis.raf(time);requestAnimationFrame(raf);}
+  requestAnimationFrame(raf);
+})();
+
 // ── NAV SCROLLED + REVEAL ANIM + COOKIE CHECK ────────────────────────────────
 (function(){
   var nav=document.getElementById('navbar');
@@ -119,7 +134,10 @@
   var btn=document.getElementById('back-top');
   if(!btn)return;
   window.addEventListener('scroll',function(){btn.classList.toggle('visible',window.scrollY>500);},{passive:true});
-  btn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});
+  btn.addEventListener('click',function(){
+    if(window.__lenis)window.__lenis.scrollTo(0);
+    else window.scrollTo({top:0,behavior:'smooth'});
+  });
 })();
 
 // ── GALLERY LIGHTBOX ─────────────────────────────────────────────────────────
