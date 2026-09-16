@@ -3,7 +3,7 @@
       --border:#1c1c1c; --border2:#272727;
       --accent:#FF6B00; --accent2:#FF9A00;
       --glow:rgba(255,107,0,0.3);
-      --text:#F2F2F2; --muted:#555; --muted2:#888;
+      --text:#F2F2F2; --muted:#808080; --muted2:#888;
       --cond:'Barlow Condensed','Inter','Segoe UI',sans-serif;
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
