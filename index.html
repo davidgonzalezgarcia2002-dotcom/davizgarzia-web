@@ -36,7 +36,7 @@
   <meta name="msapplication-TileColor" content="#060606">
 
   <!-- Preload hero image (mejora LCP) -->
-  <link rel="preload" as="image" href="photos/perfil-6.jpg" fetchpriority="high">
+  <link rel="preload" as="image" href="photos/perfil-6.webp" type="image/webp" fetchpriority="high">
 
   <link rel="icon" type="image/svg+xml" href="logos/gorra-blanco.svg">
   <link rel="apple-touch-icon" href="logos/gorra-blanco.svg">
@@ -217,7 +217,10 @@
     </div>
   </div>
   <div class="hero-photo-area">
-    <img src="photos/perfil-6.jpg" alt="Daviz Garzia DJ Producer Cantabria" loading="eager" fetchpriority="high" width="675" height="900">
+    <picture>
+      <source srcset="photos/perfil-6.webp" type="image/webp">
+      <img src="photos/perfil-6.jpg" alt="Daviz Garzia DJ Producer Cantabria" loading="eager" fetchpriority="high" width="675" height="900">
+    </picture>
   </div>
   <div class="hero-scroll"><div class="hero-scroll-line"></div><span class="hero-scroll-txt">scroll</span></div>
 </section>
@@ -246,10 +249,13 @@
       <div data-anim="left">
         <div class="about-photo-wrap">
           <div class="about-photo-card">
-            <img src="photos/perfil-5.jpg"
-                 alt="Daviz Garzia DJ pinchando en directo, Gamoneo 2026" loading="lazy"
-                 width="1066" height="1600"
-                 onerror="this.parentNode.style.background='linear-gradient(135deg,#1a1a1a,#0a0a0a)';this.style.display='none'">
+            <picture>
+              <source srcset="photos/perfil-5.webp" type="image/webp">
+              <img src="photos/perfil-5.jpg"
+                   alt="Daviz Garzia DJ pinchando en directo, Gamoneo 2026" loading="lazy"
+                   width="1066" height="1600"
+                   onerror="this.parentNode.parentNode.style.background='linear-gradient(135deg,#1a1a1a,#0a0a0a)';this.style.display='none'">
+            </picture>
             <div class="about-photo-name"><h3>Daviz Garzia</h3><p>DJ &amp; Music Producer</p></div>
           </div>
           <div class="about-tags" style="margin-top:14px;">
