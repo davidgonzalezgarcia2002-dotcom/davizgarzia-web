@@ -57,7 +57,10 @@
 </nav>
 
 <main style="padding-top:60px">
-<div class="tnl-bg" id="manager">
+<div class="page-visual-host page-visual-host--blend tnl-bg" id="manager">
+<video class="page-visual-video" data-scroll-video muted loop playsinline preload="none" poster="media/visuales/daviz-sentado-v2.jpg" aria-hidden="true"><source src="media/visuales/daviz-sentado-v2.mp4" type="video/mp4"></video>
+<div class="page-visual-shade" aria-hidden="true"></div>
+
   <div class="sw">
     <div data-anim style="text-align:center">
       <span class="tnl-vol1-badge">Próximamente</span>
@@ -109,6 +112,7 @@
   <button class="cookie-btn" onclick="document.getElementById('cookie-banner').classList.add('hidden');localStorage.setItem('cookies_ok','1')">Aceptar</button>
 </div>
 
+<script src="visual-videos.js" defer></script>
 <script src="app.js" defer></script>
 </body>
 </html>

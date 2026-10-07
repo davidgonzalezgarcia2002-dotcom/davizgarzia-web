@@ -200,6 +200,13 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-background-visual" aria-hidden="true">
+    <img class="hero-background-poster" src="media/visuales/daviz-sentado-v2.jpg" alt="" width="1280" height="720" fetchpriority="high">
+    <video class="hero-background-video" data-scroll-video muted loop playsinline preload="none" poster="media/visuales/daviz-sentado-v2.jpg">
+      <source src="media/visuales/daviz-sentado-v2.mp4" type="video/mp4">
+    </video>
+    <div class="hero-background-shade"></div>
+  </div>
   <div class="hero-left">
     <h1><span class="hero-n1">DAVIZ</span><span class="hero-n2">GARZIA</span></h1>
     <p class="hero-tagline">DJ · Productor · Cantabria</p>
@@ -214,12 +221,6 @@
       <a class="hero-now-row" href="musica.html#musica"><span class="hn-tag">Nuevo</span><span class="hn-title">House is a feeling · Out Now</span><span class="hn-arrow">→</span></a>
       <a class="hero-now-row" href="thenorth.html#thenorth"><span class="hn-tag">Sello</span><span class="hn-title">The North Vol.02</span><span class="hn-arrow">→</span></a>
     </div>
-  </div>
-  <div class="hero-photo-area">
-    <picture>
-      <source srcset="photos/perfil-6.webp" type="image/webp">
-      <img src="photos/perfil-6.jpg" alt="Daviz Garzia DJ Producer Cantabria" loading="eager" fetchpriority="high" width="675" height="900">
-    </picture>
   </div>
   <div class="hero-scroll"><div class="hero-scroll-line"></div><span class="hero-scroll-txt">scroll</span></div>
 </section>
@@ -389,6 +390,7 @@ window.davizShows=[
 ];
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" integrity="sha384-tKsJDT6PlUI0pSBt9/sBKJluKgA19/a6mBrDsZaXotLB4ZYfMGM6xt6/WgGpYhTm" crossorigin="anonymous" defer></script>
+<script src="visual-videos.js" defer></script>
 <script src="app.js" defer></script>
 </body>
 </html>

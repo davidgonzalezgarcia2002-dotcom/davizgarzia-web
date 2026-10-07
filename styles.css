@@ -499,3 +499,27 @@
 
     /* NAV ACTIVE */
     .nav-links a.nav-active{color:var(--accent)!important}
+
+
+
+/* Hero: video a pantalla completa detrás de la composición original */
+.hero{isolation:isolate}
+.hero-background-visual{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:#050505}
+.hero-background-poster,.hero-background-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 38%;display:block;transform:scale(1.035)}
+.hero-background-poster{z-index:0;filter:brightness(.62) saturate(.86) blur(1.1px)}
+.hero-background-video{z-index:1;filter:brightness(.64) saturate(.86) blur(1.1px)}
+.hero-background-shade{position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(6,6,6,.83) 0%,rgba(6,6,6,.7) 43%,rgba(6,6,6,.48) 100%),linear-gradient(0deg,rgba(6,6,6,.68) 0%,transparent 52%,rgba(6,6,6,.32) 100%)}
+.hero-left{z-index:3}.hero-scroll{z-index:3}
+@media(max-width:900px){.hero-background-visual{inset:60px 0 0}.hero-background-poster,.hero-background-video{object-position:center 38%}.hero-background-shade{background:linear-gradient(90deg,rgba(6,6,6,.83) 0%,rgba(6,6,6,.68) 48%,rgba(6,6,6,.48) 100%),linear-gradient(0deg,rgba(6,6,6,.72) 0%,transparent 58%,rgba(6,6,6,.32) 100%)}}
+/* Vídeos de las nuevas visuales integrados en las cabeceras y fondos existentes */
+.page-visual-host{position:relative;isolation:isolate;overflow:hidden}
+.page-visual-host>.page-visual-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;z-index:0;pointer-events:none;filter:brightness(.58) saturate(.82) blur(.45px);transform:scale(1.015)}
+.page-visual-host>.page-visual-shade{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(6,6,6,.48) 0%,rgba(6,6,6,.54) 54%,rgba(6,6,6,.88) 100%)}
+.page-visual-host>*:not(.page-visual-video):not(.page-visual-shade){position:relative;z-index:2}
+.live-banner.page-visual-host{background-image:none}
+.page-visual-host--blend>.page-visual-video{height:min(560px,60vh);object-position:center 43%}
+.page-visual-host--blend>.page-visual-shade{height:min(560px,60vh);background:linear-gradient(180deg,rgba(6,6,6,.5) 0%,rgba(6,6,6,.64) 62%,var(--surface) 100%)}
+.tnl-bg.page-visual-host--blend>.page-visual-shade{background:linear-gradient(180deg,rgba(6,6,6,.48) 0%,rgba(6,6,6,.6) 62%,var(--bg) 100%)}
+.booking-bg.page-visual-host--blend>.page-visual-shade{background:linear-gradient(180deg,rgba(6,6,6,.5) 0%,rgba(6,6,6,.64) 62%,var(--surface) 100%)}
+.yt-bg.page-visual-host--blend>.page-visual-shade{background:linear-gradient(180deg,rgba(6,6,6,.5) 0%,rgba(6,6,6,.64) 62%,var(--bg) 100%)}
+@media(max-width:700px){.page-visual-host--blend>.page-visual-video,.page-visual-host--blend>.page-visual-shade{height:430px}.page-visual-host>.page-visual-video{filter:brightness(.52) saturate(.78) blur(.35px)}}
