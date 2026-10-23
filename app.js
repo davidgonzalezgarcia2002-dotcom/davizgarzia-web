@@ -16,6 +16,24 @@
   requestAnimationFrame(raf);
 })();
 
+// ── PAUSAR ANIMACIONES (control para el visitante, recordado en el navegador) ──
+(function(){
+  var KEY='fx_pause',root=document.documentElement;
+  function guardado(){try{return localStorage.getItem(KEY)==='1'}catch(e){return false}}
+  function guardar(v){try{localStorage.setItem(KEY,v?'1':'0')}catch(e){}}
+  function aplicar(p){
+    root.classList.toggle('fx-pause',p);
+    [].forEach.call(document.querySelectorAll('video[data-scroll-video]'),function(v){if(p){v.pause()}});
+    var b=document.getElementById('fx-toggle');if(b){b.textContent=p?'Reanudar animaciones':'Pausar animaciones';b.setAttribute('aria-pressed',p?'true':'false')}
+  }
+  document.addEventListener('DOMContentLoaded',function(){
+    var cont=document.querySelector('.foot-links');if(!cont)return;
+    var b=document.createElement('button');b.type='button';b.id='fx-toggle';b.className='fx-toggle';
+    b.addEventListener('click',function(){var p=!root.classList.contains('fx-pause');guardar(p);aplicar(p)});
+    cont.appendChild(b);aplicar(guardado());
+  });
+})();
+
 // ── SCROLL INTERACTIVO (todas las páginas) ───────────────────────────────────
 // Parallax en el hero, cintas que aceleran con el scroll, cifras que
 // cuentan, imágenes que se asientan al entrar y títulos/tarjetas que aparecen.
@@ -43,6 +61,7 @@
   setTimeout(function(){marq=document.getAnimations().filter(function(a){return a.animationName==='runMarquee'})},500);
   function frame(){
     var y=window.scrollY,v=Math.abs(y-lastY);lastY=y;
+    if(document.documentElement.classList.contains('fx-pause')){if(img)img.style.transform='none';for(var q=0;q<marq.length;q++)marq[q].playbackRate=1;corriendo=false;return}
     if(img&&hero&&y<hero.offsetHeight)img.style.transform='translate3d(0,'+(y*0.18).toFixed(1)+'px,0) scale(1.1)';
     rate+=((1+Math.min(v*0.35,7))-rate)*0.12;
     for(var i=0;i<marq.length;i++)marq[i].playbackRate=rate;

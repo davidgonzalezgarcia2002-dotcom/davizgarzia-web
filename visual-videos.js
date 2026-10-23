@@ -4,6 +4,7 @@
   if (!videos.length) return;
 
   const play = (video) => {
+    if (document.documentElement.classList.contains('fx-pause')) return;
     const result = video.play();
     if (result && typeof result.catch === 'function') result.catch(() => {});
   };
