@@ -102,11 +102,16 @@
           <div class="cicon">📍</div>
           <div><div class="clabel">Ubicación</div><div class="cval">Cantabria · Disponible en toda España</div></div>
         </div>
-        <h3 style="margin-top:28px;font-size:15px;font-weight:800;">Documentación técnica</h3>
+        <h3 style="margin-top:28px;font-size:15px;font-weight:800;">Pack de prensa</h3>
         <div class="riders-list">
-          <a href="https://drive.google.com/file/d/1f85na0l_-xmG45EBwgX6KXN0qNqWkHmd/view?usp=drive_link" target="_blank" rel="noopener noreferrer" class="rider-item">
+          <a href="https://drive.google.com/file/d/1T10Hay-BpMrsRzYQzWGAH4M81yfESdEE/view" target="_blank" rel="noopener noreferrer" class="rider-item">
             <span class="rider-item-icon">📄</span>
-            <div><div class="rider-item-title">Dossier 2026</div><div class="rider-item-sub">Presentación artística completa</div></div>
+            <div><div class="rider-item-title">Dossier 2027 (PDF)</div><div class="rider-item-sub">Presentación artística completa</div></div>
+            <span class="rider-arrow">↗</span>
+          </a>
+          <a href="https://drive.google.com/drive/folders/1NgfXqotP-TiZ8CaC6q5QhJpzpVb6V0k8" target="_blank" rel="noopener noreferrer" class="rider-item">
+            <span class="rider-item-icon">📁</span>
+            <div><div class="rider-item-title">Press kit completo</div><div class="rider-item-sub">Dossier, fotos y material para descargar</div></div>
             <span class="rider-arrow">↗</span>
           </a>
         </div>
@@ -120,8 +125,8 @@
             <input type="hidden" name="subject" value="Nueva solicitud de booking — Web Daviz Garzia">
             <input type="hidden" name="from_name" value="Formulario booking davizgarziamusic.com">
             <div class="fg-row">
-              <div class="fg"><label>Sala / Evento</label><input type="text" name="nombre" placeholder="Ej. Sala Vertigo, Festival Solay..."></div>
-              <div class="fg"><label>Email de contacto</label><input type="email" name="email" placeholder="tu@email.com"></div>
+              <div class="fg"><label>Sala / Evento</label><input type="text" name="nombre" required placeholder="Ej. Sala Vertigo, Festival Solay..."></div>
+              <div class="fg"><label>Email de contacto</label><input type="email" name="email" required placeholder="tu@email.com"></div>
             </div>
             <div class="fg-row">
               <div class="fg"><label>Tipo de evento</label>
@@ -129,7 +134,21 @@
               </div>
               <div class="fg"><label>Ciudad aproximada</label><input type="text" name="ciudad" placeholder="Ej. Santander"></div>
             </div>
-            <div class="fg"><label>Fecha aproximada</label><input type="date" name="fecha"></div>
+            <div class="fg-row">
+              <div class="fg"><label>Fecha aproximada</label><input type="date" name="fecha"></div>
+              <div class="fg"><label>Duración del set</label>
+                <select name="duracion"><option value="">Selecciona...</option><option>1 a 2 horas</option><option>3 horas</option><option>4 horas</option><option>Más de 4 horas</option></select>
+              </div>
+            </div>
+            <div class="fg-row">
+              <div class="fg"><label>Público estimado</label>
+                <select name="aforo"><option value="">Selecciona...</option><option>Menos de 100</option><option>100 a 300</option><option>300 a 1.000</option><option>Más de 1.000</option></select>
+              </div>
+              <div class="fg"><label>Presupuesto orientativo</label>
+                <select name="presupuesto"><option value="">Prefiero hablarlo</option><option>Menos de 300 €</option><option>300 a 600 €</option><option>600 a 1.000 €</option><option>Más de 1.000 €</option></select>
+              </div>
+            </div>
+            <div class="fg"><label>Teléfono o WhatsApp (opcional)</label><input type="tel" name="telefono" placeholder="+34 ..."></div>
             <div class="fg"><label>Mensaje (opcional)</label><textarea name="mensaje" placeholder="Cuéntame más sobre el evento..."></textarea></div>
             <button type="submit" class="form-send">Enviar solicitud →</button>
           </form>
@@ -211,5 +230,9 @@
 
 <script src="visual-videos.js" defer></script>
 <script src="app.js" defer></script>
+<script>/* fecha-prefill */
+(function(){var f=new URLSearchParams(location.search).get('fecha');if(!f||!/^\d{4}-\d{2}-\d{2}$/.test(f))return;
+document.addEventListener('DOMContentLoaded',function(){var i=document.querySelector('input[name="fecha"]');if(i)i.value=f})})();
+</script>
 </body>
 </html>

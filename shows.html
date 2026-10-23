@@ -201,6 +201,18 @@
 
 
 <!-- SOLICITA UN SHOW -->
+<!-- DISPONIBILIDAD -->
+<section id="disponibilidad">
+  <div class="sw">
+    <div data-anim>
+      <div class="section-eye">Disponibilidad</div>
+      <h2 class="section-h">Consulta si tengo tu fecha libre</h2>
+      <p class="section-p">Las fechas en naranja ya tienen show anunciado. En las demás, pulsa el día y te preparo la solicitud. Una fecha sin marcar puede estar reservada por un evento sin anunciar, por eso te confirmo siempre antes.</p>
+    </div>
+    <div class="disp-cal" id="disp-cal" data-anim></div>
+  </div>
+</section>
+
 <section id="shows" class="request-bg">
   <div class="sw">
     <div data-anim>
@@ -322,6 +334,29 @@ window.davizShows=[
     var f=b.getAttribute('data-f');
     rows.forEach(function(r){r.style.display=(f==='all'||r.getAttribute('data-tipo')===f)?'':'none'});
   });
+})();
+</script>
+<script>
+(function(){
+  var box=document.getElementById('disp-cal');if(!box)return;
+  var shows=window.davizShows||[],ocup={};
+  shows.forEach(function(x){var d=x.date,k=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);ocup[k]=x.name});
+  var meses=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  var hoy=new Date(),h='';
+  for(var m=0;m<3;m++){
+    var f=new Date(hoy.getFullYear(),hoy.getMonth()+m,1),y=f.getFullYear(),mo=f.getMonth();
+    var primero=(f.getDay()+6)%7,dias=new Date(y,mo+1,0).getDate();
+    h+='<div class="dc-mes"><div class="dc-tit">'+meses[mo]+' '+y+'</div><div class="dc-grid"><span class="dc-h">L</span><span class="dc-h">M</span><span class="dc-h">X</span><span class="dc-h">J</span><span class="dc-h">V</span><span class="dc-h">S</span><span class="dc-h">D</span>';
+    for(var i=0;i<primero;i++)h+='<span></span>';
+    for(var d=1;d<=dias;d++){
+      var k=y+'-'+('0'+(mo+1)).slice(-2)+'-'+('0'+d).slice(-2),pasado=new Date(y,mo,d)<new Date(hoy.getFullYear(),hoy.getMonth(),hoy.getDate());
+      if(pasado)h+='<span class="dc-d dc-pas">'+d+'</span>';
+      else if(ocup[k])h+='<span class="dc-d dc-ocu" title="'+ocup[k].replace(/"/g,'')+'">'+d+'</span>';
+      else h+='<a class="dc-d dc-lib" href="contacto.html?fecha='+k+'#booking">'+d+'</a>';
+    }
+    h+='</div></div>';
+  }
+  box.innerHTML=h;
 })();
 </script>
 </body>

@@ -263,7 +263,7 @@
         .then(function(r){return r.json();})
         .then(function(data){
           if(data.success){
-            notify('¡Enviado! Te contestamos en menos de 24h.',3500);
+            notify(form.getAttribute('data-ok')||'¡Enviado! Te contestamos en menos de 24h.',3500);
             form.reset();
           } else {
             throw new Error(data.message||'Error');

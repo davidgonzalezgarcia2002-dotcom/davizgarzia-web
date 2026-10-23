@@ -24,7 +24,7 @@ NS = {"a": "http://www.w3.org/2005/Atom", "yt": "http://www.youtube.com/xml/sche
 MESES = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"]
 
 
-def ultimo_video(channel_id):
+def ultimos_videos(channel_id, n=1):
     url = f"https://www.youtube.com/feeds/videos.xml?playlist_id=UULF{channel_id[2:]}"
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
     datos = urllib.request.urlopen(req, timeout=30).read()
@@ -49,7 +49,7 @@ def ultimo_video(channel_id):
             "short": "/shorts/" in link,
         })
     normales = [v for v in videos if not v["short"]]
-    return (normales or [None])[0]
+    return normales[:n]
 
 
 def fecha_es(d):
@@ -73,6 +73,16 @@ def tarjeta(v, autor):
     )
 
 
+def tarjeta_set(v):
+    t = html.escape(re.sub(r"\s*\|\s*Daviz Garzia.*$", "", v["titulo"]).strip(), quote=True)
+    return (
+        f'<a class="set-card" href="https://www.youtube.com/watch?v={v["id"]}" target="_blank" rel="noopener noreferrer">'
+        f'<div class="set-thumb"><img src="https://i.ytimg.com/vi/{v["id"]}/hqdefault.jpg" alt="{t}" loading="lazy" width="480" height="360">'
+        '<div class="set-play"><i>&#9654;</i></div></div>'
+        f'<div class="set-info"><b>{t}</b><span>{fecha_es(v["fecha"])} &middot; Ver en YouTube &rarr;</span></div></a>'
+    )
+
+
 def parchear(texto, marca, contenido):
     ini, fin = f"<!-- AUTO-YT-{marca}:START -->", f"<!-- AUTO-YT-{marca}:END -->"
     a, b = texto.find(ini), texto.find(fin)
@@ -87,15 +97,17 @@ def main():
     original = texto
     for marca, (canal, autor) in CANALES.items():
         try:
-            v = ultimo_video(canal)
+            lista = ultimos_videos(canal, 3 if marca == "SESIONES" else 1)
         except Exception as e:
             print(f"{marca}: no se pudo leer el canal ({e}), se deja como estaba")
             continue
-        if not v:
+        if not lista:
             continue
+        v = lista[0]
         print(f"{marca}: {v['titulo']} ({fecha_es(v['fecha'])})")
         texto = parchear(texto, marca, tarjeta(v, autor))
         if marca == "SESIONES":
+            texto = parchear(texto, "SETS", "\n      ".join(tarjeta_set(x) for x in lista))
             texto = parchear(texto, "FECHA", f'<span class="yt-stat">Publicada {fecha_es(v["fecha"])}</span>')
     if texto != original:
         MUSICA.write_text(texto, encoding="utf-8")
