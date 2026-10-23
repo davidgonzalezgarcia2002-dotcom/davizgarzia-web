@@ -32,7 +32,8 @@
   <link rel="alternate" hreflang="x-default" href="https://www.davizgarziamusic.com/">
 
   <!-- Theme color para mobile -->
-  <meta name="theme-color" content="#FF6B00">
+  <meta name="theme-color" content="#060606">
+  <meta name="color-scheme" content="dark">
   <meta name="msapplication-TileColor" content="#060606">
 
   <!-- Preload hero image (mejora LCP) -->
@@ -152,6 +153,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
 
 <!-- PRELOADER (idea Alvama) -->
 <div id="preloader"><div class="pl-logo">DAVIZ <span>GARZIA</span></div><div class="pl-line"><i></i></div><div class="pl-sub">DJ · Productor · Cantabria</div></div>
@@ -176,11 +178,11 @@
 </div>
 
 <!-- TOAST -->
-<div id="toast"></div>
+<div id="toast" role="status" aria-live="polite"></div>
 
 
 <nav id="navbar">
-  <a href="index.html" class="nav-logo">DAVIZ <span>GARZIA</span></a>
+  <a href="index.html" class="nav-logo" translate="no">DAVIZ <span>GARZIA</span></a>
   <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menú">&#9776;</button>
   <ul class="nav-links" id="nav-menu">
     <li><a href="index.html" class="nav-active">Inicio</a></li>
@@ -203,7 +205,7 @@
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="contenido">
   <div class="hero-background-visual" aria-hidden="true">
     <img class="hero-background-poster" src="media/visuales/daviz-sentado-v2.jpg" alt="" width="1280" height="720" fetchpriority="high">
     <video class="hero-background-video" data-scroll-video muted loop playsinline preload="none" poster="media/visuales/daviz-sentado-v2.jpg">
@@ -347,7 +349,7 @@
     </div>
     <div class="cdwn-wrap" data-anim="scale">
       <div class="cdwn-eye" id="cdwn-label">PRÓXIMO SHOW</div>
-      <div class="cdwn-title" id="cdwn-event">Cargando...</div>
+      <div class="cdwn-title" id="cdwn-event">Cargando…</div>
       <div class="cdwn-sub" id="cdwn-venue"></div>
       <div class="cdwn-grid">
         <div class="cdwn-unit"><div class="cdwn-num" id="cdwn-d">--</div><div class="cdwn-lbl">Días</div></div>
@@ -415,7 +417,7 @@
 
 <footer>
   <div class="foot-row">
-    <div class="foot-logo"><a href="index.html">DAVIZ <span>GARZIA</span></a></div>
+    <div class="foot-logo" translate="no"><a href="index.html">DAVIZ <span>GARZIA</span></a></div>
     <div class="foot-links">
       <a href="mailto:hola@davizgarziamusic.com">hola@davizgarziamusic.com</a>
       <a href="https://linktr.ee/davizgarzia.music" target="_blank" rel="noopener noreferrer">Linktree</a>

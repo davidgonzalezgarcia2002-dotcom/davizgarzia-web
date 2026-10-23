@@ -258,7 +258,7 @@
       e.preventDefault();
       var btn=form.querySelector('button[type="submit"]');
       var btnTxt=btn?btn.textContent:'';
-      if(btn){btn.disabled=true;btn.textContent='Enviando...';}
+      if(btn){btn.disabled=true;btn.textContent='Enviando…';}
       fetch(form.action,{method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)})
         .then(function(r){return r.json();})
         .then(function(data){

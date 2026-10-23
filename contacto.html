@@ -18,7 +18,8 @@
   <meta name="twitter:title" content="Contratar DJ · Daviz Garzia">
   <meta name="twitter:description" content="Clubs, festivales y eventos en Cantabria y toda España. Respuesta en menos de 24h.">
   <meta name="twitter:image" content="https://www.davizgarziamusic.com/photos/og-cover.jpg">
-  <meta name="theme-color" content="#FF6B00">
+  <meta name="theme-color" content="#060606">
+  <meta name="color-scheme" content="dark">
   <link rel="icon" type="image/svg+xml" href="logos/gorra-blanco.svg">
   <link rel="apple-touch-icon" href="logos/gorra-blanco.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +30,7 @@
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());</script>
 </head>
 <body>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
 <!-- GRAIN TEXTURE -->
 <div class="grain"></div>
 
@@ -48,11 +50,11 @@
 </div>
 
 <!-- TOAST -->
-<div id="toast"></div>
+<div id="toast" role="status" aria-live="polite"></div>
 
 
 <nav id="navbar">
-  <a href="index.html" class="nav-logo">DAVIZ <span>GARZIA</span></a>
+  <a href="index.html" class="nav-logo" translate="no">DAVIZ <span>GARZIA</span></a>
   <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menú">&#9776;</button>
   <ul class="nav-links" id="nav-menu">
     <li><a href="index.html">Inicio</a></li>
@@ -74,7 +76,7 @@
   </div>
 </nav>
 
-<main style="padding-top:60px">
+<main id="contenido" style="padding-top:60px">
 <h1 class="sr-only">Contratar a Daviz Garzia, DJ en Cantabria y toda España</h1>
 <!-- BOOKING -->
 <div class="page-visual-host page-visual-host--blend booking-bg">
@@ -125,31 +127,31 @@
             <input type="hidden" name="subject" value="Nueva solicitud de booking — Web Daviz Garzia">
             <input type="hidden" name="from_name" value="Formulario booking davizgarziamusic.com">
             <div class="fg-row">
-              <div class="fg"><label>Sala / Evento</label><input type="text" name="nombre" required placeholder="Ej. Sala Vertigo, Festival Solay..."></div>
-              <div class="fg"><label>Email de contacto</label><input type="email" name="email" required placeholder="tu@email.com"></div>
+              <div class="fg"><label for="f-nombre">Sala / Evento</label><input type="text" id="f-nombre" name="nombre" autocomplete="organization" required placeholder="Ej. Sala Vertigo, Festival Solay..."></div>
+              <div class="fg"><label for="f-email">Email de contacto</label><input type="email" id="f-email" name="email" autocomplete="email" spellcheck="false" inputmode="email" required placeholder="tu@email.com"></div>
             </div>
             <div class="fg-row">
-              <div class="fg"><label>Tipo de evento</label>
-                <select name="tipo"><option value="">Selecciona...</option><option>Discoteca</option><option>Festival</option><option>Eventos</option><option>Otro</option></select>
+              <div class="fg"><label for="f-tipo">Tipo de evento</label>
+                <select id="f-tipo" name="tipo"><option value="">Selecciona...</option><option>Discoteca</option><option>Festival</option><option>Eventos</option><option>Otro</option></select>
               </div>
-              <div class="fg"><label>Ciudad aproximada</label><input type="text" name="ciudad" placeholder="Ej. Santander"></div>
+              <div class="fg"><label for="f-ciudad">Ciudad aproximada</label><input type="text" id="f-ciudad" name="ciudad" placeholder="Ej. Santander"></div>
             </div>
             <div class="fg-row">
-              <div class="fg"><label>Fecha aproximada</label><input type="date" name="fecha"></div>
-              <div class="fg"><label>Duración del set</label>
-                <select name="duracion"><option value="">Selecciona...</option><option>1 a 2 horas</option><option>3 horas</option><option>4 horas</option><option>Más de 4 horas</option></select>
+              <div class="fg"><label for="f-fecha">Fecha aproximada</label><input type="date" id="f-fecha" name="fecha"></div>
+              <div class="fg"><label for="f-duracion">Duración del set</label>
+                <select id="f-duracion" name="duracion"><option value="">Selecciona...</option><option>1 a 2 horas</option><option>3 horas</option><option>4 horas</option><option>Más de 4 horas</option></select>
               </div>
             </div>
             <div class="fg-row">
-              <div class="fg"><label>Público estimado</label>
-                <select name="aforo"><option value="">Selecciona...</option><option>Menos de 100</option><option>100 a 300</option><option>300 a 1.000</option><option>Más de 1.000</option></select>
+              <div class="fg"><label for="f-aforo">Público estimado</label>
+                <select id="f-aforo" name="aforo"><option value="">Selecciona...</option><option>Menos de 100</option><option>100 a 300</option><option>300 a 1.000</option><option>Más de 1.000</option></select>
               </div>
-              <div class="fg"><label>Presupuesto orientativo</label>
-                <select name="presupuesto"><option value="">Prefiero hablarlo</option><option>Menos de 300 €</option><option>300 a 600 €</option><option>600 a 1.000 €</option><option>Más de 1.000 €</option></select>
+              <div class="fg"><label for="f-presupuesto">Presupuesto orientativo</label>
+                <select id="f-presupuesto" name="presupuesto"><option value="">Prefiero hablarlo</option><option>Menos de 300 €</option><option>300 a 600 €</option><option>600 a 1.000 €</option><option>Más de 1.000 €</option></select>
               </div>
             </div>
-            <div class="fg"><label>Teléfono o WhatsApp (opcional)</label><input type="tel" name="telefono" placeholder="+34 ..."></div>
-            <div class="fg"><label>Mensaje (opcional)</label><textarea name="mensaje" placeholder="Cuéntame más sobre el evento..."></textarea></div>
+            <div class="fg"><label for="f-telefono">Teléfono o WhatsApp (opcional)</label><input type="tel" id="f-telefono" name="telefono" autocomplete="tel" inputmode="tel" placeholder="+34 ..."></div>
+            <div class="fg"><label for="f-mensaje">Mensaje (opcional)</label><textarea id="f-mensaje" name="mensaje" placeholder="Cuéntame más sobre el evento..."></textarea></div>
             <button type="submit" class="form-send">Enviar solicitud →</button>
           </form>
         </div>
@@ -190,7 +192,7 @@
 
 <footer>
   <div class="foot-row">
-    <div class="foot-logo"><a href="index.html">DAVIZ <span>GARZIA</span></a></div>
+    <div class="foot-logo" translate="no"><a href="index.html">DAVIZ <span>GARZIA</span></a></div>
     <div class="foot-links">
       <a href="mailto:hola@davizgarziamusic.com">hola@davizgarziamusic.com</a>
       <a href="https://linktr.ee/davizgarzia.music" target="_blank" rel="noopener noreferrer">Linktree</a>

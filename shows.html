@@ -18,7 +18,8 @@
   <meta name="twitter:title" content="Shows y próximas fechas · Daviz Garzia">
   <meta name="twitter:description" content="Próximas fechas y actuaciones de Daviz Garzia, DJ de Cantabria.">
   <meta name="twitter:image" content="https://www.davizgarziamusic.com/photos/og-cover.jpg">
-  <meta name="theme-color" content="#FF6B00">
+  <meta name="theme-color" content="#060606">
+  <meta name="color-scheme" content="dark">
   <link rel="icon" type="image/svg+xml" href="logos/gorra-blanco.svg">
   <link rel="apple-touch-icon" href="logos/gorra-blanco.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,6 +78,7 @@
 <style>#show-pill{display:none!important}</style>
 </head>
 <body>
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
 <!-- GRAIN TEXTURE -->
 <div class="grain"></div>
 
@@ -96,11 +98,11 @@
 </div>
 
 <!-- TOAST -->
-<div id="toast"></div>
+<div id="toast" role="status" aria-live="polite"></div>
 
 
 <nav id="navbar">
-  <a href="index.html" class="nav-logo">DAVIZ <span>GARZIA</span></a>
+  <a href="index.html" class="nav-logo" translate="no">DAVIZ <span>GARZIA</span></a>
   <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menú">&#9776;</button>
   <ul class="nav-links" id="nav-menu">
     <li><a href="index.html">Inicio</a></li>
@@ -122,7 +124,7 @@
   </div>
 </nav>
 
-<main style="padding-top:60px">
+<main id="contenido" style="padding-top:60px">
 <h1 class="sr-only">Próximas fechas y shows de Daviz Garzia, DJ de Cantabria</h1>
 <!-- BANNER FOTO -->
 <section class="live-banner page-visual-host page-visual-host--banner">
@@ -144,7 +146,7 @@
     </div>
     <div class="cdwn-wrap" data-anim="scale">
       <div class="cdwn-eye" id="cdwn-label">PRÓXIMO SHOW</div>
-      <div class="cdwn-title" id="cdwn-event">Cargando...</div>
+      <div class="cdwn-title" id="cdwn-event">Cargando…</div>
       <div class="cdwn-sub" id="cdwn-venue"></div>
       <div class="cdwn-grid">
         <div class="cdwn-unit"><div class="cdwn-num" id="cdwn-d">--</div><div class="cdwn-lbl">Días</div></div>
@@ -225,14 +227,14 @@
       <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
       <input type="hidden" name="subject" value="Solicitud de show — Web Daviz Garzia">
       <input type="hidden" name="from_name" value="Formulario shows davizgarziamusic.com">
-      <div class="fg"><label>Email *</label><input type="email" name="email" required placeholder="tu@email.com"></div>
+      <div class="fg"><label for="f-email">Email *</label><input type="email" id="f-email" name="email" autocomplete="email" spellcheck="false" inputmode="email" required placeholder="tu@email.com"></div>
       <div class="fg-row">
-        <div class="fg"><label>Nombre *</label><input type="text" name="nombre" required placeholder="Tu nombre"></div>
-        <div class="fg"><label>Ciudad *</label><input type="text" name="ciudad" required placeholder="Tu ciudad"></div>
+        <div class="fg"><label for="f-nombre">Nombre *</label><input type="text" id="f-nombre" name="nombre" autocomplete="organization" required placeholder="Tu nombre"></div>
+        <div class="fg"><label for="f-ciudad">Ciudad *</label><input type="text" id="f-ciudad" name="ciudad" required placeholder="Tu ciudad"></div>
       </div>
       <div class="fg-row">
-        <div class="fg"><label>Provincia / Comunidad Autónoma *</label>
-          <select name="provincia" required>
+        <div class="fg"><label for="f-provincia">Provincia / Comunidad Autónoma *</label>
+          <select id="f-provincia" name="provincia" required>
             <option value="">Selecciona...</option>
             <option>Andalucía</option>
             <option>Aragón</option>
@@ -256,7 +258,7 @@
             <option>Otra</option>
           </select>
         </div>
-        <div class="fg"><label>Teléfono (opcional)</label><input type="tel" name="telefono" placeholder="+34 ..."></div>
+        <div class="fg"><label for="f-telefono">Teléfono (opcional)</label><input type="tel" id="f-telefono" name="telefono" autocomplete="tel" inputmode="tel" placeholder="+34 ..."></div>
       </div>
       <button type="submit" class="request-submit">Solicitar show →</button>
       <p class="request-legal">Al enviar esto recibirás un email cuando David programe una fecha en tu ciudad. Puedes darte de baja cuando quieras.</p>
@@ -272,7 +274,7 @@
 
 <footer>
   <div class="foot-row">
-    <div class="foot-logo"><a href="index.html">DAVIZ <span>GARZIA</span></a></div>
+    <div class="foot-logo" translate="no"><a href="index.html">DAVIZ <span>GARZIA</span></a></div>
     <div class="foot-links">
       <a href="mailto:hola@davizgarziamusic.com">hola@davizgarziamusic.com</a>
       <a href="https://linktr.ee/davizgarzia.music" target="_blank" rel="noopener noreferrer">Linktree</a>
