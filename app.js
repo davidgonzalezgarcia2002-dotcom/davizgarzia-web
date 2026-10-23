@@ -91,8 +91,9 @@
     if(e.target.classList.contains('h-stat-num'))contar(e.target);else e.target.classList.add('gf-in');
     io.unobserve(e.target);
   })},{threshold:.35});
-  spans.forEach(function(el){io.observe(el)});
   q('.h-stat-num').forEach(function(el){io.observe(el)});
+  var gio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){spans.forEach(function(s){s.classList.add('gf-in')});gio.disconnect()}})},{threshold:.2});
+  q('.giant-foot').forEach(function(el){gio.observe(el)});
 })();
 
 // ── NAV SCROLLED + REVEAL ANIM + COOKIE CHECK ────────────────────────────────
