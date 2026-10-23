@@ -17,7 +17,7 @@
 })();
 
 // ── SCROLL INTERACTIVO (todas las páginas) ───────────────────────────────────
-// Parallax en hero y banners, cintas que aceleran con el scroll, cifras que
+// Parallax en el hero, cintas que aceleran con el scroll, cifras que
 // cuentan, imágenes que se asientan al entrar y títulos/tarjetas que aparecen.
 // No se apaga con "prefers-reduced-motion": decisión de David (22 oct 2026).
 (function(){
@@ -38,15 +38,12 @@
   q('.sc-zoom').forEach(function(im){zio.observe(im)});
 
   var hero=document.querySelector('.hero'),img=document.querySelector('.hero-photo-area img');
-  var banner=document.querySelector('.live-banner');
   if(img){img.style.willChange='transform';img.style.transformOrigin='center top'}
   var lastY=window.scrollY,rate=1,marq=[],corriendo=false;
   setTimeout(function(){marq=document.getAnimations().filter(function(a){return a.animationName==='runMarquee'})},500);
   function frame(){
     var y=window.scrollY,v=Math.abs(y-lastY);lastY=y;
     if(img&&hero&&y<hero.offsetHeight)img.style.transform='translate3d(0,'+(y*0.18).toFixed(1)+'px,0) scale(1.1)';
-    if(banner){var r=banner.getBoundingClientRect();
-      if(r.bottom>0&&r.top<window.innerHeight)banner.style.backgroundPosition='center '+(50+(r.top/window.innerHeight)*18).toFixed(1)+'%'}
     rate+=((1+Math.min(v*0.35,7))-rate)*0.12;
     for(var i=0;i<marq.length;i++)marq[i].playbackRate=rate;
     // se detiene cuando ya no hay scroll y las cintas han vuelto a su ritmo
