@@ -1,6 +1,7 @@
 // Automation: reads shows from Notion → updates shows.html
 // Runs automatically every Monday via GitHub Actions
 // Notion database: Control de Ingresos David (306a485045d780c3ad62f6ac5a907da7)
+// Un bolo solo sale en la web si tiene marcadas las casillas «Anunciado» Y «Publicable» (23 oct 2026).
 
 const fs = require('fs');
 const path = require('path');
@@ -185,6 +186,7 @@ async function main() {
   const upcomingPages = await queryNotion(
     { and: [
       { property: 'Anunciado', checkbox: { equals: true } },
+      { property: 'Publicable', checkbox: { equals: true } },
       { property: 'Fecha', date: { on_or_after: today } }
     ]},
     [{ property: 'Fecha', direction: 'ascending' }]

@@ -202,8 +202,7 @@
     document.documentElement.lang=lang;
   }
   document.querySelectorAll('.lang-btn').forEach(function(b){b.addEventListener('click',function(){setLang(this.getAttribute('data-lang'));});});
-  var savedLang=localStorage.getItem('lang');
-  if(savedLang&&savedLang!=='es')setLang(savedLang);
+  try{localStorage.removeItem('lang')}catch(e){} // la web es solo en español; se limpia un idioma antiguo guardado
 })();
 
 // ── SCROLL PROGRESS BAR ──────────────────────────────────────────────────────
