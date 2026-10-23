@@ -11,6 +11,10 @@ on:
         required: false
         default: "Manual"
 
+concurrency:
+  group: update-web
+  cancel-in-progress: false
+
 jobs:
   update:
     runs-on: ubuntu-latest

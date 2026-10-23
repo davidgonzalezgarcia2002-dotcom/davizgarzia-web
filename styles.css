@@ -523,3 +523,66 @@
 .booking-bg.page-visual-host--blend>.page-visual-shade{background:linear-gradient(180deg,rgba(6,6,6,.5) 0%,rgba(6,6,6,.64) 62%,var(--surface) 100%)}
 .yt-bg.page-visual-host--blend>.page-visual-shade{background:linear-gradient(180deg,rgba(6,6,6,.5) 0%,rgba(6,6,6,.64) 62%,var(--bg) 100%)}
 @media(max-width:700px){.page-visual-host--blend>.page-visual-video,.page-visual-host--blend>.page-visual-shade{height:430px}.page-visual-host>.page-visual-video{filter:brightness(.52) saturate(.78) blur(.35px)}}
+/* ===== PRUEBA: ideas de Alvama / OXO ===== */
+#preloader{position:fixed;inset:0;z-index:99999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .7s ease,visibility .7s}
+#preloader.out{opacity:0;visibility:hidden}
+.pl-logo{font-family:var(--cond);font-weight:700;font-size:clamp(44px,9vw,96px);letter-spacing:1px;line-height:1;color:var(--text);animation:plIn .8s cubic-bezier(.16,1,.3,1) both}
+.pl-logo span{color:var(--accent)}
+.pl-line{width:min(280px,60vw);height:2px;background:var(--border2);overflow:hidden}
+.pl-line i{display:block;height:100%;background:var(--accent);animation:plBar 1.2s ease-out forwards}
+.pl-sub{font-family:var(--cond);font-size:13px;letter-spacing:5px;text-transform:uppercase;color:var(--muted)}
+@keyframes plIn{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@keyframes plBar{from{width:0}to{width:100%}}
+.release-band{display:block;overflow:hidden;background:var(--accent);padding:18px 0;text-decoration:none}
+.rb-track{display:flex;width:max-content;animation:runMarquee 26s linear infinite;font-family:var(--cond);font-weight:700;font-size:clamp(34px,5.5vw,64px);line-height:1;letter-spacing:2px;text-transform:uppercase;color:#060606;white-space:nowrap}
+.rb-track span{padding:0 22px}
+.rb-track .rb-dot{font-size:.45em;padding:0 8px;align-self:center}
+.release-band:hover .rb-track{animation-play-state:paused}
+.giant-foot{padding:70px 40px 40px;border-top:1px solid var(--border);font-family:var(--cond);font-weight:700;text-transform:uppercase;line-height:.84;letter-spacing:-2px;font-size:clamp(70px,16vw,240px);color:var(--text);max-width:1400px;margin:0 auto}
+.giant-foot span{display:block}
+.giant-foot .g-acc{color:var(--accent)}
+@media(max-width:700px){.giant-foot{padding:48px 20px 24px}}
+
+.hero-lema{font-family:var(--cond);font-weight:600;font-size:clamp(20px,2.2vw,28px);line-height:1.15;letter-spacing:1px;text-transform:uppercase;color:var(--text);margin:-18px 0 34px}
+.gal-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:260px;gap:10px;margin-top:36px}
+.gal-grid figure{overflow:hidden;background:var(--surface);position:relative}
+.gal-grid img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;filter:grayscale(.35) contrast(1.05);transition:transform .6s cubic-bezier(.16,1,.3,1),filter .4s}
+.gal-grid figure:hover img{transform:scale(1.05);filter:none}
+.gal-a{grid-column:span 2;grid-row:span 2}
+.gal-b{grid-column:span 2}
+@media(max-width:700px){.gal-grid{grid-template-columns:1fr 1fr;grid-auto-rows:190px}.gal-a{grid-column:span 2}.gal-b{grid-column:span 2}}
+.sfilter{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+.sf-btn{font-family:var(--cond);font-size:13px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;padding:9px 20px;background:transparent;color:var(--muted2);border:1px solid var(--border2);cursor:pointer;transition:all .2s}
+.sf-btn:hover{border-color:var(--accent);color:var(--text)}
+.sf-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.next-tag{position:absolute;top:104px;right:52px;z-index:4;display:grid;grid-template-columns:auto 1fr;column-gap:12px;row-gap:2px;align-items:center;text-decoration:none;color:#fff;font-family:var(--cond);font-weight:600;font-size:15px;letter-spacing:1.5px;text-transform:uppercase;text-align:right}
+.next-tag .live-dot{grid-row:span 2;width:14px;height:14px;border-radius:50%;background:#B6FF00;box-shadow:0 0 0 0 rgba(182,255,0,.7);animation:livePulse 1.8s infinite}
+.next-tag .nt-top{color:#fff}.next-tag .nt-top b{font-weight:600}
+.next-tag .nt-name{color:#fff;opacity:.9}
+.next-tag:hover .nt-name{color:var(--accent)}
+@keyframes livePulse{0%{box-shadow:0 0 0 0 rgba(182,255,0,.6)}70%{box-shadow:0 0 0 12px rgba(182,255,0,0)}100%{box-shadow:0 0 0 0 rgba(182,255,0,0)}}
+@media(max-width:900px){.next-tag{top:84px;right:16px;font-size:13px}}
+#show-pill{background:#fff;border:0;text-align:left;min-width:230px;padding:14px 44px 14px 16px;box-shadow:0 10px 36px rgba(0,0,0,.5)}
+#show-pill .sp-label{color:#060606;opacity:.55}
+#show-pill .sp-name{color:#060606;font-family:var(--cond);font-weight:700;font-size:18px;line-height:1.1;text-transform:uppercase}
+#show-pill .sp-cd{color:var(--accent);font-weight:700}
+#show-pill .sp-sub{color:#060606;opacity:.7}
+#show-pill .sp-arrow{position:absolute;top:10px;right:14px;font-size:20px;color:#060606}
+@media(max-width:700px){#show-pill{min-width:0;padding:10px 38px 10px 12px}}
+/* tarjeta flotante: version limpia */
+#show-pill{width:270px;min-width:0;padding:16px 46px 16px 18px;text-align:left}
+#show-pill .sp-label{font-family:var(--cond);font-size:12px;font-weight:600;letter-spacing:3px;color:#060606;opacity:.55;margin:0 0 8px;text-align:left}
+#show-pill .sp-name{font-family:var(--cond);font-size:24px;font-weight:700;line-height:1.05;letter-spacing:.3px;color:#060606;white-space:normal;overflow:visible;text-overflow:clip;max-width:none;margin:0 0 12px;text-align:left}
+#show-pill .sp-cd{font-family:var(--cond);font-size:30px;font-weight:700;line-height:1;color:var(--accent);text-align:left;padding-top:10px;border-top:1px solid rgba(6,6,6,.14)}
+#show-pill .sp-sub{font-family:var(--cond);font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#060606;opacity:.6;margin-top:6px;text-align:left}
+#show-pill .sp-arrow{top:12px;right:16px;font-size:22px}
+@media(max-width:700px){#show-pill{width:220px;padding:12px 40px 12px 14px}#show-pill .sp-name{font-size:19px}#show-pill .sp-cd{font-size:24px}}
+
+/* scroll interactivo */
+.giant-foot{overflow:hidden}
+.js-sc .giant-foot span{opacity:0;transform:translateY(70px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.js-sc .giant-foot span.gf-in{opacity:1;transform:none}
+
+.js-sc .sc-zoom{transform:scale(1.12);transition:transform 1.6s cubic-bezier(.16,1,.3,1)}
+.js-sc .sc-zoom.sc-in{transform:none}

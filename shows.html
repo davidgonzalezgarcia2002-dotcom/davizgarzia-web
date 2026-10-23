@@ -74,6 +74,7 @@
 }
   </script>
   <!-- AUTO-EVENTS:END -->
+<style>#show-pill{display:none!important}</style>
 </head>
 <body>
 <!-- GRAIN TEXTURE -->
@@ -168,6 +169,12 @@
       <h2 class="section-h" data-i18n="shows_h2">Actuaciones confirmadas</h2>
     </div>
 
+    <div class="sfilter" id="sfilter">
+      <button class="sf-btn active" data-f="all">Todas</button>
+      <button class="sf-btn" data-f="club">Club</button>
+      <button class="sf-btn" data-f="festival">Festival</button>
+      <button class="sf-btn" data-f="evento">Evento</button>
+    </div>
     <div class="slist">
     <!-- AUTO-SHOWS:START -->
     <div class="slist-row" data-anim data-delay="0" data-date="2026-10-31">
@@ -247,6 +254,9 @@
 
 </main>
 
+<!-- TEXTO GIGANTE -->
+<section class="giant-foot" aria-hidden="true"><span class="g-acc">NORTH</span><span>TO THE</span><span>WORLD</span></section>
+
 <footer>
   <div class="foot-row">
     <div class="foot-logo"><a href="index.html">DAVIZ <span>GARZIA</span></a></div>
@@ -295,8 +305,23 @@ window.davizShows=[
 /* AUTO-COUNTDOWN:END */
 ];
 </script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" integrity="sha384-tKsJDT6PlUI0pSBt9/sBKJluKgA19/a6mBrDsZaXotLB4ZYfMGM6xt6/WgGpYhTm" crossorigin="anonymous" defer></script>
 <script src="visual-videos.js" defer></script>
 <script src="app.js" defer></script>
+<script>
+(function(){
+  var rows=[].slice.call(document.querySelectorAll('.slist-row'));
+  function tipo(r){var n=(r.querySelector('.slist-name')||{}).textContent||'';n=n.toLowerCase();
+    if(/festival|sun|gamoneo|rave|fiestas/.test(n))return 'festival';
+    if(/sala|kaya|roxel|club|concept|chap|samoa|castafiore/.test(n))return 'club';
+    return 'evento';}
+  rows.forEach(function(r){r.setAttribute('data-tipo',tipo(r));});
+  document.getElementById('sfilter').addEventListener('click',function(e){
+    var b=e.target.closest('.sf-btn');if(!b)return;
+    [].forEach.call(this.querySelectorAll('.sf-btn'),function(x){x.classList.toggle('active',x===b)});
+    var f=b.getAttribute('data-f');
+    rows.forEach(function(r){r.style.display=(f==='all'||r.getAttribute('data-tipo')===f)?'':'none'});
+  });
+})();
+</script>
 </body>
 </html>

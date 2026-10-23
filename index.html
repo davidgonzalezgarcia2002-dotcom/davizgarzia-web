@@ -153,6 +153,10 @@
 </head>
 <body>
 
+<!-- PRELOADER (idea Alvama) -->
+<div id="preloader"><div class="pl-logo">DAVIZ <span>GARZIA</span></div><div class="pl-line"><i></i></div><div class="pl-sub">DJ · Productor · Cantabria</div></div>
+<script>try{if(sessionStorage.getItem('pl_ok')){document.getElementById('preloader').style.display='none'}else{sessionStorage.setItem('pl_ok','1');window.addEventListener('load',function(){setTimeout(function(){var e=document.getElementById('preloader');e.classList.add('out');setTimeout(function(){e.style.display='none'},700)},1300)})}}catch(e){document.getElementById('preloader').style.display='none'}</script>
+
 <!-- GRAIN TEXTURE -->
 <div class="grain"></div>
 
@@ -210,6 +214,7 @@
   <div class="hero-left">
     <h1><span class="hero-n1">DAVIZ</span><span class="hero-n2">GARZIA</span></h1>
     <p class="hero-tagline">DJ · Productor · Cantabria</p>
+    <p class="hero-lema">Música para romper el club.<br>Sets hechos para bailar.</p>
     <div class="hero-cta-stack">
       <a href="contacto.html#booking" class="hero-cta hero-cta-primary" data-i18n="btn_book">Contratar ahora</a>
       <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" rel="noopener noreferrer" class="hero-cta" data-i18n="btn_spotify">Escuchar en Spotify ↗</a>
@@ -222,6 +227,7 @@
       <a class="hero-now-row" href="thenorth.html#thenorth"><span class="hn-tag">Sello</span><span class="hn-title">The North Vol.02</span><span class="hn-arrow">→</span></a>
     </div>
   </div>
+  <a class="next-tag" id="next-tag" href="shows.html#proximas"><i class="live-dot"></i><span class="nt-top">&#8599; <b id="nt-date">[ -- ]</b></span><span class="nt-name" id="nt-name">PRÓXIMO SHOW</span></a>
   <div class="hero-scroll"><div class="hero-scroll-line"></div><span class="hero-scroll-txt">scroll</span></div>
 </section>
 
@@ -243,6 +249,12 @@
   </div>
 </div>
 
+
+
+<!-- BANDA ULTIMO LANZAMIENTO (idea Alvama) -->
+<a class="release-band" href="musica.html#musica" aria-label="Escuchar el último lanzamiento">
+  <div class="rb-track"><span>NUEVO</span><span class="rb-dot">●</span><span>HOUSE IS A FEELING</span><span class="rb-dot">●</span><span>OUT NOW</span><span class="rb-dot">●</span><span>NUEVO</span><span class="rb-dot">●</span><span>HOUSE IS A FEELING</span><span class="rb-dot">●</span><span>OUT NOW</span><span class="rb-dot">●</span><span>NUEVO</span><span class="rb-dot">●</span><span>HOUSE IS A FEELING</span><span class="rb-dot">●</span><span>OUT NOW</span><span class="rb-dot">●</span><span>NUEVO</span><span class="rb-dot">●</span><span>HOUSE IS A FEELING</span><span class="rb-dot">●</span><span>OUT NOW</span><span class="rb-dot">●</span><span>NUEVO</span><span class="rb-dot">●</span><span>HOUSE IS A FEELING</span><span class="rb-dot">●</span><span>OUT NOW</span><span class="rb-dot">●</span><span>NUEVO</span><span class="rb-dot">●</span><span>HOUSE IS A FEELING</span><span class="rb-dot">●</span><span>OUT NOW</span><span class="rb-dot">●</span></div>
+</a>
 
 <!-- SOBRE MÍ -->
 <section id="sobre-mi">
@@ -333,11 +345,14 @@
 <section id="booking">
   <div class="sw" style="text-align:center">
     <p class="section-eye" style="justify-content:center;display:flex">Contrataciones</p>
-    <h2 class="section-h">¿Quieres que pinche en tu evento?</h2>
-    <p class="section-p" style="margin:0 auto 32px">Contratar DJ en Cantabria y toda España. Disponible para clubs, fiestas privadas y festivales. Respuesta en menos de 24h.</p>
+    <h2 class="section-h">¿Hacemos algo juntos?</h2>
+    <p class="section-p" style="margin:0 auto 32px">Clubs, festivales y fiestas privadas. Cuéntame tu idea y te respondo en menos de 24h.</p>
     <a href="contacto.html" class="btn-orange">Contactar ahora</a>
   </div>
 </section>
+
+<!-- TEXTO GIGANTE (idea Alvama) -->
+<section class="giant-foot" aria-hidden="true"><span class="g-acc">NORTH</span><span>TO THE</span><span>WORLD</span></section>
 
 <footer>
   <div class="foot-row">
@@ -348,7 +363,7 @@
       <a href="contacto.html">Booking</a>
       <a href="privacidad.html">Política de Privacidad</a>
     </div>
-    <div class="foot-copy">© 2026 Daviz Garzia · Todos los derechos reservados</div>
+    <div class="foot-copy">© 2026 Daviz Garzia · Todos los derechos reservados<br>Aviso: esta web puede provocar ganas repentinas de salir de fiesta.</div>
   </div>
 </footer>
 
@@ -360,7 +375,7 @@
 
 <!-- FLOATING SHOW PILL -->
 <a id="show-pill" href="shows.html#proximas" aria-label="Ver próximas fechas" style="text-decoration:none">
-  <div class="sp-label">Próximo show</div>
+  <span class="sp-arrow">&#8599;</span><div class="sp-label">Próximo show</div>
   <div class="sp-name" id="sp-evt">—</div>
   <div class="sp-cd" id="sp-cd">—</div>
   <div class="sp-sub" id="sp-dt"></div>
@@ -375,7 +390,7 @@
 
 <!-- COOKIE BANNER -->
 <div id="cookie-banner">
-  <span>🍪 Esta web usa cookies propias para mejorar tu experiencia. <a href="privacidad.html">Más info</a></span>
+  <span>🍪 Esta web usa cookies propias. No provocan ganas de bailar, para eso están los sets. <a href="privacidad.html">Más info</a></span>
   <button class="cookie-btn" onclick="document.getElementById('cookie-banner').classList.add('hidden');localStorage.setItem('cookies_ok','1')">Aceptar</button>
 </div>
 
@@ -387,8 +402,18 @@ window.davizShows=[
 /* AUTO-COUNTDOWN:END */
 ];
 </script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js" integrity="sha384-tKsJDT6PlUI0pSBt9/sBKJluKgA19/a6mBrDsZaXotLB4ZYfMGM6xt6/WgGpYhTm" crossorigin="anonymous" defer></script>
 <script src="visual-videos.js" defer></script>
 <script src="app.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var shows=(window.davizShows||[]).filter(function(x){return x.date.getTime()+6*3600*1000>Date.now()}).sort(function(a,b){return a.date-b.date});
+  var t=document.getElementById('next-tag');if(!t)return;
+  if(!shows.length){t.style.display='none';return}
+  var e=shows[0],m=['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+  document.getElementById('nt-date').textContent='[ '+e.date.getDate()+' '+m[e.date.getMonth()]+' ]';
+  var city=e.venue.replace('📍 ','');document.getElementById('nt-name').textContent=(e.name.toLowerCase().indexOf(city.toLowerCase())>-1?e.name:e.name+' — '+city).toUpperCase();
+  if(e.url){t.href=e.url;t.target='_blank';t.rel='noopener noreferrer'}
+});
+</script>
 </body>
 </html>

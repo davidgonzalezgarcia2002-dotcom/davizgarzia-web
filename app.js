@@ -10,11 +10,73 @@
 // con scroll nativo (Lenis queda undefined y este bloque no hace nada).
 (function(){
   if(typeof Lenis==='undefined')return;
-  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
   var lenis=new Lenis();
   window.__lenis=lenis;
   function raf(time){lenis.raf(time);requestAnimationFrame(raf);}
   requestAnimationFrame(raf);
+})();
+
+// ── SCROLL INTERACTIVO (todas las páginas) ───────────────────────────────────
+// Parallax en hero y banners, cintas que aceleran con el scroll, cifras que
+// cuentan, imágenes que se asientan al entrar y títulos/tarjetas que aparecen.
+// No se apaga con "prefers-reduced-motion": decisión de David (22 oct 2026).
+(function(){
+  document.documentElement.classList.add('js-sc');
+  var q=function(s){return [].slice.call(document.querySelectorAll(s))};
+
+  // elementos que aún no tienen animación de entrada la reciben aquí
+  q('.section-eye,.section-h,.section-p,.scard,.slist-row,.rel-item,.about-photo-card,.cdwn-wrap,.cc').forEach(function(el){
+    if(!el.hasAttribute('data-anim')&&!el.closest('[data-anim]'))el.setAttribute('data-anim','');
+  });
+  // las imágenes de contenido se asientan (zoom suave) al entrar
+  q('section img,.rel-item img').forEach(function(im){
+    if(im.closest('.hero-photo-area')||im.id==='lightbox-img')return;
+    im.classList.add('sc-zoom');
+  });
+  var zio=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(e.isIntersecting){e.target.classList.add('sc-in');zio.unobserve(e.target)}})},{threshold:.15});
+  q('.sc-zoom').forEach(function(im){zio.observe(im)});
+
+  var hero=document.querySelector('.hero'),img=document.querySelector('.hero-photo-area img');
+  var banner=document.querySelector('.live-banner');
+  if(img){img.style.willChange='transform';img.style.transformOrigin='center top'}
+  var lastY=window.scrollY,rate=1,marq=[],corriendo=false;
+  setTimeout(function(){marq=document.getAnimations().filter(function(a){return a.animationName==='runMarquee'})},500);
+  function frame(){
+    var y=window.scrollY,v=Math.abs(y-lastY);lastY=y;
+    if(img&&hero&&y<hero.offsetHeight)img.style.transform='translate3d(0,'+(y*0.18).toFixed(1)+'px,0) scale(1.1)';
+    if(banner){var r=banner.getBoundingClientRect();
+      if(r.bottom>0&&r.top<window.innerHeight)banner.style.backgroundPosition='center '+(50+(r.top/window.innerHeight)*18).toFixed(1)+'%'}
+    rate+=((1+Math.min(v*0.35,7))-rate)*0.12;
+    for(var i=0;i<marq.length;i++)marq[i].playbackRate=rate;
+    // se detiene cuando ya no hay scroll y las cintas han vuelto a su ritmo
+    if(v>0||Math.abs(rate-1)>0.02&&!document.hidden)requestAnimationFrame(frame);
+    else{corriendo=false;for(var j=0;j<marq.length;j++)marq[j].playbackRate=1}
+  }
+  function arrancar(){if(!corriendo){corriendo=true;requestAnimationFrame(frame)}}
+  window.addEventListener('scroll',arrancar,{passive:true});
+  arrancar();
+
+  // texto gigante: cada línea entra desde abajo
+  var spans=q('.giant-foot span');
+  spans.forEach(function(el,i){el.style.transitionDelay=(i*0.12)+'s'});
+  // cifras que cuentan hasta su valor
+  function contar(el){
+    var t=el.textContent.trim(),m=t.match(/^([\d.,]+)(.*)$/);if(!m)return;
+    var dec=(m[1].split('.')[1]||'').length,fin=parseFloat(m[1].replace(',','.')),suf=m[2];
+    if(isNaN(fin))return;
+    var t0=null;
+    function paso(ts){if(!t0)t0=ts;var k=Math.min((ts-t0)/1400,1),e=1-Math.pow(1-k,3);
+      el.textContent=(fin*e).toFixed(dec)+suf;if(k<1)requestAnimationFrame(paso);else el.textContent=t}
+    requestAnimationFrame(paso);
+  }
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){
+    if(!e.isIntersecting)return;
+    if(e.target.classList.contains('h-stat-num'))contar(e.target);else e.target.classList.add('gf-in');
+    io.unobserve(e.target);
+  })},{threshold:.35});
+  spans.forEach(function(el){io.observe(el)});
+  q('.h-stat-num').forEach(function(el){io.observe(el)});
 })();
 
 // ── NAV SCROLLED + REVEAL ANIM + COOKIE CHECK ────────────────────────────────
