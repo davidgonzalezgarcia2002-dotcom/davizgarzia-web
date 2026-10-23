@@ -123,7 +123,7 @@
 (function(){
   var T={
     es:{
-      btn_book:'Contratar ahora', btn_spotify:'Escuchar en Spotify ↗',
+      hero_lema:'Música para romper el club.<br>Sets hechos para bailar.', home_book_h2:'¿Hacemos algo juntos?', home_book_p:'Clubs, festivales y fiestas privadas. Cuéntame tu idea y te respondo en menos de 24h.', btn_book:'Contratar ahora', btn_spotify:'Escuchar en Spotify ↗',
       stat_ig:'Seguidores IG', stat_tik:'Likes TikTok', stat_yt:'Vistas YouTube', stat_rel:'Lanzamientos',
       about_eye:'Sobre mí', soc_eye:'Sígueme', cd_eye:'¡Nos vemos pronto!',
       shows_eye:'Próximas fechas', hist_eye:'Historial',
@@ -137,7 +137,7 @@
       shows_h2:'Actuaciones confirmadas', book_h2:'¿Quieres que pinche en tu evento?', tnl_h2:'The North Record Label'
     },
     en:{
-      btn_book:'Book now', btn_spotify:'Listen on Spotify ↗',
+      hero_lema:'Music to break the club.<br>Sets made to dance.', home_book_h2:'Shall we do something together?', home_book_p:'Clubs, festivals and private parties. Tell me your idea and I will reply within 24h.', btn_book:'Book now', btn_spotify:'Listen on Spotify ↗',
       stat_ig:'IG Followers', stat_tik:'TikTok Likes', stat_yt:'YouTube Views', stat_rel:'Releases',
       about_eye:'About me', soc_eye:'Follow me', cd_eye:'See you soon!',
       shows_eye:'Upcoming shows', hist_eye:'History',
@@ -151,7 +151,7 @@
       shows_h2:'Confirmed shows', book_h2:'Want me to DJ your event?', tnl_h2:'The North Record Label'
     },
     fr:{
-      btn_book:'Réserver', btn_spotify:'Écouter sur Spotify ↗',
+      hero_lema:'De la musique pour enflammer le club.<br>Des sets faits pour danser.', home_book_h2:'On fait quelque chose ensemble ?', home_book_p:'Clubs, festivals et fêtes privées. Raconte-moi ton idée et je réponds sous 24h.', btn_book:'Réserver', btn_spotify:'Écouter sur Spotify ↗',
       stat_ig:'Abonnés IG', stat_tik:'Likes TikTok', stat_yt:'Vues YouTube', stat_rel:'Sorties',
       about_eye:'À propos', soc_eye:'Suivez-moi', cd_eye:'À bientôt !',
       shows_eye:'Prochains shows', hist_eye:'Historique',

@@ -586,3 +586,6 @@
 
 .js-sc .sc-zoom{transform:scale(1.12);transition:transform 1.6s cubic-bezier(.16,1,.3,1)}
 .js-sc .sc-zoom.sc-in{transform:none}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+a:focus-visible,button:focus-visible,[role="button"]:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
