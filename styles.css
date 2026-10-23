@@ -678,3 +678,8 @@ html.fx-pause .giant-foot span{opacity:1!important;transform:none!important}
   .disp-cal .dc-mes{flex:0 0 88%;scroll-snap-align:start}
   #cookie-banner{right:78px}
 }
+
+.cookie-actions{display:flex;gap:8px;flex-wrap:wrap}
+.cookie-no{background:transparent;border:1px solid var(--border2);color:var(--muted2)}
+.trust-line{margin-top:18px;font-family:var(--cond);font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);line-height:1.8}
+.trust-line b{color:var(--accent);font-weight:600;margin-right:6px}

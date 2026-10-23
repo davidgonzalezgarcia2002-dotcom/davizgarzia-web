@@ -307,9 +307,9 @@
 
 
 <!-- COOKIE BANNER -->
-<div id="cookie-banner">
-  <span>🍪 Esta web usa cookies propias para mejorar tu experiencia. <a href="privacidad.html">Más info</a></span>
-  <button class="cookie-btn" onclick="document.getElementById('cookie-banner').classList.add('hidden');localStorage.setItem('cookies_ok','1')">Aceptar</button>
+<div id="cookie-banner" role="region" aria-label="Cookies">
+  <span>🍪 Esta web usa cookies propias. Con tu permiso, también analítica anónima (Google Analytics). <a href="privacidad.html">Más info</a></span>
+  <div class="cookie-actions"><button type="button" class="cookie-btn" data-cookie="1">Aceptar</button><button type="button" class="cookie-btn cookie-no" data-cookie="0">Rechazar</button></div>
 </div>
 
 <script>

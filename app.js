@@ -107,7 +107,7 @@
   document.querySelectorAll('[data-anim]').forEach(function(el){io.observe(el);});
 
   var cb=document.getElementById('cookie-banner');
-  if(cb&&localStorage.getItem('cookies_ok'))cb.classList.add('hidden');
+  try{if(cb&&localStorage.getItem('cookies_ok')!==null)cb.classList.add('hidden');}catch(e){}
 })();
 
 // ── GOOGLE ANALYTICS (solo se carga tras aceptar cookies, no antes) ──────────
@@ -123,9 +123,18 @@
     document.head.appendChild(s);
     gtag('config',GA_ID,{anonymize_ip:true});
   }
-  if(localStorage.getItem('cookies_ok'))loadGA();
-  var acceptBtn=document.querySelector('#cookie-banner .cookie-btn');
-  if(acceptBtn)acceptBtn.addEventListener('click',loadGA);
+  var estado=null;
+  try{estado=localStorage.getItem('cookies_ok')}catch(e){}
+  var banner=document.getElementById('cookie-banner');
+  if(estado!==null&&banner)banner.classList.add('hidden');
+  if(estado==='1')loadGA();
+  document.addEventListener('click',function(e){
+    var b=e.target.closest('[data-cookie]');if(!b)return;
+    var ok=b.getAttribute('data-cookie')==='1';
+    try{localStorage.setItem('cookies_ok',ok?'1':'0')}catch(err){}
+    if(banner)banner.classList.add('hidden');
+    if(ok)loadGA();
+  });
 })();
 
 // ── MENÚ MÓVIL (hamburguesa) ─────────────────────────────────────────────────
@@ -281,6 +290,7 @@
         .then(function(data){
           if(data.success){
             notify(form.getAttribute('data-ok')||'¡Enviado! Te contestamos en menos de 24h.',3500);
+            if(window.gaLoaded&&typeof gtag==='function')gtag('event',form.hasAttribute('data-ok')?'sign_up':'generate_lead');
             form.reset();
           } else {
             throw new Error(data.message||'Error');
@@ -429,3 +439,14 @@
   el.addEventListener('click',load);
   el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();load();}});
 })();
+
+// ── EVENTOS DE CONVERSIÓN (solo con consentimiento de analítica) ─────────────
+document.addEventListener('click',function(e){
+  if(!window.gaLoaded||typeof gtag!=='function')return;
+  var l=e.target.closest('a[href]');if(!l)return;
+  var h=l.getAttribute('href')||'';
+  if(h.indexOf('wa.me')>-1)gtag('event','whatsapp_click');
+  else if(h.indexOf('drive.google.com')>-1)gtag('event','presskit_click');
+  else if(h.indexOf('mailto:')===0)gtag('event','email_click');
+  else if(h.indexOf('open.spotify.com')>-1)gtag('event','spotify_click');
+});
