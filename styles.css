@@ -657,3 +657,9 @@ nav{padding-left:max(52px,env(safe-area-inset-left));padding-right:max(52px,env(
 html.fx-pause *,html.fx-pause *::before,html.fx-pause *::after{animation-play-state:paused!important;transition:none!important;scroll-behavior:auto!important}
 html.fx-pause [data-anim],html.fx-pause .js-sc .giant-foot span,html.fx-pause .sc-zoom{opacity:1!important;transform:none!important}
 html.fx-pause .giant-foot span{opacity:1!important;transform:none!important}
+
+/* Hero con foto del escenario (BÏBE): sin desenfoque de vídeo y con la zona del escenario visible */
+.hero-background-poster{filter:brightness(.8) saturate(.95);object-position:62% 45%;transform:none}
+.hero-background-shade{background:linear-gradient(90deg,rgba(6,6,6,.88) 0%,rgba(6,6,6,.6) 38%,rgba(6,6,6,.15) 75%,rgba(6,6,6,.1) 100%),linear-gradient(0deg,rgba(6,6,6,.7) 0%,transparent 45%,rgba(6,6,6,.4) 100%)}
+@media(max-width:900px){.hero-background-poster{object-position:68% 45%}.hero-background-shade{background:linear-gradient(0deg,rgba(6,6,6,.9) 0%,rgba(6,6,6,.55) 55%,rgba(6,6,6,.35) 100%)}}
+@media(max-width:900px){.next-tag{left:24px;right:auto;top:80px;text-align:left;max-width:calc(100% - 48px);font-size:12px}.next-tag .nt-name{overflow-wrap:anywhere}}
