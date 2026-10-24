@@ -36,7 +36,7 @@
     {
       "@type": "MusicEvent",
       "name": "Daviz Garzia en Halloween Logroño",
-      "startDate": "2026-10-31T20:00:00.000Z",
+      "startDate": "2026-10-31",
       "location": {
         "@type": "Place",
         "name": "Halloween Logroño",
@@ -55,7 +55,7 @@
     {
       "@type": "MusicEvent",
       "name": "Daviz Garzia en Sala Kaya",
-      "startDate": "2026-11-21T20:00:00.000Z",
+      "startDate": "2026-11-21",
       "location": {
         "@type": "Place",
         "name": "Sala Kaya",
@@ -74,7 +74,7 @@
     {
       "@type": "MusicEvent",
       "name": "Daviz Garzia en Cotillón Navidad La Lechera",
-      "startDate": "2026-12-31T20:00:00.000Z",
+      "startDate": "2026-12-31",
       "location": {
         "@type": "Place",
         "name": "Cotillón Navidad La Lechera",
@@ -336,9 +336,9 @@
 <script>
 window.davizShows=[
 /* AUTO-COUNTDOWN:START */
-    {date:new Date('2026-10-31T22:00:00.000Z'),name:'Halloween Logroño',venue:'📍 Logroño',url:'https://site.fourvenues.com/es/oxo-events/events/bibe-xxl--halloween-la-ribera-31-10-2026-7KBM'},
-    {date:new Date('2026-11-21T22:00:00.000Z'),name:'Sala Kaya',venue:'📍 Santander',url:'https://www.salakaya.com/compra?e=dj-nano-santander-2026'},
-    {date:new Date('2026-12-31T22:00:00.000Z'),name:'Cotillón Navidad La Lechera',venue:'📍 Torrelavega',url:''}
+    {date:new Date('2026-10-31T12:00:00Z'),dateOnly:'2026-10-31',name:'Halloween Logroño',venue:'📍 Logroño',url:'https://site.fourvenues.com/es/oxo-events/events/bibe-xxl--halloween-la-ribera-31-10-2026-7KBM'},
+    {date:new Date('2026-11-21T12:00:00Z'),dateOnly:'2026-11-21',name:'Sala Kaya',venue:'📍 Santander',url:'https://www.salakaya.com/compra?e=dj-nano-santander-2026'},
+    {date:new Date('2026-12-31T12:00:00Z'),dateOnly:'2026-12-31',name:'Cotillón Navidad La Lechera',venue:'📍 Torrelavega',url:''}
 /* AUTO-COUNTDOWN:END */
 ];
 </script>
@@ -364,9 +364,9 @@ window.davizShows=[
 (function(){
   var box=document.getElementById('disp-cal');if(!box)return;
   var shows=window.davizShows||[],ocup={};
-  shows.forEach(function(x){var d=x.date,k=d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2);ocup[k]=x.name});
+  shows.forEach(function(x){var k=x.dateOnly||new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit'}).format(x.date);ocup[k]=x.name});
   var meses=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-  var hoy=new Date(),h='';
+  var hoy=new Date(new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())+'T12:00:00'),h='';
   for(var m=0;m<3;m++){
     var f=new Date(hoy.getFullYear(),hoy.getMonth()+m,1),y=f.getFullYear(),mo=f.getMonth();
     var primero=(f.getDay()+6)%7,dias=new Date(y,mo+1,0).getDate();

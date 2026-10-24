@@ -1,3 +1,7 @@
+// Las fechas sin hora se comparan por día en Madrid, nunca por la zona del visitante.
+window.dgToday=function(){return new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());};
+window.dgUpcoming=function(show){return show.dateOnly ? show.dateOnly>=window.dgToday() : show.date.getTime()>Date.now();};
+
 /* app.js — scripts compartidos por todas las páginas de davizgarziamusic.com
    Cada bloque comprueba que su elemento existe antes de tocarlo, así ninguna
    página falla por no tener una sección concreta. */
@@ -336,7 +340,7 @@
   function pad(n){return String(n).padStart(2,'0');}
   function tick(){
     var now=Date.now(),next=null;
-    for(var i=0;i<events.length;i++){if(events[i].date.getTime()>now){next=events[i];break;}}
+    for(var i=0;i<events.length;i++){if(window.dgUpcoming(events[i])){next=events[i];break;}}
     if(!next){if(el.cta){el.cta.replaceChildren();delete el.cta.dataset.eventUrl;}if(el.venue)el.venue.textContent='';el.event.textContent='Próximas fechas en camino...';el.d.textContent=el.h.textContent=el.m.textContent=el.s.textContent='00';return;}
     el.event.textContent=next.name;
     el.venue.textContent=next.venue;
@@ -345,6 +349,11 @@
       if(next.url){try{var url=new URL(next.url,location.href);if(url.protocol==='https:'){
         var link=document.createElement('a');link.href=url.href;link.target='_blank';link.rel='noopener noreferrer';link.className='btn-orange';link.textContent='Entradas ↗';link.style.cssText='display:inline-block;margin-top:8px';el.cta.appendChild(link);
       }}catch(e){}}
+    }
+    [el.h,el.m,el.s].forEach(function(n){n.parentElement.hidden=!!next.dateOnly;});
+    if(next.dateOnly){
+      el.d.textContent=String(Math.round((Date.parse(next.dateOnly)-Date.parse(window.dgToday()))/86400000));
+      el.venue.textContent=next.venue+' · Hora por confirmar';return;
     }
     var diff=next.date.getTime()-now;
     el.d.textContent=pad(Math.floor(diff/86400000));
@@ -360,11 +369,7 @@
   var rows=document.querySelectorAll('.slist-row[data-date]');
   if(!rows.length)return;
   function daysUntil(dateStr){
-    var target=new Date(dateStr+'T00:00:00');
-    var today=new Date();
-    today.setHours(0,0,0,0);
-    target.setHours(0,0,0,0);
-    return Math.round((target-today)/86400000);
+    return Math.round((Date.parse(dateStr.slice(0,10))-Date.parse(window.dgToday()))/86400000);
   }
   function fmt(days){
     if(days<0)return'';
@@ -388,7 +393,7 @@
   function pad(n){return String(n).padStart(2,'0');}
   function tick(){
     var now=Date.now(),next=null;
-    for(var i=0;i<events.length;i++){if(events[i].date.getTime()>now){next=events[i];break;}}
+    for(var i=0;i<events.length;i++){if(window.dgUpcoming(events[i])){next=events[i];break;}}
     if(!next){pill.style.display='none';return;}
     eName.textContent=next.name;
     var diff=next.date.getTime()-now,d=Math.floor(diff/86400000),h=pad(Math.floor((diff%86400000)/3600000)),m=pad(Math.floor((diff%3600000)/60000));
@@ -460,7 +465,7 @@ document.addEventListener('click',function(e){
 
 document.addEventListener('DOMContentLoaded',function(){
  const row=document.querySelector('.hero-now-row .hn-title');
- const next=(window.davizShows||[]).find(s=>s.date>Date.now());
+ const next=(window.davizShows||[]).find(s=>window.dgUpcoming(s));
  if(row)row.textContent=next?next.name+' · '+new Intl.DateTimeFormat('es-ES',{day:'numeric',month:'short',timeZone:'Europe/Madrid'}).format(next.date):'Próximas fechas en camino';
 });
 

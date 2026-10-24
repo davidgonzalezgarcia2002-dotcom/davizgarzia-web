@@ -1,0 +1,11 @@
+const assert = require('node:assert/strict');
+const {buildCountdownEvents,buildEventsJsonLd,parseDate} = require('./update-shows');
+const show={name:'Sala de prueba',date:'2026-10-31',city:'Santander',url:'',venue:''};
+assert.match(buildCountdownEvents([show]),/dateOnly:"2026-10-31"/);
+assert.match(buildEventsJsonLd([show]),/"startDate": "2026-10-31"/);
+assert.equal(buildCountdownEvents([]),'');
+assert.equal(parseDate('2026-10-31').day,31);
+assert.match(buildCountdownEvents([{...show,date:'2026-10-31T22:30:00+01:00'}]),/2026-10-31T21:30:00.000Z/);
+assert.match(buildEventsJsonLd([{...show,date:'2026-10-31T22:30:00+01:00'}]),/2026-10-31T22:30:00\+01:00/);
+assert.throws(()=>buildCountdownEvents([{...show,date:'2026-10-31T22:30:00'}]),/zona/);
+console.log('7 comprobaciones: fechas sin hora, hora confirmada, zona y lista vacía.');

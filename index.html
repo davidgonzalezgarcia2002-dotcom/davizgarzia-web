@@ -450,9 +450,9 @@
 <script>
 window.davizShows=[
 /* AUTO-COUNTDOWN:START */
-    {date:new Date('2026-10-31T22:00:00.000Z'),name:'Halloween Logroño',venue:'📍 Logroño',url:'https://site.fourvenues.com/es/oxo-events/events/bibe-xxl--halloween-la-ribera-31-10-2026-7KBM'},
-    {date:new Date('2026-11-21T22:00:00.000Z'),name:'Sala Kaya',venue:'📍 Santander',url:'https://www.salakaya.com/compra?e=dj-nano-santander-2026'},
-    {date:new Date('2026-12-31T22:00:00.000Z'),name:'Cotillón Navidad La Lechera',venue:'📍 Torrelavega',url:''}
+    {date:new Date('2026-10-31T12:00:00Z'),dateOnly:'2026-10-31',name:'Halloween Logroño',venue:'📍 Logroño',url:'https://site.fourvenues.com/es/oxo-events/events/bibe-xxl--halloween-la-ribera-31-10-2026-7KBM'},
+    {date:new Date('2026-11-21T12:00:00Z'),dateOnly:'2026-11-21',name:'Sala Kaya',venue:'📍 Santander',url:'https://www.salakaya.com/compra?e=dj-nano-santander-2026'},
+    {date:new Date('2026-12-31T12:00:00Z'),dateOnly:'2026-12-31',name:'Cotillón Navidad La Lechera',venue:'📍 Torrelavega',url:''}
 /* AUTO-COUNTDOWN:END */
 ];
 </script>
@@ -460,11 +460,11 @@ window.davizShows=[
 <script src="app.js" defer></script>
 <script>
 document.addEventListener('DOMContentLoaded',function(){
-  var shows=(window.davizShows||[]).filter(function(x){return x.date.getTime()+6*3600*1000>Date.now()}).sort(function(a,b){return a.date-b.date});
+  var shows=(window.davizShows||[]).filter(function(x){return window.dgUpcoming(x)}).sort(function(a,b){return a.date-b.date});
   var t=document.getElementById('next-tag');if(!t)return;
   if(!shows.length){t.style.display='none';return}
   var e=shows[0],m=['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
-  document.getElementById('nt-date').textContent='[ '+e.date.getDate()+' '+m[e.date.getMonth()]+' ]';
+  document.getElementById('nt-date').textContent='[ '+new Intl.DateTimeFormat('es-ES',{day:'numeric',month:'short',timeZone:'Europe/Madrid'}).format(e.date).toUpperCase()+' ]';
   var city=e.venue.replace('📍 ','');document.getElementById('nt-name').textContent=(e.name.toLowerCase().indexOf(city.toLowerCase())>-1?e.name:e.name+' — '+city).toUpperCase();
   if(e.url){t.href=e.url;t.target='_blank';t.rel='noopener noreferrer'}
 });

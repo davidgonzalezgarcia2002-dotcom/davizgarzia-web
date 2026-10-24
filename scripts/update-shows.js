@@ -95,8 +95,10 @@ function validUrl(url) {
 
 function parseDate(dateStr) {
   if (!dateStr) return null;
-  const d = new Date(dateStr + 'T12:00:00');
-  return { d, day: d.getDate(), mon: MONTHS_SHORT[d.getMonth()], monFull: MONTHS_FULL[d.getMonth()], yr: d.getFullYear(), yr2: String(d.getFullYear()).slice(2) };
+  const day = dateStr.slice(0,10);
+  const d = new Date(day + 'T12:00:00Z');
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !Number.isFinite(d.getTime())) return null;
+  return { d, day: d.getUTCDate(), mon: MONTHS_SHORT[d.getUTCMonth()], monFull: MONTHS_FULL[d.getUTCMonth()], yr: d.getUTCFullYear(), yr2: String(d.getUTCFullYear()).slice(2) };
 }
 
 function esc(str) { return str.replace(/'/g, "\\'").replace(/"/g, '&quot;'); }
@@ -113,7 +115,7 @@ function htmlSlistRow(show, delay) {
     ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="slist-ticket">Entradas →</a>`
     : `<span class="slist-ticket is-soon">Próximamente</span>`;
   return `
-    <div class="slist-row" data-anim data-delay="${delay}" data-date="${show.date}">
+    <div class="slist-row" data-anim data-delay="${delay}" data-date="${show.date.slice(0,10)}">
       <div class="slist-date">${dt.day} ${dt.monFull} ${dt.yr}<span class="slist-countdown"></span></div>
       <div class="slist-info">
         <div class="slist-name">${publicName(show)}</div>
@@ -139,9 +141,11 @@ function buildCountdownEvents(shows) {
   return shows.map(s => {
     const dt = parseDate(s.date);
     if (!dt) return null;
-    const isoDate = new Date(s.date + 'T22:00:00').toISOString();
+    const dateOnly = /^\d{4}-\d{2}-\d{2}$/.test(s.date);
+    if (!dateOnly && !/(Z|[+-]\d{2}:\d{2})$/.test(s.date)) throw new Error('Fecha con hora sin zona explícita');
+    const isoDate = new Date(dateOnly ? s.date + 'T12:00:00Z' : s.date).toISOString();
     const loc = publicCity(s.city);
-    return `    {date:new Date('${isoDate}'),name:'${esc(publicName(s))}',venue:'📍 ${esc(loc)}',url:'${validUrl(s.url)}'}`;
+    return `    {date:new Date('${isoDate}'),dateOnly:${dateOnly ? JSON.stringify(s.date) : 'null'},name:'${esc(publicName(s))}',venue:'📍 ${esc(loc)}',url:'${validUrl(s.url)}'}`;
   }).filter(Boolean).join(',\n');
 }
 
@@ -159,7 +163,7 @@ function buildEventsJsonLd(shows) {
       const ev = {
         '@type': 'MusicEvent',
         name: `Daviz Garzia en ${name}`,
-        startDate: new Date(s.date + 'T20:00:00').toISOString(),
+        startDate: s.date,
         location: {
           '@type': 'Place',
           name: name,
@@ -179,7 +183,7 @@ function buildEventsJsonLd(shows) {
 async function main() {
   if (!NOTION_TOKEN) throw new Error('NOTION_TOKEN is not set');
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 
   // --- Upcoming shows ---
   console.log('Querying upcoming shows...');
@@ -214,7 +218,7 @@ async function main() {
     console.log('shows.html: shows section updated.');
   }
 
-  if (cdwnBlock) {
+  {
     const newShows2 = showsHtml.replace(
       /\/\* AUTO-COUNTDOWN:START \*\/[\s\S]*?\/\* AUTO-COUNTDOWN:END \*\//,
       `/* AUTO-COUNTDOWN:START */\n${cdwnBlock}\n/* AUTO-COUNTDOWN:END */`
@@ -247,7 +251,7 @@ async function main() {
   // "Evento especial · Próximamente" del 22 ago que ya no existía).
   // Detectado y arreglado 20 ago 2026.
   const indexPath = path.join(__dirname, '..', 'index.html');
-  if (fs.existsSync(indexPath) && cdwnBlock) {
+  if (fs.existsSync(indexPath)) {
     let indexHtml = fs.readFileSync(indexPath, 'utf8');
     const newIndex = indexHtml.replace(
       /\/\* AUTO-COUNTDOWN:START \*\/[\s\S]*?\/\* AUTO-COUNTDOWN:END \*\//,
@@ -286,4 +290,5 @@ async function main() {
   }
 }
 
-main().catch(err => { console.error('ERROR:', err.message); process.exit(1); });
+if (require.main === module) main().catch(err => { console.error('ERROR:', err.message); process.exit(1); });
+module.exports = { buildCountdownEvents, buildEventsJsonLd, parseDate };
