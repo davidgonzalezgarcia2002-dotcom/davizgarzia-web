@@ -30,7 +30,7 @@
     var cont=document.querySelector('.foot-links');if(!cont)return;
     var b=document.createElement('button');b.type='button';b.id='fx-toggle';b.className='fx-toggle';
     b.addEventListener('click',function(){var p=!root.classList.contains('fx-pause');guardar(p);aplicar(p)});
-    cont.appendChild(b);aplicar(guardado());
+    cont.appendChild(b);aplicar(guardado()||matchMedia('(prefers-reduced-motion: reduce)').matches);
   });
 })();
 
@@ -78,6 +78,7 @@
   spans.forEach(function(el,i){el.style.transitionDelay=(i*0.12)+'s'});
   // cifras que cuentan hasta su valor
   function contar(el){
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches||document.documentElement.classList.contains('fx-pause'))return;
     var t=el.textContent.trim(),m=t.match(/^([\d.,]+)(.*)$/);if(!m)return;
     var dec=(m[1].split('.')[1]||'').length,fin=parseFloat(m[1].replace(',','.')),suf=m[2];
     if(isNaN(fin))return;
@@ -115,6 +116,7 @@
   if(typeof gtag!=='function')return; // la página no incluye el stub de GA (ej. privacidad.html)
   var GA_ID='G-BJWT1W9HER';
   function loadGA(){
+
     if(window.gaLoaded)return;
     window.gaLoaded=true;
     var s=document.createElement('script');
@@ -134,6 +136,15 @@
     try{localStorage.setItem('cookies_ok',ok?'1':'0')}catch(err){}
     if(banner)banner.classList.add('hidden');
     if(ok)loadGA();
+    else if(window.gaLoaded){
+      window['ga-disable-'+GA_ID]=true;
+      document.cookie.split(';').forEach(function(item){
+        var name=item.split('=')[0].trim();if(!/^_ga(?:_|$)/.test(name))return;
+        var domains=['',location.hostname,'.'+location.hostname,'.davizgarziamusic.com'];
+        domains.forEach(function(domain){document.cookie=name+'=; Max-Age=0; path=/'+(domain?'; domain='+domain:'');});
+      });
+      location.reload();
+    }
   });
 })();
 
@@ -141,8 +152,20 @@
 (function(){
   var toggle=document.getElementById('nav-toggle'),menu=document.getElementById('nav-menu');
   if(!toggle||!menu)return;
-  toggle.addEventListener('click',function(){menu.classList.toggle('open');});
-  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){menu.classList.remove('open');});});
+  function setOpen(open){
+    menu.classList.toggle('open',open);
+    toggle.setAttribute('aria-expanded',String(open));
+    toggle.setAttribute('aria-label',open?'Cerrar menú':'Abrir menú');
+  }
+  toggle.setAttribute('aria-controls',menu.id);setOpen(false);
+  toggle.addEventListener('click',function(){setOpen(!menu.classList.contains('open'));});
+  menu.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){setOpen(false);});});
+  document.addEventListener('keydown',function(e){
+    if(!menu.classList.contains('open'))return;
+    if(e.key==='Escape'){setOpen(false);toggle.focus();}
+  });
+  document.addEventListener('click',function(e){if(!menu.contains(e.target)&&!toggle.contains(e.target))setOpen(false);});
+  matchMedia('(min-width:901px)').addEventListener('change',function(e){if(e.matches)setOpen(false);});
 })();
 
 // ── LANG SWITCHER ────────────────────────────────────────────────────────────
@@ -305,26 +328,6 @@
   });
 })();
 
-// ── STAT COUNTER ANIMATION ───────────────────────────────────────────────────
-(function(){
-  function animCount(el,end,suffix){
-    var start=0,dur=1400,startTime=null;
-    function step(ts){if(!startTime)startTime=ts;var p=Math.min((ts-startTime)/dur,1);var eased=1-Math.pow(1-p,3);el.textContent=Math.round(start+(end-start)*eased)+suffix;if(p<1)requestAnimationFrame(step);}
-    requestAnimationFrame(step);
-  }
-  var io=new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      if(!entry.isIntersecting)return;
-      var el=entry.target,raw=el.getAttribute('data-count');
-      if(!raw)return;
-      io.unobserve(el);
-      var num=parseFloat(raw),suffix=raw.replace(/[\d.]/g,'');
-      animCount(el,num,suffix);
-    });
-  },{threshold:.5});
-  document.querySelectorAll('.h-stat-num').forEach(function(el){var txt=el.textContent.trim();el.setAttribute('data-count',txt);el.textContent='0';io.observe(el);});
-})();
-
 // ── COUNTDOWN (solo si existe el bloque) ──────────────────────────────────────
 (function(){
   var events=window.davizShows||[];
@@ -334,10 +337,15 @@
   function tick(){
     var now=Date.now(),next=null;
     for(var i=0;i<events.length;i++){if(events[i].date.getTime()>now){next=events[i];break;}}
-    if(!next){el.event.textContent='Próximas fechas en camino...';el.d.textContent=el.h.textContent=el.m.textContent=el.s.textContent='00';return;}
+    if(!next){if(el.cta){el.cta.replaceChildren();delete el.cta.dataset.eventUrl;}if(el.venue)el.venue.textContent='';el.event.textContent='Próximas fechas en camino...';el.d.textContent=el.h.textContent=el.m.textContent=el.s.textContent='00';return;}
     el.event.textContent=next.name;
     el.venue.textContent=next.venue;
-    if(next.url&&!el.cta.innerHTML)el.cta.innerHTML='<a href="'+next.url+'" target="_blank" rel="noopener noreferrer" class="btn-orange" style="display:inline-block;margin-top:8px;">Entradas ↗</a>';
+    if(el.cta&&el.cta.dataset.eventUrl!==(next.url||'')){
+      el.cta.replaceChildren();el.cta.dataset.eventUrl=next.url||'';
+      if(next.url){try{var url=new URL(next.url,location.href);if(url.protocol==='https:'){
+        var link=document.createElement('a');link.href=url.href;link.target='_blank';link.rel='noopener noreferrer';link.className='btn-orange';link.textContent='Entradas ↗';link.style.cssText='display:inline-block;margin-top:8px';el.cta.appendChild(link);
+      }}catch(e){}}
+    }
     var diff=next.date.getTime()-now;
     el.d.textContent=pad(Math.floor(diff/86400000));
     el.h.textContent=pad(Math.floor((diff%86400000)/3600000));
@@ -448,4 +456,22 @@ document.addEventListener('click',function(e){
   else if(h.indexOf('drive.google.com')>-1)gtag('event','presskit_click');
   else if(h.indexOf('mailto:')===0)gtag('event','email_click');
   else if(h.indexOf('open.spotify.com')>-1)gtag('event','spotify_click');
+});
+
+document.addEventListener('DOMContentLoaded',function(){
+ const row=document.querySelector('.hero-now-row .hn-title');
+ const next=(window.davizShows||[]).find(s=>s.date>Date.now());
+ if(row)row.textContent=next?next.name+' · '+new Intl.DateTimeFormat('es-ES',{day:'numeric',month:'short',timeZone:'Europe/Madrid'}).format(next.date):'Próximas fechas en camino';
+});
+
+// Permitir revisar la decisión de cookies desde cualquier página.
+document.addEventListener('DOMContentLoaded',function(){
+ var footer=document.querySelector('.foot-links')||document.querySelector('footer');
+ if(!footer)return;
+ var button=document.createElement('button');button.type='button';button.className='fx-toggle';button.textContent='Preferencias de cookies';
+ button.addEventListener('click',function(){
+  var banner=document.getElementById('cookie-banner');
+  if(banner){banner.classList.remove('hidden');var first=banner.querySelector('button');if(first)first.focus();}
+  else{try{localStorage.removeItem('cookies_ok')}catch(e){}location.href='index.html';}
+ });footer.appendChild(button);
 });

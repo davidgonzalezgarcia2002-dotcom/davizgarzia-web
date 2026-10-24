@@ -695,3 +695,89 @@ body.page-north .tnl-vol1-badge,body.page-north .yt-badge{background:rgba(118,22
 .page-visual-host--blend>.page-visual-video{transform:none;-webkit-mask-image:linear-gradient(180deg,#000 55%,transparent 100%);mask-image:linear-gradient(180deg,#000 55%,transparent 100%)}
 .booking-bg.page-visual-host--blend>.page-visual-shade{background:linear-gradient(180deg,rgba(6,6,6,.78) 0%,rgba(6,6,6,.86) 55%,var(--surface) 100%)}
 body.page-north .tnl-soon-card::after,body.page-north .tnl-soon-card.tnl-available::after{color:var(--tn-text);background:rgba(118,22,22,.3)}
+
+/* Liquid Glass: inicio del bloque reversible */
+/* Daviz Garzia — propuesta Liquid Glass, 24 octubre 2026. */
+:root{--lg-radius:12px;--lg-tint:255,107,0;--lg-panel:rgba(15,15,17,.78);--lg-line:rgba(255,255,255,.2);--lg-shadow:0 12px 40px rgba(0,0,0,.28)}
+/* Dirección minimalista urbana: quitar decoración repetida en la propuesta. */
+#preloader,#cursor-glow,#show-pill,.marquee-wrap,.release-band,.hero-scroll,.giant-foot,.grain{display:none!important}
+.hero-cta-stack>.hero-cta:nth-child(3),.hero-now-row:nth-of-type(3){display:none}
+.hero-cta-stack{max-width:380px;gap:12px}
+.hero-cta{border-radius:10px;letter-spacing:1.4px}
+.hero-cta:not(.hero-cta-primary){color:#eee;border-color:rgba(255,255,255,.35);background:rgba(12,12,14,.4)}
+.hero-lema{max-width:490px}
+.sw{max-width:1180px}
+.section-p{color:#b6b6bc}
+.hero-stats{background:#0b0b0d}
+.h-stat-lbl{color:#aaa}
+.next-tag{max-width:calc(100% - 48px)}
+.hero-now{max-width:380px}
+.hero-now-row{gap:12px}.hn-title{min-width:0}
+.about-grid{overflow:clip}.about-text{min-width:0}
+@media(max-width:900px){.nav-links:not(.open){visibility:hidden}.nav-links.open{visibility:visible}[data-anim="left"],[data-anim="right"]{transform:translateY(20px)}[data-anim].in{transform:none}}
+footer{border-top:1px solid rgba(255,255,255,.12);margin-top:48px}
+@media(min-width:901px){.sw{padding-top:100px;padding-bottom:100px}nav .nav-socials{display:none}nav{justify-content:space-between}.nav-links{gap:30px}}
+@media(max-width:700px){.hero-tagline{letter-spacing:2.5px}.hero-left{min-width:0}.hero-cta-stack{max-width:100%}.hero-now{width:100%}.hn-title{overflow-wrap:anywhere}}
+body.page-north{--lg-tint:118,22,22}
+nav{background:rgba(9,9,11,.72);border-bottom:1px solid var(--lg-line);box-shadow:0 1px 0 rgba(255,255,255,.04) inset;transition:background .24s ease-out,padding .24s ease-out}
+nav.scrolled{background:rgba(9,9,11,.78);border-bottom-color:rgba(255,255,255,.16)}
+.nav-links a{color:#ddd}
+#cookie-banner button{min-height:36px}
+body:has(#cookie-banner:not(.hidden)) .wa-float,body:has(#cookie-banner:not(.hidden)) #show-pill{visibility:hidden}
+@media(max-width:700px){#cookie-banner{left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));max-width:none}}
+#cookie-banner button:not(:first-of-type){color:#f2f2f2!important;border-color:#888!important}
+.nav-links .nav-cta{color:#060606!important;-webkit-text-fill-color:#060606!important}
+#show-pill,#back-top,#toast,#cookie-banner,.next-tag{background:var(--lg-panel);border:1px solid var(--lg-line);border-radius:var(--lg-radius);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),var(--lg-shadow);color:#f2f2f2;-webkit-backdrop-filter:blur(16px) saturate(125%);backdrop-filter:blur(16px) saturate(125%)}
+#cookie-banner{background:rgba(15,15,17,.96);color:#ccc}
+#show-pill .sp-label,#show-pill .sp-name,#show-pill .sp-sub,#show-pill .sp-arrow{color:#f2f2f2;opacity:1}
+#show-pill .sp-label,#show-pill .sp-sub{color:#c2c2c6}
+#show-pill .sp-cd{color:#ffa357;border-top-color:rgba(255,255,255,.2)}
+.next-tag{background:linear-gradient(135deg,rgba(255,255,255,.08),transparent 65%),rgba(15,15,17,.68);color:#fff}
+.next-tag *{color:inherit}
+.booking-form,.request-form,.avisos-box{background:linear-gradient(135deg,rgba(var(--lg-tint),.055),transparent 65%),#111113;border:1px solid rgba(255,255,255,.13);border-radius:var(--lg-radius);box-shadow:inset 0 1px 0 rgba(255,255,255,.08)}
+.booking-form .fg input,.booking-form .fg select,.booking-form .fg textarea{background:#19191c;border-color:#45454a}
+.btn-ghost,.sf-btn{border-radius:8px;border-color:rgba(255,255,255,.25)}
+.btn-orange,.form-send,.hero-cta-primary,.cookie-btn,.slist-ticket:not(.is-soon),.sf-btn.active{color:#060606;box-shadow:inset 0 1px 0 rgba(255,255,255,.2)}
+body.page-north .btn-orange,body.page-north .form-send,body.page-north .cookie-btn{color:#fff}
+.scard,.set-card,.rel-card,.tnl-soon-card{border-radius:var(--lg-radius)}
+.scard{border:1px solid rgba(255,255,255,.12);background:#101012}
+.scard-handle{color:#aaa}
+[data-anim]{transition-duration:.5s}
+.js-sc .sc-zoom{transition-duration:.65s;transform:scale(1.035)}
+.js-sc .sc-zoom.sc-in{transform:none}
+/* Un solo acento de scroll: línea bajo los títulos, sin ocultar contenido. */
+@supports(animation-timeline:view()){
+ @media(prefers-reduced-motion:no-preference){
+  html:not(.fx-pause) .section-h::after{content:'';display:block;width:64px;height:2px;margin-top:18px;background:var(--accent);transform-origin:left;animation:dg-line 1ms linear both;animation-timeline:view();animation-range:entry 0% entry 100%}
+  @keyframes dg-line{from{transform:scaleX(.15);opacity:.3}to{transform:scaleX(1);opacity:1}}
+ }
+}
+/* El menú fijo no puede quedar contenido por el filtro de la cabecera. */
+@media(max-width:900px){nav,nav.scrolled{-webkit-backdrop-filter:none;backdrop-filter:none;background:#0c0c0e}.nav-links{background:rgba(12,12,14,.88);height:100dvh;border-left-color:rgba(255,255,255,.18);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}#show-pill,#back-top,#toast,#cookie-banner,.next-tag{-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}#show-pill{width:190px}.booking-form{padding:26px 20px}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){nav,#show-pill,#back-top,#toast,#cookie-banner,.next-tag{background:#111113}}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){nav,nav.scrolled,.nav-links,#show-pill,#back-top,#toast,#cookie-banner,.next-tag{background:#111113!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border-color:#888}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto!important}*,*::before,*::after{animation:none!important;transition:none!important}[data-anim],.js-sc .sc-zoom,.js-sc .giant-foot span{opacity:1!important;transform:none!important}}
+html.fx-pause .section-h::after{animation:none!important;transform:none!important;opacity:1!important}
+@media(forced-colors:active){nav,.nav-links,#show-pill,#back-top,#toast,#cookie-banner,.next-tag,.booking-form,.scard{background:Canvas!important;color:CanvasText!important;border:1px solid CanvasText;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}}
+
+/* Menú por encima de avisos y controles; objetivos táctiles cómodos. */
+@media(max-width:900px){body:has(.nav-links.open) nav{z-index:1002}.nav-toggle{min-width:44px;min-height:44px}.nav-links{overflow-y:auto;padding-top:72px;padding-bottom:90px}}
+#cookie-banner button{min-height:44px}
+.next-tag{color:#fff}
+:focus-visible{outline:2px solid #fff;outline-offset:4px}
+
+@media(max-width:900px){body:has(.nav-links.open) #cookie-banner,body:has(.nav-links.open) .wa-float,body:has(.nav-links.open) #back-top{visibility:hidden}}
+
+.next-tag{padding:8px 12px}.next-tag .live-dot{width:8px;height:8px;animation:none;box-shadow:none}
+
+/* Correcciones de contraste detectadas con axe, 24 oct. */
+.skip-link,.request-submit,.rel-badge-new{color:#060606!important}
+.dc-pas{color:#888!important}
+.legal-wrap p a,#cookie-banner a{text-decoration:underline;text-underline-offset:3px}
+body.page-north .foot-logo span,body.page-north #cookie-banner a{color:#ee8b8b!important}
+body.page-north .skip-link{color:#fff!important}
+body:has(.code) .code{color:#c26525!important;opacity:1!important}
+body:has(.code) a[href="/"]{color:#060606!important}
+html:not(.js-sc) [data-anim]{opacity:1;transform:none}
+
+/* Liquid Glass: fin */
