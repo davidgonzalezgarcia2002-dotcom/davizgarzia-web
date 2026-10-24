@@ -683,3 +683,15 @@ html.fx-pause .giant-foot span{opacity:1!important;transform:none!important}
 .cookie-no{background:transparent;border:1px solid var(--border2);color:var(--muted2)}
 .trust-line{margin-top:18px;font-family:var(--cond);font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted2);line-height:1.8}
 .trust-line b{color:var(--accent);font-weight:600;margin-right:6px}
+
+/* Página The North: colores del sello (rojo #761616 sobre negro). El rojo claro es solo para texto pequeño, legible sobre negro. */
+body.page-north{--accent:#761616;--accent2:#A83232;--tn-text:#C23B3B}
+body.page-north nav{--accent:#FF6B00;--accent2:#FF9A00}
+body.page-north .section-eye,body.page-north .tnl-vol1-badge,body.page-north .yt-badge,body.page-north .rel-play-btn,body.page-north .show-date-badge{color:var(--tn-text)}
+body.page-north .giant-foot .g-acc{color:#761616}
+body.page-north .btn-orange:hover{background:#8f1d1d}
+body.page-north .tnl-vol1-badge,body.page-north .yt-badge{background:rgba(118,22,22,.18);border-color:rgba(194,59,59,.45)}
+/* Arreglo: franja de foto bajo la capa oscura (el zoom del vídeo se salía del bloque) y texto ilegible sobre la foto */
+.page-visual-host--blend>.page-visual-video{transform:none;-webkit-mask-image:linear-gradient(180deg,#000 55%,transparent 100%);mask-image:linear-gradient(180deg,#000 55%,transparent 100%)}
+.booking-bg.page-visual-host--blend>.page-visual-shade{background:linear-gradient(180deg,rgba(6,6,6,.78) 0%,rgba(6,6,6,.86) 55%,var(--surface) 100%)}
+body.page-north .tnl-soon-card::after,body.page-north .tnl-soon-card.tnl-available::after{color:var(--tn-text);background:rgba(118,22,22,.3)}
