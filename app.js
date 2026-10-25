@@ -421,36 +421,7 @@ window.dgUpcoming=function(show){return show.dateOnly ? show.dateOnly>=window.dg
   document.addEventListener('mousemove',function(e){el.style.left=e.clientX+'px';el.style.top=e.clientY+'px';},{passive:true});
 })();
 
-// ── VIDEO MASHUP EMBED (solo si existe) ──────────────────────────────────────
-(function(){
-  var vm=document.getElementById('video-mashup');
-  if(!vm)return;
-  vm.addEventListener('click',function(){
-    this.innerHTML='<iframe width="100%" height="100%" src="https://www.youtube.com/embed/8MTWzI7FjH8?autoplay=1&rel=0" allow="autoplay;encrypted-media;picture-in-picture" allowfullscreen style="border:none;display:block;border-radius:0"></iframe>';
-  });
-})();
-
-// ── SPOTIFY EMBED (solo si existe — carga el iframe al hacer clic, no antes) ─
-(function(){
-  var el=document.getElementById('spotify-embed');
-  if(!el)return;
-  function load(){
-    el.outerHTML='<iframe src="https://open.spotify.com/embed/artist/6kuKoUwoqmzqP0vXmkgOH1?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" title="Daviz Garzia en Spotify — Discografía completa" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" style="border:none;display:block"></iframe>';
-  }
-  el.addEventListener('click',load);
-  el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();load();}});
-})();
-
-// ── SOUNDCLOUD EMBED (solo si existe — carga el iframe al hacer clic, no antes) ─
-(function(){
-  var el=document.getElementById('soundcloud-embed');
-  if(!el)return;
-  function load(){
-    el.outerHTML='<iframe width="100%" height="300" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/the-north-record-label/reggaeton-mashup-pack-2026-the&color=%23FF6B00&auto_play=false&hide_related=false&show_comments=false&show_user=true&show_reposts=false&show_teaser=true&visual=true" title="Reggaeton Mashup Pack 2026 Vol.02 — The North Record Label" style="display:block"></iframe>';
-  }
-  el.addEventListener('click',load);
-  el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();load();}});
-})();
+// Reproductores oficiales incluidos directamente en el HTML, sin clic de carga.
 
 // ── EVENTOS DE CONVERSIÓN (solo con consentimiento de analítica) ─────────────
 document.addEventListener('click',function(e){
