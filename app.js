@@ -23,7 +23,7 @@ window.dgUpcoming=function(show){return show.dateOnly ? show.dateOnly>=window.dg
 // ── PAUSAR ANIMACIONES (control para el visitante, recordado en el navegador) ──
 (function(){
   var KEY='fx_pause',root=document.documentElement;
-  function guardado(){try{return localStorage.getItem(KEY)==='1'}catch(e){return false}}
+  function guardado(){try{var v=localStorage.getItem(KEY);return v===null?null:v==='1'}catch(e){return null}}
   function guardar(v){try{localStorage.setItem(KEY,v?'1':'0')}catch(e){}}
   function aplicar(p){
     root.classList.toggle('fx-pause',p);
@@ -34,7 +34,7 @@ window.dgUpcoming=function(show){return show.dateOnly ? show.dateOnly>=window.dg
     var cont=document.querySelector('.foot-links');if(!cont)return;
     var b=document.createElement('button');b.type='button';b.id='fx-toggle';b.className='fx-toggle';
     b.addEventListener('click',function(){var p=!root.classList.contains('fx-pause');guardar(p);aplicar(p)});
-    cont.appendChild(b);aplicar(guardado()||matchMedia('(prefers-reduced-motion: reduce)').matches);
+    cont.appendChild(b);aplicar(guardado()===null?matchMedia('(prefers-reduced-motion: reduce)').matches:guardado());
   });
 })();
 
@@ -120,7 +120,6 @@ window.dgUpcoming=function(show){return show.dateOnly ? show.dateOnly>=window.dg
   if(typeof gtag!=='function')return; // la página no incluye el stub de GA (ej. privacidad.html)
   var GA_ID='G-BJWT1W9HER';
   function loadGA(){
-
     if(window.gaLoaded)return;
     window.gaLoaded=true;
     var s=document.createElement('script');

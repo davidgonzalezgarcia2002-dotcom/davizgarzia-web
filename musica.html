@@ -28,8 +28,9 @@
   <link rel="stylesheet" href="styles.css">
   <!-- Google Analytics 4 (carga solo tras aceptar cookies, ver app.js) -->
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());</script>
+<link rel="stylesheet" href="brand.css">
 </head>
-<body>
+<body data-brand="daviz">
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 <!-- GRAIN TEXTURE -->
 <div class="grain"></div>
@@ -41,7 +42,7 @@
 <button id="back-top" aria-label="Volver arriba">&#8679;</button>
 
 <!-- LIGHTBOX -->
-<div id="lightbox" role="dialog" aria-modal="true">
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Galería de imágenes">
   <button id="lightbox-close" aria-label="Cerrar">&times;</button>
   <button id="lightbox-prev" aria-label="Anterior">&#8249;</button>
   <img id="lightbox-img" src="" alt="">
@@ -74,7 +75,7 @@
 <h1 class="sr-only">Música de Daviz Garzia: discografía, Spotify y YouTube</h1>
 <!-- MÚSICA -->
 <div class="page-visual-host page-visual-host--blend music-bg" id="musica">
-<video class="page-visual-video" data-scroll-video muted loop playsinline preload="none" poster="media/visuales/boca-con-nombre.jpg" aria-hidden="true"><source src="media/visuales/boca-con-nombre.mp4" type="video/mp4"></video>
+<img class="page-visual-video" src="photos/musica-planb-2026.webp" alt="" aria-hidden="true" width="1700" height="1100">
 <div class="page-visual-shade" aria-hidden="true"></div>
 
   <div class="sw">
@@ -89,7 +90,7 @@
         <div class="section-eye" style="margin-bottom:10px">Escucha ahora</div>
         <h3 style="font-size:16px;font-weight:800;color:var(--text);margin-bottom:16px">Mi artista en Spotify</h3>
         <div class="spotify-wrap" style="margin-top:0">
-          <iframe width="100%" height="352" title="Daviz Garzia en Spotify — Discografía completa" loading="eager" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen src="https://open.spotify.com/embed/artist/6kuKoUwoqmzqP0vXmkgOH1?theme=0" style="border:0;display:block;border-radius:12px"></iframe>
+          <iframe src="https://open.spotify.com/embed/artist/6kuKoUwoqmzqP0vXmkgOH1?theme=0" width="100%" height="352" title="Daviz Garzia — Discografía en Spotify" loading="eager" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen style="border:0;border-radius:12px;display:block"></iframe>
         </div>
         <div style="margin-top:18px;text-align:center">
           <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" rel="noopener noreferrer" class="btn-orange">Ver discografía completa →</a>

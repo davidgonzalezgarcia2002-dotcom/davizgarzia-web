@@ -28,8 +28,10 @@
   <link rel="stylesheet" href="styles.css">
   <!-- Google Analytics 4 (carga solo tras aceptar cookies, ver app.js) -->
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());</script>
+<link rel="stylesheet" href="brand.css">
+<link rel="stylesheet" href="north.css">
 </head>
-<body class="page-north">
+<body class="page-north" data-brand="daviz">
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 <!-- GRAIN TEXTURE -->
 <div class="grain"></div>
@@ -41,7 +43,7 @@
 <button id="back-top" aria-label="Volver arriba">&#8679;</button>
 
 <!-- LIGHTBOX -->
-<div id="lightbox" role="dialog" aria-modal="true">
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Galería de imágenes">
   <button id="lightbox-close" aria-label="Cerrar">&times;</button>
   <button id="lightbox-prev" aria-label="Anterior">&#8249;</button>
   <img id="lightbox-img" src="" alt="">
@@ -71,88 +73,11 @@
   </div>
 </nav>
 
-<main id="contenido" style="padding-top:60px">
-<h1 class="sr-only">The North Record Label, el sello de Daviz Garzia</h1>
-<!-- THE NORTH RECORD LABEL -->
-<div class="page-visual-host page-visual-host--blend tnl-bg" id="thenorth">
-<video class="page-visual-video" data-scroll-video muted loop playsinline preload="none" poster="media/visuales/boca-con-nombre.jpg" aria-hidden="true"><source src="media/visuales/boca-con-nombre.mp4" type="video/mp4"></video>
-<div class="page-visual-shade" aria-hidden="true"></div>
-
-  <div class="sw">
-    <div data-anim style="text-align:center">
-      <div style="display:inline-flex;align-items:center;justify-content:center;width:64px;height:64px;margin-bottom:18px">
-        <svg width="40" height="40" viewBox="0 0 3000 3000" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path fill="white" d="M962.88,2716.28C329.32,2429.09,44.35,1700.74,292.79,1061,539.99,424.45,1243.92,80.11,1898.02,295.45c712.56,234.58,1076.28,1006.89,813.39,1702.32-262.04,693.18-1061.13,1030.11-1748.52,718.51ZM385.68,1500.2l331.86-58.98c44.43-373.28,331.65-657.83,698.46-696.73l61.08-330.12c-274.39.13-535.57,110.57-741.84,298.36l138.42,188.15c-66.59-41.84-122.83-85.3-190.39-134.72-186.11,201.66-296.31,464.4-297.59,734.04ZM2086.92,1005.18c110.53,119.53,171.38,269.8,194.91,434.01l334.93,64.25c-3.71-280.17-113.63-535.66-298.29-735.58-65.42,47.89-119.84,87.62-183.01,127.9l125.39-184.44c-202.26-190.39-463.77-295.21-738.78-297.43l62.96,330.24c183.58,23.1,348.13,93.08,469.85,228.91l-232.22,43.22c-323.12-200.66-738.87-71.55-884.39,278.41-143.35,344.74,50.91,737.53,414.81,828.37,362.29,90.44,721.97-163.67,755.27-540.64l-174.61-27.6,153.17-549.61ZM1477.75,2650.79l-65.19-332.45c-368.25-47.84-650.04-326.08-694.24-693.93l-334.89-67.32c3.34,280.87,114.59,538.03,297.15,739.84l193.73-145.24c-45.01,69.85-89.65,129.91-141.22,199.62,203.68,185.66,462.26,299.42,744.66,299.48ZM2267.47,2350.42l-132.54-187c69.84,42.54,124.09,87.18,187.4,134.77,183.74-204.44,287.78-462.08,295.03-739.35l-336.86,65.52c-42.71,372.52-329.58,647.54-694.55,693.51l-63.61,334.61c281.94-3.51,542.46-113.22,745.14-302.06Z"/>
-          <path fill="white" d="M1537.31,1222.11c169.23,22.67,296.87,167.9,284.18,330.13-13.58,173.78-154.85,305.17-325.34,303.22-168.93-1.94-306.45-132.84-317.31-302.58-10.97-171.5,113.62-310.98,286.89-331.17l34.78-170.87,36.8,171.28ZM1448.56,1411.79c-76.75,29.42-104.61,113.49-76.54,178.16,30.54,70.36,110.32,102.45,177.57,75.93,69.99-27.6,105.02-106.32,80.89-172.61-26.46-72.7-105.11-110.93-181.92-81.49Z"/>
-        </svg>
-      </div>
-      <div class="section-eye" data-i18n="tnl_eye">Sello Discográfico</div>
-      <h2 class="section-h" data-i18n="tnl_h2">The North Record Label</h2>
-      <p class="section-p" style="margin:0 auto" data-i18n="tnl_p">Recursos para DJs. Sample packs, mashup packs y herramientas de producción hechas por DJs, para DJs.</p>
-    </div>
-
-    <div class="tnl-header">
-
-      <!-- SoundCloud Vol 2 — pack vigente -->
-      <div data-anim="left">
-        <span class="tnl-vol1-badge">🔥 Disponible ahora · Vol. 2</span>
-        <div style="margin-bottom:14px">
-          <div style="font-size:16px;font-weight:900;color:var(--text);margin-bottom:4px">Reggaeton Mashup Pack 2026 · Vol.02</div>
-          <div style="font-size:12px;color:var(--muted2);line-height:1.6">19 tracks · 17 artistas · pack gratuito para DJs. Mashups exclusivos de reggaeton listos para tus sets.</div>
-        </div>
-        <div class="tnl-sc-embed">
-          <iframe width="100%" height="300" title="The North — Reggaeton Mashup Pack Vol.02" loading="eager" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/the-north-record-label/reggaeton-mashup-pack-2026-the&amp;color=%23761616&amp;auto_play=false&amp;hide_related=false&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true" style="border:0;display:block;border-radius:12px"></iframe>
-        </div>
-        <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
-          <a href="https://soundcloud.com/the-north-record-label/reggaeton-mashup-pack-2026-the" target="_blank" rel="noopener noreferrer" class="btn-orange">Escuchar en SoundCloud →</a>
-          <a href="https://www.instagram.com/thenorthrecordlabel/" target="_blank" rel="noopener noreferrer" class="btn-ghost">@thenorthrecordlabel →</a>
-        </div>
-      </div>
-
-      <!-- Catálogo + próximamente -->
-      <div data-anim="right">
-        <div class="section-eye" style="margin-bottom:10px">Catálogo</div>
-        <h3 style="font-size:15px;font-weight:800;color:var(--text);margin-bottom:8px">Más del sello</h3>
-        <p style="font-size:13px;color:var(--muted2);line-height:1.75;margin-bottom:20px">El primer pack sigue disponible, y ya se está preparando el siguiente.</p>
-        <div class="tnl-soon-stack">
-
-          <div class="tnl-soon-card tnl-available" data-anim data-delay="1">
-            <div class="tnl-soon-icon" style="background:rgba(118,22,22,.25)">📦</div>
-            <div>
-              <div class="tnl-soon-title">Reggaeton Mashup Pack 2026 · Vol.1</div>
-              <div class="tnl-soon-desc">El primer pack del sello, sigue disponible para descarga</div>
-              <a href="https://soundcloud.com/the-north-record-label/reggaeton-mashup-pack-2026-1" target="_blank" rel="noopener noreferrer" class="tnl-chip" style="display:inline-block;margin-top:8px;text-decoration:none">Escuchar Vol.1 →</a>
-            </div>
-          </div>
-
-          <div class="tnl-soon-card" data-anim data-delay="2">
-            <div class="tnl-soon-icon" style="background:rgba(99,102,241,.1)">⏳</div>
-            <div>
-              <div class="tnl-soon-title">Mashup Pack Vol. 3</div>
-              <div class="tnl-soon-desc">Próximamente · nueva ronda de artistas del sello</div>
-              <div class="tnl-cat-chips">
-                <span class="tnl-chip">Reggaeton</span>
-                <span class="tnl-chip">Próximamente</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-        <h3 style="font-size:15px;font-weight:800;color:var(--text);margin:28px 0 12px">Redes del sello</h3>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
-          <a href="https://www.instagram.com/thenorthrecordlabel/" target="_blank" rel="noopener noreferrer" class="btn-ghost">Instagram →</a>
-          <a href="https://soundcloud.com/the-north-record-label" target="_blank" rel="noopener noreferrer" class="btn-ghost">SoundCloud →</a>
-          <a href="https://www.facebook.com/profile.php?id=61591918015376" target="_blank" rel="noopener noreferrer" class="btn-ghost">Facebook →</a>
-          <a href="https://linktr.ee/thenorthrecordlabel" target="_blank" rel="noopener noreferrer" class="btn-ghost">Linktree →</a>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-
+<main id="contenido" class="nl-page">
+<header class="nl-heading" id="thenorth"><div class="nl-brandline"><img src="media/north/logo.svg" class="nl-mark" alt="" width="50" height="50"><span>SELLO INDEPENDIENTE / DAVIZ GARZIA</span></div><h1>THE NORTH<br><span>RECORD LABEL.</span></h1><div class="nl-heading-foot"><p>De DJs. Para DJs.<br><span>Mashups y recursos para hacer tuyo el próximo set.</span></p><a href="#catalogo" class="nl-link">Explora el catálogo <span aria-hidden="true">↓</span></a></div></header>
+<section class="nl-feature" aria-labelledby="nl-vol2"><div class="nl-art"><img src="media/north/vol02.webp" alt="Portada oficial del Volumen 2 de The North Record Label: figura roja y luz sobre fondo oscuro" width="1200" height="1200" fetchpriority="high"><span class="nl-art-caption">REGGAETON SERIES / VOL.02</span></div><div class="nl-feature-copy"><p class="nl-kicker"><i aria-hidden="true"></i> DISPONIBLE AHORA</p><h2 id="nl-vol2">REGGAETON<br>MASHUP PACK <em>VOL.02</em></h2><p class="nl-description">19 tracks de 17 artistas. Mashups exclusivos de reggaeton para llevar a tus sesiones.</p><dl class="nl-stats"><div><dt>Tracks</dt><dd>19</dd></div><div><dt>Artistas</dt><dd>17</dd></div><div><dt>Edición</dt><dd>2026</dd></div></dl><div class="nl-player" id="north-player"><p>ESCUCHA EL PACK</p><iframe width="100%" height="166" scrolling="no" title="Escuchar Reggaeton Mashup Pack Volumen 2 de The North" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/the-north-record-label/reggaeton-mashup-pack-2026-the&amp;color=%23761616&amp;auto_play=false&amp;show_artwork=false&amp;show_user=true&amp;visual=false" style="border:0;display:block" loading="eager"></iframe></div><div class="nl-actions"><a class="nl-button" href="https://hypeddit.com/thenorthrecordlabel/reggaetonmashuppack2026" target="_blank" rel="noopener noreferrer">Descargar Vol.02 <span aria-hidden="true">↗</span></a><a class="nl-link" href="https://soundcloud.com/the-north-record-label/reggaeton-mashup-pack-2026-the" target="_blank" rel="noopener noreferrer">Abrir en SoundCloud ↗</a></div><p class="nl-small">Descarga gratuita a través de Hypeddit.</p></div></section>
+<section class="nl-catalog" id="catalogo" aria-labelledby="nl-catalog-title"><div class="nl-section-heading"><p class="nl-kicker">EL CATÁLOGO</p><h2 id="nl-catalog-title">SIGUE LA DIRECCIÓN.</h2></div><div class="nl-catalog-grid"><article class="nl-catalog-card"><div class="nl-card-top"><img src="media/north/vol01.webp" alt="Portada oficial del Volumen 1, Reggaeton Series, de The North" width="1200" height="1200" loading="lazy"><div><p class="nl-kicker">DISPONIBLE</p><h3>EL PRIMER<br>CAPÍTULO.</h3><p class="nl-card-description">Reggaeton Mashup Pack<br>Vol.01 · 2026</p><a class="nl-link" href="https://hypeddit.com/thenorthrecordlabel/thenorthvol01mashuplifehypeeditsaudiofiltered" target="_blank" rel="noopener noreferrer">Descargar Vol.01 ↗</a></div></div><iframe width="100%" height="166" scrolling="no" title="Escuchar Reggaeton Mashup Pack Volumen 1 de The North" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/the-north-record-label/reggaeton-mashup-pack-2026-1&amp;color=%23761616&amp;auto_play=false&amp;show_artwork=false&amp;show_user=true&amp;visual=false" style="border:0;display:block" loading="eager"></iframe></article><article class="nl-next"><span class="nl-next-number" aria-hidden="true">03</span><div class="nl-next-top"><img src="media/north/logo.svg" class="nl-mark" alt="" width="42" height="42"><p class="nl-kicker">PRÓXIMAMENTE</p></div><div class="nl-next-copy"><h3>EL SIGUIENTE<br>MOVIMIENTO.</h3><p>Mashup Pack Vol.03.<br>Más música del sello, próximamente.</p><a class="nl-link" href="https://www.instagram.com/thenorthrecordlabel/" target="_blank" rel="noopener noreferrer">Sigue las novedades ↗</a></div></article></div></section>
+<section class="nl-follow" aria-label="Redes de The North"><div><p class="nl-kicker">CONECTA CON EL SELLO</p><h2>THE NORTH.<br>TO THE WORLD.</h2></div><div class="nl-socials"><a href="https://www.instagram.com/thenorthrecordlabel/" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a><a href="https://soundcloud.com/the-north-record-label" target="_blank" rel="noopener noreferrer">SoundCloud <span aria-hidden="true">↗</span></a><a href="https://www.facebook.com/profile.php?id=61591918015376" target="_blank" rel="noopener noreferrer">Facebook <span aria-hidden="true">↗</span></a><a href="https://linktr.ee/thenorthrecordlabel" target="_blank" rel="noopener noreferrer">Todos los enlaces <span aria-hidden="true">↗</span></a></div></section>
 </main>
 
 <!-- TEXTO GIGANTE -->

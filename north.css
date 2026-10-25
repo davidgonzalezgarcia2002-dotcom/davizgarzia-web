@@ -1,0 +1,42 @@
+/* The North: portadas oficiales, carbón y rojo del sello. */
+.nl-page{max-width:1280px;margin:0 auto;padding:140px 4.5% 70px;isolation:isolate;background:radial-gradient(ellipse at 90% 22%,#76161617,transparent 40%);overflow:clip}
+.nl-page section,.nl-page header{scroll-margin-top:100px}
+.nl-mark{filter:invert(1);display:block;object-fit:contain;flex-shrink:0}
+.nl-brandline{display:flex;align-items:center;gap:18px;margin-bottom:33px}.nl-brandline>span{font-size:10px;letter-spacing:2px;color:#bcbcbc}
+.nl-heading h1{font-family:var(--cond);font-weight:600;font-size:clamp(58px,8vw,110px);line-height:.87;letter-spacing:-1.5px;margin-bottom:28px}
+.nl-heading h1>span{color:#a09d9d}
+.nl-heading-foot{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:64px}
+.nl-heading-foot p{font-size:15px;line-height:1.8;color:#f2f2f2}.nl-heading-foot p>span{font-size:13px;color:#b6b3b3}
+.nl-link{display:inline-flex;align-items:center;justify-content:space-between;gap:15px;min-height:44px;font-size:12px;color:#e7e4e4;border-bottom:1px solid #ffffff3d;padding:11px 0;transition:border-color .18s ease}
+.nl-feature{display:grid;grid-template-columns:1fr 1fr;gap:7%;align-items:center}
+.nl-art{position:relative}.nl-art::before{content:'';position:absolute;inset:8%;background:#a52b2b;filter:blur(55px);opacity:.14;z-index:-1}
+.nl-art>img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;border-radius:14px;border:1px solid #ffffff20;box-shadow:0 22px 60px #0008}
+.nl-art-caption{display:block;margin-top:15px;font-size:9px;letter-spacing:2px;color:#b6a7a7}
+.nl-kicker{font-size:9px;font-weight:600;letter-spacing:2px;color:#e99e9e;display:flex;gap:8px;align-items:center}
+.nl-kicker i{width:5px;height:5px;border-radius:50%;background:#e38d8d;box-shadow:0 0 14px #b2464670}
+.nl-feature-copy h2{font-family:var(--cond);font-size:clamp(40px,4.3vw,62px);font-weight:500;line-height:1;letter-spacing:-.6px;margin:22px 0}
+.nl-feature-copy h2 em{display:block;font-style:normal;color:#eda4a4;margin-top:8px}
+.nl-description{font-size:13px;line-height:1.8;color:#bfb9b9;max-width:390px}
+.nl-stats{display:flex;gap:0;margin:26px 0;border-top:1px solid #ffffff20;border-bottom:1px solid #ffffff20;padding:17px 0}
+.nl-stats>div{padding:0 25px;border-right:1px solid #ffffff25;display:flex;flex-direction:column-reverse}.nl-stats>div:first-child{padding-left:0}.nl-stats>div:last-child{border:0}
+.nl-stats dt{font-size:9px;letter-spacing:1px;color:#bbb;text-transform:uppercase}.nl-stats dd{font-family:var(--cond);font-size:30px;line-height:1.1;color:#f2f2f2}
+.nl-player>p{font-size:9px;letter-spacing:1.8px;color:#b8b3b3;margin:0 0 10px}.nl-player iframe,.nl-catalog-card iframe{border-radius:9px;background:#181818;max-width:100%}
+.nl-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px 23px;margin-top:22px}
+.nl-button{display:inline-flex;align-items:center;justify-content:space-between;gap:27px;min-height:50px;padding:13px 20px;border-radius:7px;border:1px solid #cc777759;background:linear-gradient(125deg,#a13d3d,#761616);box-shadow:inset 0 1px 0 #ffffff26,0 6px 25px #0004;color:#fff;font-size:12px;font-weight:500}
+.nl-button>span{font-size:20px}.nl-small{font-size:10px;color:#bcb1b1;margin-top:14px}
+.nl-catalog{margin-top:100px}.nl-section-heading{margin-bottom:32px}.nl-section-heading h2{font-family:var(--cond);font-weight:500;font-size:clamp(34px,4vw,54px);letter-spacing:-.6px;line-height:1.1;margin-top:14px}
+.nl-catalog-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:22px}
+.nl-catalog-card,.nl-next{border-radius:14px;border:1px solid #ffffff20;background:linear-gradient(135deg,#ffffff0b,transparent 70%),#151516;box-shadow:inset 0 1px 0 #ffffff18;overflow:hidden;padding:28px}
+.nl-card-top{display:grid;grid-template-columns:165px 1fr;gap:25px;align-items:center;margin-bottom:28px}
+.nl-card-top>img{width:100%;height:auto;aspect-ratio:1;object-fit:contain;border-radius:7px}.nl-card-top h3{font-family:var(--cond);font-size:34px;font-weight:500;line-height:1;margin:13px 0}.nl-card-description{font-size:11px;color:#bcb6b6;line-height:1.7}
+.nl-next{display:flex;flex-direction:column;justify-content:space-between;position:relative;background:radial-gradient(ellipse at 100% 0,#76161644,transparent 70%),#141415;min-height:410px}
+.nl-next-top{display:flex;justify-content:space-between;gap:15px;align-items:start;position:relative;z-index:1}.nl-next-number{position:absolute;top:10px;right:10px;font-family:var(--cond);font-size:260px;font-weight:600;color:#c55f5f16;line-height:1;letter-spacing:-15px;pointer-events:none}
+.nl-next-copy{position:relative;z-index:1;margin-top:40px}.nl-next h3{font-family:var(--cond);font-size:42px;font-weight:500;line-height:1;margin-bottom:15px}.nl-next-copy>p{font-size:12px;color:#c9b8b8;line-height:1.8}
+.nl-follow{display:flex;justify-content:space-between;gap:40px;align-items:end;border-top:1px solid #ffffff25;margin-top:100px;padding-top:45px}.nl-follow h2{font-family:var(--cond);font-size:48px;font-weight:500;line-height:1;margin-top:18px}.nl-socials{display:grid;grid-template-columns:1fr 1fr;gap:10px 35px;min-width:310px}.nl-socials a{display:flex;justify-content:space-between;gap:20px;min-height:44px;font-size:12px;padding:12px 0;border-bottom:1px solid #ffffff30}
+@media(hover:hover){.nl-link:hover,.nl-socials a:hover{border-color:#eda4a4}.nl-button:hover{background:linear-gradient(125deg,#af4848,#842323)}}
+@media(max-width:950px){.nl-page{padding:120px 5% 60px}.nl-feature{gap:5%;align-items:start}.nl-feature-copy h2{font-size:42px}.nl-catalog-grid{grid-template-columns:1fr 1fr}.nl-card-top{grid-template-columns:110px 1fr;gap:18px}.nl-catalog-card,.nl-next{padding:23px}.nl-card-top h3{font-size:28px}.nl-stats>div{padding:0 18px}.nl-follow{align-items:start}.nl-socials{min-width:270px}}
+@media(max-width:650px){.nl-page{padding:110px 6% 50px}.nl-brandline{gap:14px;margin-bottom:28px}.nl-brandline>span{font-size:8px;letter-spacing:1.3px}.nl-brandline .nl-mark{width:38px;height:38px}.nl-heading h1{font-size:58px;letter-spacing:-.8px}.nl-heading-foot{align-items:start;flex-direction:column;gap:14px;margin-bottom:35px}.nl-heading-foot p{font-size:13px}.nl-heading-foot p>span{font-size:12px}.nl-feature{grid-template-columns:1fr;gap:35px}.nl-art>img{border-radius:11px}.nl-feature-copy h2{font-size:49px}.nl-description{font-size:13px}.nl-art-caption{font-size:8px;letter-spacing:1.4px}.nl-stats{gap:0}.nl-stats>div{flex:1}.nl-actions{gap:12px 20px}.nl-actions .nl-link{font-size:11px}.nl-catalog{margin-top:65px}.nl-catalog-grid{grid-template-columns:1fr;gap:18px}.nl-card-top{grid-template-columns:120px 1fr;gap:19px}.nl-catalog-card,.nl-next{padding:23px}.nl-card-top h3{font-size:30px}.nl-next{min-height:350px}.nl-next h3{font-size:42px}.nl-follow{flex-direction:column;gap:30px;margin-top:60px;padding-top:35px}.nl-follow h2{font-size:43px}.nl-socials{width:100%;min-width:0;gap:10px 25px}}
+@media(max-width:360px){.nl-heading h1{font-size:49px}.nl-feature-copy h2{font-size:43px}.nl-card-top{grid-template-columns:95px 1fr;gap:16px}.nl-card-top h3{font-size:28px}.nl-kicker{font-size:8px;letter-spacing:1.5px}}
+@media(prefers-reduced-motion:reduce){.nl-page *{animation:none!important;transition:none!important}}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){.nl-catalog-card,.nl-next{background:#171717;border-color:#888}.nl-art::before{display:none}}
+@media(forced-colors:active){.nl-button,.nl-catalog-card,.nl-next{background:Canvas;color:CanvasText;border:1px solid CanvasText;box-shadow:none}.nl-art::before,.nl-next-number{display:none}}

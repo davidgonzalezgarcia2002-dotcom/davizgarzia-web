@@ -1,0 +1,50 @@
+/* Base común de la propuesta: Daviz Garzia. */
+body[data-brand]{--bg:#0b0c0d;--bg2:#101113;--surface:#111214;--surface2:#191a1c;--text:#f2f2f2;--accent:#FF6B00;--accent2:#ff9a4d;background:#0b0c0d;color:#f2f2f2}
+body[data-brand].page-north{--accent:#761616;--accent2:#ee8b8b}
+body[data-brand] nav{padding:20px 4.5%;background:rgba(11,12,13,.88);border-bottom:1px solid #ffffff20}
+body[data-brand] nav.scrolled{padding:13px 4.5%;background:rgba(11,12,13,.94)}
+body[data-brand] .nav-logo{font-size:23px}body[data-brand] .nav-logo span{color:#f2f2f2;margin-left:3px}
+body[data-brand] .nav-links .nav-cta{background:#f2f2f2!important;background-image:none!important;color:#121212!important;-webkit-text-fill-color:#121212!important;border-radius:6px!important;box-shadow:none}
+body[data-brand] .lang-sw,body[data-brand] .nav-socials,body[data-brand] #back-top,body[data-brand] .wa-float{display:none!important}
+body[data-brand] :is(.btn-orange,.form-send,.request-submit,.slist-ticket:not(.is-soon),.sf-btn.active,.cookie-btn:not(.cookie-no),.st-button:not(.st-button-light)){
+background-image:linear-gradient(115deg,#ffffff18,transparent 48%),linear-gradient(180deg,#ff8d32,#ff6b00 55%,#ef6200)!important;color:#141414;border:1px solid #ffad6b70;border-radius:7px;box-shadow:inset 0 1px 0 #ffffff66,0 5px 18px #0005}
+body[data-brand].page-north :is(.btn-orange,.form-send,.cookie-btn:not(.cookie-no)){background-image:linear-gradient(180deg,#922929,#761616)!important;color:white;border-color:#b65b5b70}
+body[data-brand] .st-button-light{background:#f2f2f2;color:#141414;border-color:#f2f2f2}
+body[data-brand] :is(.btn-ghost,.sf-btn){border-radius:7px;border-color:#ffffff35}
+body[data-brand] :is(.booking-form,.request-form,.avisos-box,.cdwn-wrap,.rel-item,.set-card,.tnl-soon-card,.scard){background:linear-gradient(135deg,#ffffff0d,transparent 70%),#151617;border:1px solid #ffffff20;border-radius:14px;box-shadow:inset 0 1px 0 #ffffff22,0 12px 32px #0002}
+body[data-brand] .cdwn-wrap{max-width:800px;padding:40px}
+body[data-brand] .cdwn-unit{background:#ffffff04;border-color:#ffffff16;border-radius:7px}
+body[data-brand] .cdwn-num{color:#ff9a4d}
+body[data-brand] .section-h{font-family:var(--cond);font-weight:500;line-height:1.04;letter-spacing:-.8px;font-size:clamp(38px,4.4vw,64px)}
+body[data-brand] .section-p{color:#b8b8b8}body[data-brand] .section-eye{font-size:10px;letter-spacing:2px;color:#b8b8b8}
+body[data-brand] .live-banner{min-height:490px;padding:100px 6% 70px;text-align:left;align-items:flex-start}
+body[data-brand] .live-banner h2{font-weight:500;letter-spacing:-1px;font-size:clamp(45px,6vw,82px);max-width:700px;line-height:1}
+body[data-brand] .live-banner p{max-width:440px;color:#ddd}
+body[data-brand] .page-visual-host>.page-visual-video{object-position:50% 42%;filter:brightness(.65) saturate(.8)}
+body[data-brand] .live-banner>.page-visual-video{object-position:55% 35%}
+body[data-brand] .page-visual-host>.page-visual-shade{background:linear-gradient(90deg,#0b0c0de6,#0b0c0d22),linear-gradient(0deg,#0b0c0d,transparent 70%)}
+body[data-brand] .music-bg>.page-visual-shade,body[data-brand] .booking-bg>.page-visual-shade{background:linear-gradient(180deg,#0b0c0d8f,#0b0c0d 100%),linear-gradient(90deg,#0b0c0da6,transparent)}
+body[data-brand] footer{max-width:1280px;margin:auto;padding:35px 4.5%;background:none;border-top:1px solid #ffffff20}
+body[data-brand] .foot-links a[href="manager.html"]{display:none}
+body[data-brand] :focus-visible{outline:2px solid #fff;outline-offset:4px}
+@media(max-width:900px){body[data-brand] nav{padding:14px 24px}body[data-brand] .nav-links{background:#101113f5}body[data-brand] .live-banner{min-height:450px}body[data-brand] .sw{padding-top:65px;padding-bottom:65px}}
+@media(max-width:600px){body[data-brand] .cdwn-wrap{padding:28px 20px}body[data-brand] .live-banner{padding-top:90px}body[data-brand] .live-banner>.page-visual-video{object-position:62% 35%}}
+@media(prefers-reduced-motion:reduce){body[data-brand] *{transition:none!important;animation:none!important}}
+@media(forced-colors:active){body[data-brand] :is(.btn-orange,.form-send,.request-submit,.slist-ticket,.sf-btn,.cookie-btn,.st-button){background-image:none!important;color:ButtonText!important;border:1px solid ButtonText;box-shadow:none}}
+
+body[data-brand] .page-visual-host>.page-photo-adaptive{position:absolute!important;inset:0;z-index:0!important;pointer-events:none}
+.page-photo-adaptive img{width:100%;height:100%;object-fit:cover;object-position:50% 45%;filter:brightness(.65) saturate(.85)}
+@media(max-width:600px){.page-photo-adaptive img{object-position:50% 43%}}
+
+.dc-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:28px 0 16px}.dc-toolbar button{width:44px;height:44px;background:#191a1c;border:1px solid #ffffff35;border-radius:8px;color:#f2f2f2;font:20px inherit;cursor:pointer}.dc-toolbar button:disabled{opacity:.35;cursor:default}.dc-toolbar p{font-size:13px;color:#ccc;text-align:center}
+.dc-legend{display:flex;flex-wrap:wrap;gap:14px 24px;margin-bottom:22px;font-size:11px;color:#c5c5c5}.dc-legend span{display:flex;align-items:center;gap:7px}.dc-legend i{width:12px;height:12px;border-radius:3px;border:1px solid #ffffff40}.dc-key-next{background:#ff6b00}.dc-key-past{background:#ff6b0026!important;border-color:#ffb780aa!important}.dc-key-free{background:transparent}
+body[data-brand] .dc-played{position:relative;background:#ff6b0026;color:#ffc394!important;border:1px solid #ffb78080;border-radius:5px;font:600 13px Inter,system-ui,sans-serif;cursor:pointer}
+.dc-played::after{content:'';position:absolute;width:3px;height:3px;background:currentColor;border-radius:50%;bottom:3px;left:calc(50% - 1.5px)}
+.dc-history-note{font-size:11px;color:#aaa;margin-top:18px}
+@media(hover:hover){.dc-played:hover{background:#ff6b003d}.dc-toolbar button:not(:disabled):hover{border-color:#ff9a4d}}
+@media(forced-colors:active){body[data-brand] .dc-played{background:Canvas;color:CanvasText!important;border:2px solid CanvasText}.dc-played::after{background:CanvasText}}
+
+body[data-brand] .dc-reserved{position:relative;background:#1e1b18;border:1px dashed #ff9a4d;color:#ffb77e;font:600 13px Inter,system-ui,sans-serif;border-radius:5px;cursor:pointer}
+.dc-reserved::after{content:'';position:absolute;width:4px;height:4px;background:currentColor;bottom:3px;left:calc(50% - 2px)}
+.dc-key-reserved{background:#1e1b18;border:1px dashed #ff9a4d!important}
+@media(forced-colors:active){body[data-brand] .dc-reserved{background:Canvas;color:CanvasText;border:2px dashed CanvasText}}

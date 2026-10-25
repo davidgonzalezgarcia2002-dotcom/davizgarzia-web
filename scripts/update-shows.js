@@ -1,7 +1,7 @@
 // Automation: reads shows from Notion → updates shows.html
-// Runs automatically every Monday via GitHub Actions
+// Runs automatically daily via GitHub Actions
 // Notion database: Control de Ingresos David (306a485045d780c3ad62f6ac5a907da7)
-// Un bolo solo sale en la web si tiene marcadas las casillas «Anunciado» Y «Publicable» (23 oct 2026).
+// Detalles e histórico: Anunciado Y Publicable. Reservas futuras: solo fecha, sin detalles.
 
 const fs = require('fs');
 const path = require('path');
@@ -12,18 +12,17 @@ const DB_ID = '306a485045d780c3ad62f6ac5a907da7';
 const MONTHS_SHORT = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 const MONTHS_FULL  = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 async function queryNotion(filter, sorts) {
-  const resp = await fetch(`https://api.notion.com/v1/databases/${DB_ID}/query`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${NOTION_TOKEN}`,
-      'Content-Type': 'application/json',
-      'Notion-Version': '2022-06-28'
-    },
-    body: JSON.stringify({ filter, sorts })
-  });
-  if (!resp.ok) throw new Error(`Notion API error: ${resp.status} ${await resp.text()}`);
-  const data = await resp.json();
-  return data.results || [];
+  const results=[];let cursor;
+  do{
+    const resp = await fetch(`https://api.notion.com/v1/databases/${DB_ID}/query`, {
+      method:'POST',headers:{'Authorization':`Bearer ${NOTION_TOKEN}`,'Content-Type':'application/json','Notion-Version':'2022-06-28'},
+      body:JSON.stringify({filter,sorts,page_size:100,...(cursor?{start_cursor:cursor}:{})})
+    });
+    if(!resp.ok)throw new Error(`Notion API error: ${resp.status}`);
+    const data=await resp.json();results.push(...(data.results||[]));
+    cursor=data.has_more?data.next_cursor:null;
+  }while(cursor);
+  return results;
 }
 
 function parseShow(page) {
@@ -34,6 +33,7 @@ function parseShow(page) {
     venue:  props['Cliente']?.rich_text?.[0]?.plain_text || '',
     city:   props['Ciudad']?.rich_text?.[0]?.plain_text || '',
     url:    props['URL Entradas']?.url || '',
+    categories: (props['Categoría']?.multi_select||[]).map(x=>x.name),
     estado: props['Estado de Pago']?.select?.name || ''
   };
 }
@@ -178,6 +178,16 @@ function buildEventsJsonLd(shows) {
   return `<script type="application/ld+json">\n${JSON.stringify(graph, null, 2)}\n  </script>`;
 }
 
+function buildOccupiedDates(shows,today){
+  return [...new Set(shows.filter(s=>(s.categories||[]).includes('🎧 DJ')&&s.date&&s.date.slice(0,10)>=today&&!isCancelled(s)&&!/No e pinchado/i.test(s.estado||''))
+    .map(s=>s.date.slice(0,10)))].sort();
+}
+
+function buildPastCalendar(shows,today){
+  return shows.filter(s=>s.date&&s.date.slice(0,10)<today&&!isCancelled(s)&&!/No e pinchado|Sin Finalizar/i.test(s.estado||'')&&publicName(s)!=='Evento privado')
+    .map(s=>({date:s.date.slice(0,10),city:publicCity(s.city)}));
+}
+
 // ── MAIN ─────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -199,6 +209,19 @@ async function main() {
   console.log(`Found ${upcomingShows.length} upcoming show(s):`);
   upcomingShows.forEach(s => console.log(`  • ${s.date}  ${s.name}  |  ${s.venue}  |  ${s.city}`));
 
+  const bookedPages=await queryNotion({and:[
+    {property:'Categoría',multi_select:{contains:'🎧 DJ'}},
+    {property:'Fecha',date:{on_or_after:today}}
+  ]},[{property:'Fecha',direction:'ascending'}]);
+  // No exportar nombres, ciudad, sala, URL, IDs ni propiedades de los bolos sin anunciar.
+  const occupiedDates=buildOccupiedDates(bookedPages.map(parseShow),today);
+  const pastPages=await queryNotion({and:[
+    {property:'Anunciado',checkbox:{equals:true}},
+    {property:'Publicable',checkbox:{equals:true}},
+    {property:'Fecha',date:{before:today}},
+    {property:'Fecha',date:{on_or_after:String(Number(today.slice(0,4))-1)+'-01-01'}}
+  ]},[{property:'Fecha',direction:'ascending'}]);
+  const pastCalendar=buildPastCalendar(pastPages.map(parseShow),today);
   const showsBlock = buildShowsHTML(upcomingShows);
   const cdwnBlock = buildCountdownEvents(upcomingShows);
   const eventsBlock = buildEventsJsonLd(upcomingShows);
@@ -242,6 +265,10 @@ async function main() {
     console.log('shows.html: events JSON-LD updated.');
   }
 
+  const occupiedBlock='<script type="application/json" id="occupied-dates">'+JSON.stringify(occupiedDates)+'</script>';
+  showsHtml=showsHtml.replace(/<!-- AUTO-OCCUPIED-DATES:START -->[\s\S]*?<!-- AUTO-OCCUPIED-DATES:END -->/,'<!-- AUTO-OCCUPIED-DATES:START -->\n'+occupiedBlock+'\n<!-- AUTO-OCCUPIED-DATES:END -->');
+  const pastBlock='<script type="application/json" id="past-public-shows">'+JSON.stringify(pastCalendar).replace(/</g,'\\u003c')+'</script>';
+  showsHtml=showsHtml.replace(/<!-- AUTO-PAST-SHOWS:START -->[\s\S]*?<!-- AUTO-PAST-SHOWS:END -->/,'<!-- AUTO-PAST-SHOWS:START -->\n'+pastBlock+'\n<!-- AUTO-PAST-SHOWS:END -->');
   fs.writeFileSync(showsPath, showsHtml, 'utf8');
   console.log('shows.html saved successfully.');
 
@@ -269,7 +296,7 @@ async function main() {
     // tocaba -- se quedó fechado semanas después de que ese show pasara.
     // Detectado por David 20 ago 2026. Las filas "Nuevo" y "Sello" de este
     // mismo bloque las actualiza update_metrics.py, esta solo toca "Próximo".
-    if (upcomingShows.length) {
+    if (upcomingShows.length && indexHtml.includes('hero-now-row')) {
       const first = upcomingShows[0];
       const dt = parseDate(first.date);
       if (dt) {
@@ -291,4 +318,4 @@ async function main() {
 }
 
 if (require.main === module) main().catch(err => { console.error('ERROR:', err.message); process.exit(1); });
-module.exports = { buildCountdownEvents, buildEventsJsonLd, parseDate };
+module.exports = { buildCountdownEvents, buildEventsJsonLd, parseDate, buildPastCalendar, buildOccupiedDates };

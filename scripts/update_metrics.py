@@ -18,6 +18,7 @@ import os
 import re
 import json
 import math
+from html import escape
 import urllib.request
 import urllib.parse
 import urllib.error
@@ -51,7 +52,7 @@ def fmt_number(n):
     """144200 → '144K', 2500 → '2.5K', 1200000 → '1.2M'"""
     if n >= 1_000_000:
         v = n / 1_000_000
-        return f"{v:.1f}M".rstrip("0").rstrip(".") + "M" if "." in f"{v:.1f}M" else f"{int(v)}M"
+        return f"{v:.1f}".rstrip("0").rstrip(".") + "M"
     if n >= 1000:
         v = n / 1000
         s = f"{v:.1f}"
@@ -92,11 +93,11 @@ def spotify_albums(token):
 
 
 def build_release_html(album):
-    name = album["name"]
+    name = escape(album["name"], quote=True)
     date = album.get("release_date", "2025")[:4]
     album_type = "Álbum" if album["album_type"] == "album" else "Sencillo"
-    url = album["external_urls"]["spotify"]
-    img = album["images"][-1]["url"] if album.get("images") else ""
+    url = escape(album["external_urls"]["spotify"], quote=True)
+    img = escape(album["images"][-1]["url"], quote=True) if album.get("images") else ""
     # mark newest
     badge = ' <span class="rel-badge-new">Nuevo</span>' if album == "_newest_" else ""
     return (
@@ -192,6 +193,24 @@ def patch_hero_now_nuevo(html, release_name):
     return re.sub(pattern, replacer, html)
 
 
+def patch_home_release(html, album):
+    """Keep the visible home player and title in sync with the latest release."""
+    album_id = album.get("id", "")
+    if not re.fullmatch(r"[A-Za-z0-9]{22}", album_id):
+        raise ValueError("Invalid Spotify album ID")
+    title = escape(album["name"])
+    html = re.sub(r'(<h2 data-release-title>).*?(</h2>)',
+                  lambda m: m[1] + title + m[2], html, flags=re.S)
+    embed = f"https://open.spotify.com/embed/album/{album_id}?theme=0"
+    html = re.sub(r'(<iframe id="home-release-player" src=")[^"]*',
+                  lambda m: m[1] + embed, html)
+    html = re.sub(r'(<iframe id="home-release-player"[^>]*title=")[^"]*',
+                  lambda m: m[1] + escape(album["name"] + " — Daviz Garzia", quote=True), html)
+    html = re.sub(r'(<a class="st-player-external"\s+href=")[^"]*',
+                  lambda m: m[1] + f"https://open.spotify.com/album/{album_id}", html)
+    return html
+
+
 def patch_data_metric(html, metric, value):
     """Replace content of <... data-metric="X">...</...>"""
     def replacer(m):
@@ -250,6 +269,7 @@ def main():
         # fila "Nuevo" del bloque "Ahora" en index.html
         if albums:
             new_html = patch_hero_now_nuevo(html, albums[0]["name"])
+            new_html = patch_home_release(new_html, albums[0])
             if new_html != html:
                 html = new_html
                 changed = True
@@ -262,8 +282,8 @@ def main():
             if i == 0:
                 # inject "Nuevo" badge
                 item_html = item_html.replace(
-                    f'<div class="rel-inf-title">{alb["name"]}',
-                    f'<div class="rel-inf-title">{alb["name"]} <span class="rel-badge-new">Nuevo</span>'
+                    f'<div class="rel-inf-title">{escape(alb["name"], quote=True)}',
+                    f'<div class="rel-inf-title">{escape(alb["name"], quote=True)} <span class="rel-badge-new">Nuevo</span>'
                 )
             lines.append(item_html)
 

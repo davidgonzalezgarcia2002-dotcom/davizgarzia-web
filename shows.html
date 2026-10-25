@@ -94,8 +94,9 @@
   </script>
   <!-- AUTO-EVENTS:END -->
 <style>#show-pill{display:none!important}</style>
+<link rel="stylesheet" href="brand.css">
 </head>
-<body>
+<body data-brand="daviz">
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 <!-- GRAIN TEXTURE -->
 <div class="grain"></div>
@@ -107,7 +108,7 @@
 <button id="back-top" aria-label="Volver arriba">&#8679;</button>
 
 <!-- LIGHTBOX -->
-<div id="lightbox" role="dialog" aria-modal="true">
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Galería de imágenes">
   <button id="lightbox-close" aria-label="Cerrar">&times;</button>
   <button id="lightbox-prev" aria-label="Anterior">&#8249;</button>
   <img id="lightbox-img" src="" alt="">
@@ -140,7 +141,7 @@
 <h1 class="sr-only">Próximas fechas y shows de Daviz Garzia, DJ de Cantabria</h1>
 <!-- BANNER FOTO -->
 <section class="live-banner page-visual-host page-visual-host--banner">
-<video class="page-visual-video" data-scroll-video muted loop playsinline preload="none" poster="media/visuales/daviz-sentado-v2.jpg" aria-hidden="true"><source src="media/visuales/daviz-sentado-v2.mp4" type="video/mp4"></video>
+<picture class="page-photo-adaptive" aria-hidden="true"><source media="(max-width:600px)" srcset="photos/shows-publico-movil.webp"><img src="photos/bibe-2026-escenario.webp" alt="" width="1500" height="1000"></picture>
 <div class="page-visual-shade" aria-hidden="true"></div>
 
   <div class="live-banner-eye">Shows 2026</div>
@@ -229,9 +230,12 @@
     <div data-anim>
       <div class="section-eye">Disponibilidad</div>
       <h2 class="section-h">Consulta si tengo tu fecha libre</h2>
-      <p class="section-p">Las fechas en naranja ya tienen show anunciado. En las demás, pulsa el día y te preparo la solicitud. Una fecha sin marcar puede estar reservada por un evento sin anunciar, por eso te confirmo siempre antes.</p>
+      <p class="section-p">Naranja intenso: show publicado. Borde naranja: fecha ocupada, sin detalles. Naranja suave: actuación pública pasada. En los días por consultar puedes solicitar disponibilidad; la reserva se confirma personalmente.</p>
     </div>
+    <div class="dc-toolbar"><button type="button" id="dc-prev" aria-label="Ver meses anteriores">←</button><p id="dc-range" role="status" aria-live="polite"></p><button type="button" id="dc-next" aria-label="Ver meses siguientes">→</button></div>
+    <div class="dc-legend"><span><i class="dc-key-next" aria-hidden="true"></i>Próximo show</span><span><i class="dc-key-reserved" aria-hidden="true"></i>Fecha ocupada</span><span><i class="dc-key-past" aria-hidden="true"></i>Actuación pasada</span><span><i class="dc-key-free" aria-hidden="true"></i>Consultar fecha</span></div>
     <div class="disp-cal" id="disp-cal" data-anim></div>
+    <p class="dc-history-note">Las reservas sin anunciar muestran únicamente la fecha ocupada. El histórico solo incluye actuaciones autorizadas para publicación.</p>
   </div>
 </section>
 
@@ -360,28 +364,12 @@ window.davizShows=[
   });
 })();
 </script>
-<script>
-(function(){
-  var box=document.getElementById('disp-cal');if(!box)return;
-  var shows=window.davizShows||[],ocup={};
-  shows.forEach(function(x){var k=x.dateOnly||new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit'}).format(x.date);ocup[k]=x.name});
-  var meses=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-  var hoy=new Date(new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Madrid',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())+'T12:00:00'),h='';
-  for(var m=0;m<3;m++){
-    var f=new Date(hoy.getFullYear(),hoy.getMonth()+m,1),y=f.getFullYear(),mo=f.getMonth();
-    var primero=(f.getDay()+6)%7,dias=new Date(y,mo+1,0).getDate();
-    h+='<div class="dc-mes"><div class="dc-tit">'+meses[mo]+' '+y+'</div><div class="dc-grid"><span class="dc-h">L</span><span class="dc-h">M</span><span class="dc-h">X</span><span class="dc-h">J</span><span class="dc-h">V</span><span class="dc-h">S</span><span class="dc-h">D</span>';
-    for(var i=0;i<primero;i++)h+='<span></span>';
-    for(var d=1;d<=dias;d++){
-      var k=y+'-'+('0'+(mo+1)).slice(-2)+'-'+('0'+d).slice(-2),pasado=new Date(y,mo,d)<new Date(hoy.getFullYear(),hoy.getMonth(),hoy.getDate());
-      if(pasado)h+='<span class="dc-d dc-pas">'+d+'</span>';
-      else if(ocup[k])h+='<span class="dc-d dc-ocu" title="'+ocup[k].replace(/"/g,'')+'">'+d+'</span>';
-      else h+='<a class="dc-d dc-lib" href="contacto.html?fecha='+k+'#booking">'+d+'</a>';
-    }
-    h+='</div></div>';
-  }
-  box.innerHTML=h;
-})();
-</script>
+<!-- AUTO-OCCUPIED-DATES:START -->
+<script type="application/json" id="occupied-dates">["2026-10-31","2026-11-21","2026-11-22","2026-11-28","2026-12-05","2026-12-24","2026-12-31"]</script>
+<!-- AUTO-OCCUPIED-DATES:END -->
+<!-- AUTO-PAST-SHOWS:START -->
+<script type="application/json" id="past-public-shows">[]</script>
+<!-- AUTO-PAST-SHOWS:END -->
+<script src="calendar.js" defer></script>
 </body>
 </html>
