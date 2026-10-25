@@ -61,7 +61,7 @@ def tarjeta(v, autor):
     url = f"https://www.youtube.com/watch?v={v['id']}"
     return (
         f'<a href="{url}" target="_blank" rel="noopener noreferrer" style="position:relative;border-radius:0;overflow:hidden;aspect-ratio:16/9;flex-shrink:0;display:block">\n'
-        f'          <img src="https://i.ytimg.com/vi/{v["id"]}/hqdefault.jpg" alt="{t}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block">\n'
+        f'          <img src="https://i.ytimg.com/vi/{v["id"]}/hqdefault.jpg" alt="{t}" loading="lazy" width="480" height="360" style="width:100%;height:100%;object-fit:cover;display:block">\n'
         '          <div style="position:absolute;inset:0;background:rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center">\n'
         '            <div style="width:60px;height:60px;background:rgba(255,107,0,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;padding-left:4px;box-shadow:0 6px 24px rgba(255,107,0,.5)">&#9654;</div>\n'
         '          </div>\n'
