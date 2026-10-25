@@ -1,4 +1,16 @@
 /* Dirección de arte: retrato, carbón y luz ámbar. Propuesta de portada. */
+.st-proof{margin:28px 0 18px;padding-top:22px;border-top:1px solid #ffffff25}
+.st-proof h3{font:500 10px var(--body);letter-spacing:.14em;text-transform:uppercase;color:#aaa;margin:0 0 14px}
+.st-venues{display:flex;flex-wrap:wrap;gap:8px 18px;list-style:none;padding:0;margin:0;font-size:12px;line-height:1.7;color:#e2e2e2}
+.st-formats{border-bottom:1px solid #ffffff20}
+.st-formats>.st-title{margin-top:24px}
+.st-format-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px}
+.st-format{display:flex;flex-direction:column;align-items:flex-start;padding:24px 0 0;border-top:1px solid #ffffff40}
+.st-format-number{font-size:12px;color:#ff9a4d;letter-spacing:.1em}
+.st-format h3{font:400 clamp(27px,3vw,38px)/1.15 var(--cond);text-transform:uppercase;letter-spacing:-.02em;margin:24px 0 16px}
+.st-format p{font-size:13px;line-height:1.8;color:#b8b8b8;margin:0 0 16px}
+.st-format .st-text-link{margin-top:auto}
+@media(max-width:700px){.st-format-grid{grid-template-columns:1fr;gap:28px}.st-format h3{margin-top:14px}.st-format p{max-width:46ch}}
 .studio-home{--bg:#0b0c0d;--text:#f2f2f2;--accent:#FF6B00;background:#0b0c0d;color:#f2f2f2}
 .studio-home nav{padding:20px 4.5%;background:rgba(11,12,13,.76);border-color:#ffffff16}
 .studio-home nav.scrolled{padding:13px 4.5%;background:rgba(11,12,13,.92)}

@@ -80,9 +80,9 @@
 
   <div class="sw" id="booking">
     <div data-anim>
-      <div class="section-eye" data-i18n="book_eye">Contrataciones</div>
-      <h2 class="section-h" data-i18n="book_h2">¿Quieres que pinche en tu evento?</h2>
-      <p class="section-p" data-i18n="book_p">Contratar DJ en Cantabria y toda España. Disponible para clubs, fiestas privadas y festivales. Respuesta en menos de 24h.</p>
+      <div class="section-eye">Contrataciones</div>
+      <h2 class="section-h">¿Quieres que pinche en tu evento?</h2>
+      <p class="section-p">Contratar DJ en Cantabria y toda España. Disponible para clubs, fiestas privadas y festivales. Respuesta en menos de 24h.</p>
       <p class="trust-line"><b>He pinchado en:</b>Sala Kaya · Roxel Sala Musical · Sala Concept · Samoa · La Castafiore · Chapó Soundclub · Bahía Sun Festival · Gamoneo</p>
     </div>
     <div class="booking-grid">
@@ -115,7 +115,7 @@
             </div>
             <div class="fg-row">
               <div class="fg"><label for="f-tipo">Tipo de evento</label>
-                <select id="f-tipo" name="tipo"><option value="">Selecciona…</option><option>Discoteca</option><option>Festival</option><option>Eventos</option><option>Otro</option></select>
+                <select id="f-tipo" name="tipo"><option value="">Selecciona…</option><option>Discoteca</option><option>Festival</option><option>Eventos</option><option>Evento privado</option><option>Otro</option></select>
               </div>
               <div class="fg"><label for="f-ciudad">Ciudad aproximada</label><input type="text" id="f-ciudad" name="ciudad" autocomplete="address-level2" placeholder="Ej. Santander"></div>
             </div>
@@ -148,8 +148,8 @@
 <section>
   <div class="sw social-sec">
     <div data-anim>
-      <div class="section-eye" data-i18n="soc_eye">Sígueme</div>
-      <h2 class="section-h" data-i18n="soc_h2">Encuentra mi música en todas partes</h2>
+      <div class="section-eye">Sígueme</div>
+      <h2 class="section-h">Encuentra mi música en todas partes</h2>
     </div>
     <div class="social-grid">
       <a href="https://www.instagram.com/davizgarzia.music/" target="_blank" rel="noopener noreferrer me" class="scard" data-anim data-delay="1"><span class="scard-icon"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></span><div><div class="scard-name">Instagram</div><div class="scard-handle">@davizgarzia.music</div></div></a>
@@ -177,7 +177,6 @@
   <div class="foot-row">
     <div class="foot-logo" translate="no"><a href="index.html">DAVIZ <span>GARZIA</span></a></div>
     <div class="foot-links">
-      <a href="manager.html">La Skill</a>
       <a href="mailto:hola@davizgarziamusic.com">hola@davizgarziamusic.com</a>
       <a href="https://linktr.ee/davizgarzia.music" target="_blank" rel="noopener noreferrer">Linktree</a>
       <a href="contacto.html">Booking</a>
@@ -219,6 +218,9 @@
 <script>/* fecha-prefill */
 (function(){var f=new URLSearchParams(location.search).get('fecha');if(!f||!/^\d{4}-\d{2}-\d{2}$/.test(f))return;
 document.addEventListener('DOMContentLoaded',function(){var i=document.querySelector('input[name="fecha"]');if(i)i.value=f})})();
+</script>
+<script>
+(function(){const tipo=new URLSearchParams(location.search).get('tipo');const field=document.getElementById('f-tipo');if(field&&['Discoteca','Festival','Evento privado'].includes(tipo))field.value=tipo;})();
 </script>
 </body>
 </html>

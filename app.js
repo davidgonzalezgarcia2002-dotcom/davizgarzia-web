@@ -171,66 +171,6 @@ window.dgUpcoming=function(show){return show.dateOnly ? show.dateOnly>=window.dg
   matchMedia('(min-width:901px)').addEventListener('change',function(e){if(e.matches)setOpen(false);});
 })();
 
-// ── LANG SWITCHER ────────────────────────────────────────────────────────────
-(function(){
-  var T={
-    es:{
-      hero_lema:'Música para romper el club.<br>Sets hechos para bailar.', home_book_h2:'¿Hacemos algo juntos?', home_book_p:'Clubs, festivales y fiestas privadas. Cuéntame tu idea y te respondo en menos de 24h.', btn_book:'Contratar ahora', btn_spotify:'Escuchar en Spotify ↗',
-      stat_ig:'Seguidores IG', stat_tik:'Likes TikTok', stat_yt:'Vistas YouTube', stat_rel:'Lanzamientos',
-      about_eye:'Sobre mí', soc_eye:'Sígueme', cd_eye:'¡Nos vemos pronto!',
-      shows_eye:'Próximas fechas', hist_eye:'Historial',
-      hist_p:'DJ Cantabria con actuaciones en Santander, Torrelavega, Solares, Logroño, Ávila, Palencia y Barcelona — más de 10 salas en toda España.',
-      music_eye:'Música', yt_eye:'YouTube', yt_p:'Canciones originales y sesiones completas. Todo en YouTube.',
-      tnl_eye:'Sello Discográfico', tnl_p:'Recursos para DJs. Sample packs, mashup packs y herramientas de producción hechas por DJs, para DJs.',
-      book_eye:'Contrataciones', book_p:'Contratar DJ en Cantabria y toda España. Disponible para clubs, fiestas privadas y festivales. Respuesta en menos de 24h.',
-      about_h2:'Música pensada para romper el club', soc_h2:'Encuentra mi música en todas partes',
-      cd_h2:'Cuenta atrás al próximo show', music_h2:'Discografía &amp; Spotify',
-      yt_h2:'Dos canales, un artista', yt_ch1:'Canal Oficial', yt_ch2:'Canal de Sesiones',
-      shows_h2:'Actuaciones confirmadas', book_h2:'¿Quieres que pinche en tu evento?', tnl_h2:'The North Record Label'
-    },
-    en:{
-      hero_lema:'Music to break the club.<br>Sets made to dance.', home_book_h2:'Shall we do something together?', home_book_p:'Clubs, festivals and private parties. Tell me your idea and I will reply within 24h.', btn_book:'Book now', btn_spotify:'Listen on Spotify ↗',
-      stat_ig:'IG Followers', stat_tik:'TikTok Likes', stat_yt:'YouTube Views', stat_rel:'Releases',
-      about_eye:'About me', soc_eye:'Follow me', cd_eye:'See you soon!',
-      shows_eye:'Upcoming shows', hist_eye:'History',
-      hist_p:'DJ from Cantabria with shows in Santander, Torrelavega, Solares, Logroño, Ávila, Palencia and Barcelona — 10+ venues across Spain.',
-      music_eye:'Music', yt_eye:'YouTube', yt_p:'Original tracks and full sessions. All on YouTube.',
-      tnl_eye:'Record Label', tnl_p:'Resources for DJs. Sample packs, mashup packs and production tools made by DJs, for DJs.',
-      book_eye:'Booking', book_p:'Book a DJ in Cantabria and all over Spain. Available for clubs, festivals and private events. Reply within 24h.',
-      about_h2:'Music built to break the club', soc_h2:'Find my music everywhere',
-      cd_h2:'Countdown to the next show', music_h2:'Discography &amp; Spotify',
-      yt_h2:'Two channels, one artist', yt_ch1:'Official Channel', yt_ch2:'Sessions Channel',
-      shows_h2:'Confirmed shows', book_h2:'Want me to DJ your event?', tnl_h2:'The North Record Label'
-    },
-    fr:{
-      hero_lema:'De la musique pour enflammer le club.<br>Des sets faits pour danser.', home_book_h2:'On fait quelque chose ensemble ?', home_book_p:'Clubs, festivals et fêtes privées. Raconte-moi ton idée et je réponds sous 24h.', btn_book:'Réserver', btn_spotify:'Écouter sur Spotify ↗',
-      stat_ig:'Abonnés IG', stat_tik:'Likes TikTok', stat_yt:'Vues YouTube', stat_rel:'Sorties',
-      about_eye:'À propos', soc_eye:'Suivez-moi', cd_eye:'À bientôt !',
-      shows_eye:'Prochains shows', hist_eye:'Historique',
-      hist_p:'DJ de Cantabrie avec des shows à Santander, Torrelavega, Solares, Logroño, Ávila, Palencia et Barcelone — plus de 10 salles en Espagne.',
-      music_eye:'Musique', yt_eye:'YouTube', yt_p:'Titres originaux et sessions complètes. Tout sur YouTube.',
-      tnl_eye:'Label Discographique', tnl_p:'Ressources pour DJs. Sample packs, mashup packs et outils de production créés par des DJs, pour des DJs.',
-      book_eye:'Booking', book_p:'Réserver un DJ en Cantabrie et dans toute l\'Espagne. Disponible pour clubs, festivals et événements privés. Réponse sous 24h.',
-      about_h2:'Une musique pensée pour enflammer le club', soc_h2:'Retrouve ma musique partout',
-      cd_h2:'Compte à rebours avant le prochain show', music_h2:'Discographie &amp; Spotify',
-      yt_h2:'Deux chaînes, un artiste', yt_ch1:'Chaîne officielle', yt_ch2:'Chaîne Sessions',
-      shows_h2:'Dates confirmées', book_h2:'Tu veux que je mixe à ton événement ?', tnl_h2:'The North Record Label'
-    }
-  };
-  function setLang(lang){
-    if(!T[lang])return;
-    document.querySelectorAll('[data-i18n]').forEach(function(el){
-      var k=el.getAttribute('data-i18n');
-      if(T[lang][k]!==undefined)el.innerHTML=T[lang][k];
-    });
-    document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('active',b.getAttribute('data-lang')===lang);});
-    localStorage.setItem('lang',lang);
-    document.documentElement.lang=lang;
-  }
-  document.querySelectorAll('.lang-btn').forEach(function(b){b.addEventListener('click',function(){setLang(this.getAttribute('data-lang'));});});
-  try{localStorage.removeItem('lang')}catch(e){} // la web es solo en español; se limpia un idioma antiguo guardado
-})();
-
 // ── SCROLL PROGRESS BAR ──────────────────────────────────────────────────────
 (function(){
   var bar=document.getElementById('scroll-progress');

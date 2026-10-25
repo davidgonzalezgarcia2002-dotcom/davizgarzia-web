@@ -235,6 +235,15 @@ def patch_releases_block(html, releases_html):
 
 # ── main ─────────────────────────────────────────────────────────────────────
 
+def patch_sitemap_lastmod(sitemap, today, home_changed, music_changed):
+    for slug, updated in [("", home_changed), ("musica.html", music_changed)]:
+        if updated:
+            url = re.escape("https://davizgarziamusic.com/" + slug)
+            sitemap = re.sub(rf'(<loc>{url}</loc>\s*<lastmod>)[^<]*(</lastmod>)',
+                             lambda m: m[1] + today + m[2], sitemap)
+    return sitemap
+
+
 def main():
     # index.html = home corta (stats del hero) · musica.html = discografía/YouTube
     with open(HTML_FILE, encoding="utf-8") as f:
@@ -373,8 +382,7 @@ def main():
         if os.path.exists(sitemap_file):
             with open(sitemap_file, encoding="utf-8") as f:
                 sm = f.read()
-            sm_new = re.sub(r'(<loc>https://www\.davizgarziamusic\.com/</loc>\s*<lastmod>)[^<]*(</lastmod>)', rf'\g<1>{today}\2', sm)
-            sm_new = re.sub(r'(<loc>https://www\.davizgarziamusic\.com/musica\.html</loc>\s*<lastmod>)[^<]*(</lastmod>)', rf'\g<1>{today}\2', sm_new)
+            sm_new = patch_sitemap_lastmod(sm, today, changed, musica_changed)
             if sm_new != sm:
                 with open(sitemap_file, "w", encoding="utf-8") as f:
                     f.write(sm_new)
