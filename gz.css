@@ -1,0 +1,112 @@
+/* Capa de movimiento de la portada. Todo se activa con .gz-on (lo pone gz.js):
+   sin JS, con animaciones pausadas o con "reducir movimiento" la web sigue como estaba. */
+@media(prefers-reduced-motion:no-preference){@view-transition{navigation:auto}::view-transition-old(root),::view-transition-new(root){animation-duration:.35s}}
+html.fx-pause::view-transition-old(root),html.fx-pause::view-transition-new(root){animation:none}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+.lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+.lenis.lenis-stopped{overflow:hidden}
+.gz-next:focus-visible,.gz-bar a:focus-visible{outline:3px solid #ff9a4d;outline-offset:4px}
+html.fx-pause .gz-next i{animation:none}
+@media(prefers-reduced-motion:reduce){.gz-next i{animation:none!important}}
+
+/* Próxima fecha y contratar, siempre a mano */
+.gz-next{position:fixed;z-index:90;top:84px;right:4.5%;display:flex;align-items:center;gap:10px;padding:9px 14px;border:1px solid #ffffff2e;border-radius:99px;background:#0b0c0dcc;backdrop-filter:blur(10px);color:#f2f2f2;font-size:11px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;text-decoration:none;transition:opacity .25s,border-color .2s}
+.gz-next i{width:7px;height:7px;flex:none;border-radius:50%;background:#7dff5a;box-shadow:0 0 12px #7dff5a;animation:gzPulse 1.6s ease-in-out infinite}
+.gz-next b{font-weight:700;color:#ff9a4d}
+.gz-next:hover{border-color:#ff9a4d}
+@keyframes gzPulse{50%{opacity:.35}}
+.gz-bar{display:none}
+#show-pill{display:none!important}
+body.footer-in-view .gz-next,body.footer-in-view .gz-bar{display:none}
+body:has(#nav-menu.open) .gz-next,body:has(#nav-menu.open) .gz-bar{display:none}
+@media(max-width:900px){
+ .gz-next{display:none}
+ .gz-bar{position:fixed;z-index:90;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));display:flex;align-items:stretch;gap:8px;transition:opacity .25s}
+ .gz-bar a{display:flex;align-items:center;min-height:50px;border-radius:12px;font-size:12px;font-weight:700;text-decoration:none}
+ .gz-bar .gz-bar-show{flex:1;min-width:0;gap:9px;padding:0 13px;background:#111214f0;border:1px solid #ffffff26;color:#f2f2f2;backdrop-filter:blur(10px)}
+ .gz-bar .gz-bar-show span{overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+ .gz-bar .gz-bar-show b{color:#ff9a4d;flex:none}
+ .gz-bar .gz-bar-show i{width:7px;height:7px;flex:none;border-radius:50%;background:#7dff5a;box-shadow:0 0 10px #7dff5a}
+ .gz-bar .gz-bar-cta{flex:none;padding:0 16px;background:#ff6b00;color:#141414}
+ body:has(#cookie-banner:not(.hidden)) .gz-bar{display:none}
+ footer{padding-bottom:84px!important}
+}
+
+/* Cursor (solo con ratón) */
+#gz-cursor{position:fixed;left:0;top:0;z-index:10000;width:34px;height:34px;margin:-17px 0 0 -17px;border:1px solid #fff;border-radius:50%;pointer-events:none;mix-blend-mode:difference;transition:width .2s,height .2s,margin .2s,background .2s;opacity:0}
+#gz-cursor.on{opacity:1}
+#gz-cursor.big{width:70px;height:70px;margin:-35px 0 0 -35px;background:#fff}
+#cursor-glow{display:none!important}
+
+/* ---------- PORTADA ---------- */
+.gz-on .studio{overflow:visible}
+.gz-on .st-hero{height:100svh;min-height:0;max-height:none;background:#0b0c0d;overflow:hidden;isolation:isolate}
+#gz-gl{position:absolute;inset:0;width:100%;height:100%;z-index:-1;display:block}
+.gz-gl .st-portrait{display:none}
+.gz-on .st-hero h1 .gz-ch{display:inline-block;will-change:transform}
+.gz-on .st-hero h1{overflow:hidden;padding:.06em .02em 0 0;margin-left:-.02em}
+.gz-scrollhint{display:inline-block;animation:gzBob 1.2s ease-in-out infinite}
+@keyframes gzBob{50%{transform:translateY(4px)}}
+@media(max-height:820px) and (min-width:901px){.gz-on .st-hero-copy{padding-top:112px}.gz-on .st-hero h1{font-size:min(14vw,25vh);margin:22px 0 22px}.gz-on .st-actions{margin-top:22px}}
+@media(max-width:600px){
+ .gz-on .st-hero{height:100svh;min-height:0}
+ .gz-on .st-hero-copy{display:flex;flex-direction:column;height:100%;padding:96px 6% 128px}
+ .gz-on .st-hero h1{font-size:min(30vw,17svh);margin:18px 0 0;text-shadow:none}
+ .gz-on .st-intro{margin-top:auto}
+ .gz-on .st-hero-bottom{bottom:86px}
+}
+
+/* Palabra gigante que se abre y deja ver el directo */
+.gz-word{position:relative;height:100svh;overflow:hidden;background:#0b0c0d;isolation:isolate}
+.gz-w-media{position:absolute;inset:0;will-change:transform,opacity}
+.gz-w-media img,.gz-w-media video{display:block;width:100%;height:100%;object-fit:cover}
+.gz-w-mask{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#000;mix-blend-mode:multiply;will-change:transform,opacity;transform-origin:50% 50%}
+.gz-w-mask span{display:block;font-family:Anton,var(--cond),sans-serif;font-weight:400;line-height:1.02;color:#fff;white-space:nowrap;letter-spacing:-.01em;will-change:clip-path}
+@media(max-width:600px){.gz-w-mask span{transform:scaleY(2.1)}}
+
+/* Títulos */
+.gz-on .st-title,.gz-on .st-about-copy h2,.gz-on .st-north h2{will-change:clip-path,transform}
+.gz-on .st-section{position:relative}
+.gz-on .st-section-top{position:relative;z-index:1}
+.gz-on .st-live-image img{will-change:transform;height:118%;top:-9%}
+.gz-on .st-about-photo{overflow:hidden}
+.gz-on .st-about-photo img{will-change:transform}
+.gz-on .st-event{position:relative}
+.gz-on .st-event-title{transition:transform .25s}
+@media(hover:hover){.gz-on .st-event:hover .st-event-title{transform:translateX(12px)}}
+
+/* Salas en movimiento */
+.gz-venues{overflow:hidden;padding:18px 0 34px;border-top:1px solid #ffffff14;border-bottom:1px solid #ffffff14;background:#0b0c0d}
+.gz-venues div{display:flex;width:max-content;gap:.5em;font-family:Anton,var(--cond),sans-serif;font-size:clamp(70px,11vw,170px);line-height:1.12;white-space:nowrap;text-transform:uppercase;will-change:transform}
+.gz-venues div+div{color:transparent;-webkit-text-stroke:1px #ffffff80}
+.gz-venues em{font-style:normal;color:#ff6b00;-webkit-text-stroke:0}
+
+/* Formatos: recorrido en horizontal (solo ordenador) */
+@media(min-width:901px){
+ .gz-on .st-formats{max-width:none;height:100svh;padding:0;overflow:hidden;overflow:clip;display:flex;flex-direction:column;justify-content:center;border-bottom:0}
+ .gz-on .st-formats>.st-eyebrow,.gz-on .st-formats>.st-title{padding:0 4.5%}
+ .gz-on .st-formats>.st-title{font-size:clamp(50px,6.4vw,92px);margin:14px 0 26px}
+ .gz-on .st-format-grid{display:flex;gap:22px;width:max-content;padding:0 4.5%;will-change:transform}
+ .gz-on .st-format{position:relative;width:min(62vw,820px);min-height:clamp(300px,44vh,470px);padding:30px 34px;border:1px solid #ffffff26;border-radius:18px;overflow:hidden;background:#141516 center/cover no-repeat}
+ .gz-on .st-format::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#0b0c0df2 30%,#0b0c0d55)}
+ .gz-on .st-format>*{position:relative}
+ .gz-on .st-format:nth-child(1){background-image:url(photos/musica-planb-2026.webp);background-position:50% 30%}
+ .gz-on .st-format:nth-child(2){background-image:url(photos/hero-bibe.webp)}
+ .gz-on .st-format:nth-child(3){background:#ff6b00;border-color:#ff6b00}
+ .gz-on .st-format:nth-child(3)::before{display:none}
+ .gz-on .st-format:nth-child(3) *{color:#141414!important;border-color:#14141480}
+ .gz-on .st-format-number{font-family:Anton,var(--cond),sans-serif;font-size:clamp(60px,8vw,110px);line-height:1;letter-spacing:0;color:#ff9a4d}
+ .gz-on .st-format h3{font-family:Anton,var(--cond),sans-serif;font-size:clamp(34px,4vw,58px);margin:16px 0 10px}
+ .gz-on .st-format p{font-size:15px;color:#d8d8d8;max-width:44ch}
+}
+
+/* Contratar: la pantalla se vuelve naranja */
+.gz-on #booking{max-width:none;padding:0;height:100svh;overflow:hidden}
+.gz-on .st-booking{height:100%;display:flex;flex-direction:column;justify-content:center;padding:0 6%;border:0;border-radius:0;background:#141516;box-shadow:none;will-change:clip-path}
+.gz-on .st-booking h2{font-family:Anton,var(--cond),sans-serif;font-size:clamp(84px,17vw,270px);line-height:.98;letter-spacing:0;margin:22px 0 30px}
+.gz-on .st-booking h2 em{color:inherit}
+.gz-on .st-booking-bottom p{color:inherit;font-size:16px}
+.gz-on .st-booking .st-eyebrow{color:inherit}
+html.gz-on body[data-brand] .st-booking .st-button{background-image:none!important;background-color:#0b0c0d!important;color:#f2f2f2;border-color:#0b0c0d;box-shadow:none;min-height:64px;font-size:14px}
+@media(max-width:600px){.gz-on .st-booking h2{font-size:27vw}.gz-on #booking{height:100svh}}

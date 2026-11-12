@@ -13,11 +13,23 @@ window.dgUpcoming=function(show){return show.dateOnly ? show.dateOnly>=window.dg
 // suaviza el movimiento. Si el CDN falla, el sitio sigue funcionando igual
 // con scroll nativo (Lenis queda undefined y este bloque no hace nada).
 (function(){
-  if(typeof Lenis==='undefined')return;
-  var lenis=new Lenis();
-  window.__lenis=lenis;
-  function raf(time){lenis.raf(time);requestAnimationFrame(raf);}
-  requestAnimationFrame(raf);
+  if(typeof Lenis==='undefined'||window.__lenis)return;
+  var lenis=null,frame=0,tick=null;
+  function sync(){
+    var paused=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    try{var v=localStorage.getItem('fx_pause');if(v!==null)paused=v==='1'}catch(e){}
+    if(paused){
+      if(tick&&window.gsap)gsap.ticker.remove(tick);
+      cancelAnimationFrame(frame);tick=null;
+      if(lenis)lenis.destroy();lenis=null;window.__lenis=null;return;
+    }
+    if(lenis)return;
+    lenis=new Lenis();window.__lenis=lenis;
+    if(document.querySelector('#nav-menu.open,#lightbox.open'))lenis.stop();
+    if(window.gsap){tick=function(t){if(lenis)lenis.raf(t*1000)};gsap.ticker.add(tick);gsap.ticker.lagSmoothing(0)}
+    else{(function raf(time){if(!lenis)return;lenis.raf(time);frame=requestAnimationFrame(raf)})(0)}
+  }
+  sync();document.addEventListener('dg-fx-change',sync);
 })();
 
 // ── PAUSAR ANIMACIONES (control para el visitante, recordado en el navegador) ──
@@ -27,6 +39,7 @@ window.dgUpcoming=function(show){return show.dateOnly ? show.dateOnly>=window.dg
   function guardar(v){try{localStorage.setItem(KEY,v?'1':'0')}catch(e){}}
   function aplicar(p){
     root.classList.toggle('fx-pause',p);
+    document.dispatchEvent(new CustomEvent('dg-fx-change',{detail:{paused:p}}));
     [].forEach.call(document.querySelectorAll('video[data-scroll-video]'),function(v){if(p){v.pause()}});
     var b=document.getElementById('fx-toggle');if(b){b.textContent=p?'Reanudar animaciones':'Pausar animaciones';b.setAttribute('aria-pressed',p?'true':'false')}
   }
@@ -35,6 +48,7 @@ window.dgUpcoming=function(show){return show.dateOnly ? show.dateOnly>=window.dg
     var b=document.createElement('button');b.type='button';b.id='fx-toggle';b.className='fx-toggle';
     b.addEventListener('click',function(){var p=!root.classList.contains('fx-pause');guardar(p);aplicar(p)});
     cont.appendChild(b);aplicar(guardado()===null?matchMedia('(prefers-reduced-motion: reduce)').matches:guardado());
+    matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',function(e){if(guardado()===null)aplicar(e.matches)});
   });
 })();
 
@@ -159,6 +173,7 @@ window.dgUpcoming=function(show){return show.dateOnly ? show.dateOnly>=window.dg
     menu.classList.toggle('open',open);
     toggle.setAttribute('aria-expanded',String(open));
     toggle.setAttribute('aria-label',open?'Cerrar menú':'Abrir menú');
+    if(window.__lenis){if(open)window.__lenis.stop();else if(!document.querySelector('#lightbox.open'))window.__lenis.start()}
   }
   toggle.setAttribute('aria-controls',menu.id);setOpen(false);
   toggle.addEventListener('click',function(){setOpen(!menu.classList.contains('open'));});
@@ -200,8 +215,8 @@ window.dgUpcoming=function(show){return show.dateOnly ? show.dateOnly>=window.dg
   var lbImg=document.getElementById('lightbox-img'),lbCap=document.getElementById('lightbox-caption');
   var lbClose=document.getElementById('lightbox-close'),lbPrev=document.getElementById('lightbox-prev'),lbNext=document.getElementById('lightbox-next');
   var items=[],cur=0;
-  function openAt(i){cur=i;var item=items[cur];lbImg.src=item.src;lbImg.alt=item.alt;lbCap.textContent=item.caption;lb.classList.add('open');document.body.style.overflow='hidden';}
-  function close(){lb.classList.remove('open');document.body.style.overflow='';}
+  function openAt(i){cur=i;var item=items[cur];lbImg.src=item.src;lbImg.alt=item.alt;lbCap.textContent=item.caption;lb.classList.add('open');document.body.style.overflow='hidden';if(window.__lenis)window.__lenis.stop();}
+  function close(){lb.classList.remove('open');document.body.style.overflow='';if(window.__lenis&&!document.querySelector('#nav-menu.open'))window.__lenis.start();}
   function prev(){openAt((cur-1+items.length)%items.length);}
   function next(){openAt((cur+1)%items.length);}
   function init(){
