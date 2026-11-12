@@ -5,6 +5,16 @@
 
 const fs = require('fs');
 const path = require('path');
+// Metadatos públicos confirmados por David; nunca importes ni clientes.
+const metadata = require('./show-metadata.json');
+function showMetadata(show) { return metadata[validUrl(show.url)] || {}; }
+function showType(show) {
+  if (showMetadata(show).type) return showMetadata(show).type;
+  const name = publicName(show).toLowerCase();
+  if (/festival|sun|gamoneo|rave|fiestas/.test(name)) return 'festival';
+  if (/sala|kaya|roxel|club|concept|chap|samoa|castafiore/.test(name)) return 'club';
+  return 'evento';
+}
 
 const NOTION_TOKEN = process.env.NOTION_TOKEN;
 const DB_ID = '306a485045d780c3ad62f6ac5a907da7';
@@ -110,16 +120,18 @@ function htmlSlistRow(show, delay) {
   if (!dt) return '';
   // Solo ciudad en la ubicación pública — nunca el nombre del cliente
   const loc = publicCity(show.city);
+  const kind = showType(show);
+  const venue = showMetadata(show).venue || '';
   const url = validUrl(show.url);
   const ticket = url
     ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="slist-ticket">Entradas →</a>`
     : `<span class="slist-ticket is-soon">Próximamente</span>`;
   return `
-    <div class="slist-row" data-anim data-delay="${delay}" data-date="${show.date.slice(0,10)}">
+    <div class="slist-row" data-tipo="${kind}" data-anim data-delay="${delay}" data-date="${show.date.slice(0,10)}">
       <div class="slist-date">${dt.day} ${dt.monFull} ${dt.yr}<span class="slist-countdown"></span></div>
       <div class="slist-info">
         <div class="slist-name">${publicName(show)}</div>
-        <div class="slist-loc">${loc ? '📍 ' + loc : ''}</div>
+        <div class="slist-loc">${kind === 'festival' ? 'Festival · ' : ''}${venue ? venue + ' · ' : ''}${loc ? '📍 ' + loc : ''}</div>
       </div>
       ${ticket}
     </div>`;
@@ -166,7 +178,7 @@ function buildEventsJsonLd(shows) {
         startDate: s.date,
         location: {
           '@type': 'Place',
-          name: name,
+          name: showMetadata(s).venue || name,
           address: { '@type': 'PostalAddress', addressLocality: city, addressCountry: 'ES' }
         },
         performer: { '@type': 'MusicGroup', name: 'Daviz Garzia' }
@@ -318,4 +330,4 @@ async function main() {
 }
 
 if (require.main === module) main().catch(err => { console.error('ERROR:', err.message); process.exit(1); });
-module.exports = { buildCountdownEvents, buildEventsJsonLd, parseDate, buildPastCalendar, buildOccupiedDates };
+module.exports = { buildCountdownEvents, buildEventsJsonLd, parseDate, buildPastCalendar, buildOccupiedDates, buildShowsHTML, showType };

@@ -26,7 +26,7 @@
   <!-- Google Analytics 4 (carga solo tras aceptar cookies, ver app.js) -->
   <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());</script>
   <!-- AUTO-EVENTS:START -->
-  <script type="application/ld+json">
+<script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
@@ -70,6 +70,25 @@
     },
     {
       "@type": "MusicEvent",
+      "name": "Daviz Garzia en Forever Millennial · edición Electrolatino",
+      "startDate": "2026-12-04",
+      "location": {
+        "@type": "Place",
+        "name": "La Ballena · Palacio de Deportes de Santander",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Santander",
+          "addressCountry": "ES"
+        }
+      },
+      "performer": {
+        "@type": "MusicGroup",
+        "name": "Daviz Garzia"
+      },
+      "url": "https://site.fourvenues.com/en/forever-millennial/events/forever-millennial-edicion-electrolatino-04-12-2026-AXAZ"
+    },
+    {
+      "@type": "MusicEvent",
       "name": "Daviz Garzia en La Feria · Megatardeo Rioja Sound",
       "startDate": "2026-12-06",
       "location": {
@@ -108,7 +127,7 @@
   ]
 }
   </script>
-  <!-- AUTO-EVENTS:END -->
+<!-- AUTO-EVENTS:END -->
 <style>#show-pill{display:none!important}</style>
 <link rel="stylesheet" href="brand.css">
 <link rel="preload" href="fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin>
@@ -212,7 +231,8 @@
     </div>
     <div class="slist">
     <!-- AUTO-SHOWS:START -->
-    <div class="slist-row" data-anim data-delay="0" data-date="2026-11-21">
+
+    <div class="slist-row" data-tipo="club" data-anim data-delay="0" data-date="2026-11-21">
       <div class="slist-date">21 Noviembre 2026<span class="slist-countdown"></span></div>
       <div class="slist-info">
         <div class="slist-name">Sala Kaya</div>
@@ -220,23 +240,31 @@
       </div>
       <a href="https://www.salakaya.com/compra?e=dj-nano-santander-2026" target="_blank" rel="noopener noreferrer" class="slist-ticket">Entradas →</a>
     </div>
-    <div class="slist-row" data-anim data-delay="1" data-date="2026-12-04">
+    <div class="slist-row" data-tipo="festival" data-anim data-delay="1" data-date="2026-12-04">
       <div class="slist-date">4 Diciembre 2026<span class="slist-countdown"></span></div>
       <div class="slist-info">
         <div class="slist-name">BÏBE XXL ft. Alvama Ice</div>
-        <div class="slist-loc">📍 Logroño</div>
+        <div class="slist-loc">Festival · 📍 Logroño</div>
       </div>
       <a href="https://site.fourvenues.com/es/oxo-events/events/rioja-sound--bibe-xxl-ft-alvama-ice-04-12-2026-AZGR" target="_blank" rel="noopener noreferrer" class="slist-ticket">Entradas →</a>
     </div>
-    <div class="slist-row" data-anim data-delay="2" data-date="2026-12-06">
+    <div class="slist-row" data-tipo="festival" data-anim data-delay="2" data-date="2026-12-04">
+      <div class="slist-date">4 Diciembre 2026<span class="slist-countdown"></span></div>
+      <div class="slist-info">
+        <div class="slist-name">Forever Millennial · edición Electrolatino</div>
+        <div class="slist-loc">Festival · La Ballena · Palacio de Deportes de Santander · 📍 Santander</div>
+      </div>
+      <a href="https://site.fourvenues.com/en/forever-millennial/events/forever-millennial-edicion-electrolatino-04-12-2026-AXAZ" target="_blank" rel="noopener noreferrer" class="slist-ticket">Entradas →</a>
+    </div>
+    <div class="slist-row" data-tipo="festival" data-anim data-delay="3" data-date="2026-12-06">
       <div class="slist-date">6 Diciembre 2026<span class="slist-countdown"></span></div>
       <div class="slist-info">
         <div class="slist-name">La Feria · Megatardeo Rioja Sound</div>
-        <div class="slist-loc">📍 Logroño</div>
+        <div class="slist-loc">Festival · 📍 Logroño</div>
       </div>
       <a href="https://site.fourvenues.com/es/oxo-events/events/rioja-sound--la-feria-megatardeo-06-12-20261-ZD7X" target="_blank" rel="noopener noreferrer" class="slist-ticket">Entradas →</a>
     </div>
-    <div class="slist-row" data-anim data-delay="3" data-date="2026-12-31">
+    <div class="slist-row" data-tipo="evento" data-anim data-delay="4" data-date="2026-12-31">
       <div class="slist-date">31 Diciembre 2026<span class="slist-countdown"></span></div>
       <div class="slist-info">
         <div class="slist-name">Cotillón Navidad La Lechera</div>
@@ -244,7 +272,7 @@
       </div>
       <span class="slist-ticket is-soon">Próximamente</span>
     </div>
-    <!-- AUTO-SHOWS:END -->
+<!-- AUTO-SHOWS:END -->
     </div>
   </div>
 </div>
@@ -368,6 +396,7 @@ window.davizShows=[
 /* AUTO-COUNTDOWN:START */
     {date:new Date('2026-11-21T12:00:00.000Z'),dateOnly:"2026-11-21",name:'Sala Kaya',venue:'📍 Santander',url:'https://www.salakaya.com/compra?e=dj-nano-santander-2026'},
     {date:new Date('2026-12-04T12:00:00.000Z'),dateOnly:"2026-12-04",name:'BÏBE XXL ft. Alvama Ice',venue:'📍 Logroño',url:'https://site.fourvenues.com/es/oxo-events/events/rioja-sound--bibe-xxl-ft-alvama-ice-04-12-2026-AZGR'},
+    {date:new Date('2026-12-04T12:00:00.000Z'),dateOnly:"2026-12-04",name:'Forever Millennial · edición Electrolatino',venue:'📍 Santander',url:'https://site.fourvenues.com/en/forever-millennial/events/forever-millennial-edicion-electrolatino-04-12-2026-AXAZ'},
     {date:new Date('2026-12-06T12:00:00.000Z'),dateOnly:"2026-12-06",name:'La Feria · Megatardeo Rioja Sound',venue:'📍 Logroño',url:'https://site.fourvenues.com/es/oxo-events/events/rioja-sound--la-feria-megatardeo-06-12-20261-ZD7X'},
     {date:new Date('2026-12-31T12:00:00.000Z'),dateOnly:"2026-12-31",name:'Cotillón Navidad La Lechera',venue:'📍 Torrelavega',url:''}
 /* AUTO-COUNTDOWN:END */
@@ -382,7 +411,7 @@ window.davizShows=[
     if(/festival|sun|gamoneo|rave|fiestas/.test(n))return 'festival';
     if(/sala|kaya|roxel|club|concept|chap|samoa|castafiore/.test(n))return 'club';
     return 'evento';}
-  rows.forEach(function(r){r.setAttribute('data-tipo',tipo(r));});
+  rows.forEach(function(r){if(!r.hasAttribute('data-tipo'))r.setAttribute('data-tipo',tipo(r));});
   document.getElementById('sfilter').addEventListener('click',function(e){
     var b=e.target.closest('.sf-btn');if(!b)return;
     [].forEach.call(this.querySelectorAll('.sf-btn'),function(x){x.classList.toggle('active',x===b)});
@@ -392,7 +421,7 @@ window.davizShows=[
 })();
 </script>
 <!-- AUTO-OCCUPIED-DATES:START -->
-<script type="application/json" id="occupied-dates">["2026-11-21","2026-11-22","2026-11-28","2026-12-04","2026-12-05","2026-12-06","2026-12-24","2026-12-31"]</script>
+<script type="application/json" id="occupied-dates">["2026-11-21","2026-11-22","2026-12-04","2026-12-06","2026-12-12","2026-12-24","2026-12-31"]</script>
 <!-- AUTO-OCCUPIED-DATES:END -->
 <!-- AUTO-PAST-SHOWS:START -->
 <script type="application/json" id="past-public-shows">[{"date":"2026-10-31","city":"Logroño"}]</script>
