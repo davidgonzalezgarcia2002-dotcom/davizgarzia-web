@@ -202,13 +202,28 @@ def patch_home_release(html, album):
     html = re.sub(r'(<h2 data-release-title>).*?(</h2>)',
                   lambda m: m[1] + title + m[2], html, flags=re.S)
     embed = f"https://open.spotify.com/embed/album/{album_id}?theme=0"
-    html = re.sub(r'(<iframe id="home-release-player" src=")[^"]*',
-                  lambda m: m[1] + embed, html)
-    html = re.sub(r'(<iframe id="home-release-player"[^>]*title=")[^"]*',
-                  lambda m: m[1] + escape(album["name"] + " — Daviz Garzia", quote=True), html)
-    html = re.sub(r'(<a class="st-player-external"\s+href=")[^"]*',
-                  lambda m: m[1] + f"https://open.spotify.com/album/{album_id}", html)
+    def patch_player(m):
+        tag = re.sub(r'src="[^"]*"', lambda _: f'src="{embed}"', m[0])
+        return re.sub(r'title="[^"]*"', lambda _: 'title="' + escape(album["name"] + " — Daviz Garzia", quote=True) + '"', tag)
+    html = re.sub(r'<iframe\b(?=[^>]*\bid="home-release-player")[^>]*>', patch_player, html)
+    html = re.sub(r'<a\b(?=[^>]*\bclass="[^"]*\bst-player-external\b)[^>]*>',
+                  lambda m: re.sub(r'href="[^"]*"', lambda _: f'href="https://open.spotify.com/album/{album_id}"', m[0]), html)
+    html = re.sub(r'(<b id="record-title">).*?(</b>)', lambda m: m[1] + title + m[2], html, flags=re.S)
     return html
+
+
+def patch_home_tracks(html, albums):
+    """La selección de portada se actualiza junto con el reproductor y la discografía."""
+    links = []
+    for album in albums[:3]:
+        album_id = album.get("id", "")
+        if not re.fullmatch(r"[A-Za-z0-9]{22}", album_id):
+            raise ValueError("Invalid Spotify album ID")
+        links.append(f'<a href="https://open.spotify.com/album/{album_id}" target="_blank" rel="noopener noreferrer">{escape(album["name"])}</a>')
+    if not links:
+        return html  # Una respuesta vacía no destruye la última selección válida.
+    return re.sub(r'(<!-- AUTO-HOME-TRACKS:START -->).*?(<!-- AUTO-HOME-TRACKS:END -->)',
+                  lambda m: m[1] + '\n' + ''.join(links) + '\n' + m[2], html, flags=re.S)
 
 
 def patch_data_metric(html, metric, value):
@@ -279,6 +294,7 @@ def main():
         if albums:
             new_html = patch_hero_now_nuevo(html, albums[0]["name"])
             new_html = patch_home_release(new_html, albums[0])
+            new_html = patch_home_tracks(new_html, albums)
             if new_html != html:
                 html = new_html
                 changed = True

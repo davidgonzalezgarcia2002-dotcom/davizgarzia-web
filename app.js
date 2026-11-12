@@ -41,13 +41,14 @@ window.dgUpcoming=function(show){return show.dateOnly ? show.dateOnly>=window.dg
     root.classList.toggle('fx-pause',p);
     document.dispatchEvent(new CustomEvent('dg-fx-change',{detail:{paused:p}}));
     [].forEach.call(document.querySelectorAll('video[data-scroll-video]'),function(v){if(p){v.pause()}});
-    var b=document.getElementById('fx-toggle');if(b){b.textContent=p?'Reanudar animaciones':'Pausar animaciones';b.setAttribute('aria-pressed',p?'true':'false')}
+    var b=document.getElementById('fx-toggle');if(b){b.textContent='Pausar animaciones';b.setAttribute('aria-pressed',p?'true':'false');b.title=p?'Pulsa para reanudar el movimiento':'Pulsa para pausar el movimiento'}
   }
   document.addEventListener('DOMContentLoaded',function(){
     var cont=document.querySelector('.foot-links');if(!cont)return;
-    var b=document.createElement('button');b.type='button';b.id='fx-toggle';b.className='fx-toggle';
+    var b=document.getElementById('fx-toggle');
+    if(!b){b=document.createElement('button');b.type='button';b.id='fx-toggle';b.className='fx-toggle';cont.appendChild(b)}
     b.addEventListener('click',function(){var p=!root.classList.contains('fx-pause');guardar(p);aplicar(p)});
-    cont.appendChild(b);aplicar(guardado()===null?matchMedia('(prefers-reduced-motion: reduce)').matches:guardado());
+    aplicar(guardado()===null?matchMedia('(prefers-reduced-motion: reduce)').matches:guardado());
     matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change',function(e){if(guardado()===null)aplicar(e.matches)});
   });
 })();
@@ -57,6 +58,7 @@ window.dgUpcoming=function(show){return show.dateOnly ? show.dateOnly>=window.dg
 // cuentan, imágenes que se asientan al entrar y títulos/tarjetas que aparecen.
 // No se apaga con "prefers-reduced-motion": decisión de David (22 oct 2026).
 (function(){
+  if(document.body.classList.contains('recorrido-home'))return;
   document.documentElement.classList.add('js-sc');
   var q=function(s){return [].slice.call(document.querySelectorAll(s))};
 

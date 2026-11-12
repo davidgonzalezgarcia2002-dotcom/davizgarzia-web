@@ -35,18 +35,14 @@
   <meta name="msapplication-TileColor" content="#060606">
 
   <!-- Preload hero image (mejora LCP) -->
-  <link rel="preload" as="image" href="photos/musica-perfil-izquierda.avif" type="image/avif" fetchpriority="high">
+  <link rel="preload" as="image" href="photos/hero-halloween-2026.webp" type="image/webp" fetchpriority="high">
 
   <link rel="icon" type="image/svg+xml" href="logos/gorra-blanco.svg">
   <link rel="apple-touch-icon" href="logos/gorra-blanco.svg">
 
   <!-- Preconnect: acelera recursos externos críticos -->
-  <link rel="preconnect" href="https://www.youtube.com">
-  <link rel="preconnect" href="https://img.youtube.com">
   <link rel="preconnect" href="https://open.spotify.com">
   <link rel="preconnect" href="https://image-cdn-fa.spotifycdn.com">
-  <link rel="preconnect" href="https://i1.sndcdn.com">
-  <link rel="dns-prefetch" href="https://www.google-analytics.com">
 
   <!-- Tipografía condensada para etiquetas, nav y botones (estética minimalista) -->
 
@@ -95,188 +91,56 @@
     ]
   }
   </script>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "¿Cómo contratar a Daviz Garzia para mi evento?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Puedes contratar a Daviz Garzia contactando por email en hola@davizgarziamusic.com o por WhatsApp en el +34 660 375 685. Disponible para clubs, festivales y eventos privados en toda España."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Qué música pone Daviz Garzia?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Daviz Garzia es DJ especialista en Reggaeton, Tech House, House, Techno, Hard Groove y Schranz. Adapta el set al tipo de evento y público."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Dónde ha actuado Daviz Garzia?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Daviz Garzia ha actuado en Sala Kaya (Santander), Roxel Sala Musical (Solares), Sala Concept (Logroño), Samoa y La Castafiore (Ávila), Chapó Soundclub (Palencia), Bahía Sun Festival y Gamoneo Torrelavega."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Es Daviz Garzia un DJ de Cantabria?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sí, Daviz Garzia es DJ y productor musical originario de Cantabria, España. Actúa principalmente en Cantabria y provincias del norte de España, aunque está disponible para eventos en toda España."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "¿Tiene Daviz Garzia música propia?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Sí, Daviz Garzia tiene 12 singles publicados en 2025 y 2026 en Spotify, Apple Music, YouTube y SoundCloud. Es CEO del sello The North Record Label."
-        }
-      }
-    ]
-  }
-  </script>
+  
 
 
-  <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="studio.css">
-<link rel="stylesheet" href="brand.css">
+  
+
+
 <link rel="preload" href="fonts/anton-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/space-grotesk-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="typography.css">
-<link rel="stylesheet" href="gz.css">
+
+
+<link rel="stylesheet" href="recorrido.css?v=20261112">
 </head>
-<body class="studio-home" data-brand="daviz">
-<a class="skip-link" href="#contenido">Saltar al contenido</a>
-
-<!-- PRELOADER (idea Alvama) -->
-<div id="preloader" aria-hidden="true"><div class="pl-logo">DAVIZ <span>GARZIA</span></div><div class="pl-line"><i></i></div><div class="pl-sub">DJ · Productor · Cantabria</div></div>
-<script>try{if(sessionStorage.getItem('pl_ok')){document.getElementById('preloader').style.display='none'}else{sessionStorage.setItem('pl_ok','1');window.addEventListener('load',function(){setTimeout(function(){var e=document.getElementById('preloader');e.classList.add('out');setTimeout(function(){e.style.display='none'},700)},1300)})}}catch(e){document.getElementById('preloader').style.display='none'}</script>
-
-<!-- GRAIN TEXTURE -->
-<div class="grain"></div>
-
-<!-- SCROLL PROGRESS -->
-<div id="scroll-progress"></div>
-
-<!-- BACK TO TOP -->
-<button id="back-top" aria-label="Volver arriba">&#8679;</button>
-
-<!-- LIGHTBOX -->
-<div id="lightbox" role="dialog" aria-modal="true" aria-label="Galería de imágenes">
-  <button id="lightbox-close" aria-label="Cerrar">&times;</button>
-  <button id="lightbox-prev" aria-label="Anterior">&#8249;</button>
-  <img id="lightbox-img" src="" alt="">
-  <button id="lightbox-next" aria-label="Siguiente">&#8250;</button>
-  <div id="lightbox-caption"></div>
-</div>
-
-<!-- TOAST -->
-<div id="toast" role="status" aria-live="polite"></div>
-
-
-<nav id="navbar">
-  <a href="index.html" class="nav-logo" translate="no">DAVIZ <span>GARZIA</span></a>
-  <button id="nav-toggle" class="nav-toggle" aria-label="Abrir menú">&#9776;</button>
-  <ul class="nav-links" id="nav-menu">
-    <li><a href="index.html" class="nav-active">Inicio</a></li>
-    <li><a href="shows.html">Shows</a></li>
-    <li><a href="musica.html">Música</a></li>
-    <li><a href="thenorth.html">The North</a></li>
-    <li><a href="contacto.html" class="nav-cta">Contacto</a></li>
-  </ul>
-  <div class="nav-socials">
-    <a href="https://open.spotify.com/intl-es/artist/6kuKoUwoqmzqP0vXmkgOH1" target="_blank" rel="noopener noreferrer">Spotify</a>
-    <a href="https://www.youtube.com/@Davizgarziamusic" target="_blank" rel="noopener noreferrer">YouTube</a>
-    <a href="https://www.instagram.com/davizgarzia.music/" target="_blank" rel="noopener noreferrer">Instagram</a>
-  </div>
-</nav>
-
-<main id="contenido" class="studio">
-<section class="st-hero">
- <div class="st-portrait"><picture><source srcset="photos/musica-perfil-izquierda.avif" type="image/avif"><source srcset="photos/musica-perfil-izquierda.webp" type="image/webp"><img src="photos/musica-perfil-izquierda.webp" alt="Daviz Garzia en cabina en Roxel, 2026, mirando hacia la izquierda" width="1066" height="1600" fetchpriority="high"></picture><span class="st-photo-caption">DESDE CANTABRIA.<br>HASTA EL MUNDO.</span></div>
- <div class="st-hero-copy"><p class="st-eyebrow"><span></span> DJ & PRODUCTOR / CANTABRIA</p><h1>DAVIZ<br><span>GARZIA</span><i aria-hidden="true">↗</i></h1><p class="st-intro">Música para romper el club.<br><span>Sets hechos para bailar.</span></p><div class="st-actions"><a class="st-button" href="contacto.html#booking">Hablemos de tu evento <span aria-hidden="true">↗</span></a><a class="st-text-link" href="musica.html">Escucha mi música <span aria-hidden="true">↗</span></a></div></div>
- <div class="st-hero-bottom"><span>REGGAETON · HOUSE · TECHNO</span><a href="#escuchar">EXPLORA <span aria-hidden="true">↓</span></a></div>
-</section>
-<section id="escuchar" class="st-section st-sound"><div class="st-section-top"><p class="st-eyebrow">01 / SONIDO PROPIO</p><a class="st-text-link" href="musica.html">Toda mi música ↗</a></div><div class="st-sound-grid"><div class="st-live-image"><picture><source srcset="photos/hero-bibe.webp" type="image/webp"><img src="photos/hero-bibe.jpg" alt="Escenario y público de un directo de Daviz Garzia" loading="lazy" width="2400" height="1600"></picture><span class="st-image-label">LA ENERGÍA ESTÁ EN EL DIRECTO.</span><a class="st-round-link" href="https://www.youtube.com/@Davizgarziamusic" target="_blank" rel="noopener noreferrer" aria-label="Ver los vídeos de Daviz Garzia en YouTube">↗</a></div><div class="st-release"><p class="st-eyebrow">ESCUCHA AHORA</p><h2 data-release-title>House is a feeling</h2><p>Del estudio a tus altavoces.<br>Descubre mis lanzamientos y sesiones.</p><div class="st-player" id="st-player"><iframe id="home-release-player" src="https://open.spotify.com/embed/album/2YXi4Pp5a0yCDELcsnk1Mk?theme=0" width="100%" height="152" title="House is a feeling — Daviz Garzia" loading="eager" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen style="border:0;border-radius:12px;display:block"></iframe></div><a class="st-player-external" href="https://open.spotify.com/album/2YXi4Pp5a0yCDELcsnk1Mk" target="_blank" rel="noopener noreferrer">Abrir la canción en Spotify ↗</a></div></div></section>
-<section id="proximas" class="st-section st-dates"><div class="st-section-top"><p class="st-eyebrow">02 / NOS VEMOS EN LA PISTA</p><a class="st-text-link" href="shows.html">Todos los shows ↗</a></div><h2 class="st-title">PRÓXIMAS<br><span>PARADAS.</span></h2><div id="st-events" class="st-events"></div></section>
-<section class="st-section st-about"><div class="st-about-photo"><picture><source srcset="photos/bahia-sun-2026.webp" type="image/webp"><img src="photos/bahia-sun-2026.webp" alt="Daviz Garzia actuando en Bahía Sun en 2026" width="1066" height="1600" loading="lazy"></picture><span>EN DIRECTO. BAHÍA SUN 2026.</span></div><div class="st-about-copy"><p class="st-eyebrow">03 / DETRÁS DE LA CABINA</p><h2>HORAS DE ESTUDIO.<br><em>TODO PARA<br>ESE MOMENTO.</em></h2><p>DJ y productor de Cantabria. Reggaeton, house y techno: música pensada para conectar con la gente y hacer que la pista responda.</p><p>También detrás de <a href="thenorth.html">The North Record Label ↗</a>, mi sello y punto de encuentro para DJs.</p><div class="st-proof"><h3>He pinchado en</h3><ul class="st-venues"><li>Sala Kaya</li><li>Roxel Sala Musical</li><li>Sala Concept</li><li>Samoa</li><li>La Castafiore</li><li>Chapó Soundclub</li><li>Bahía Sun Festival</li><li>Gamoneo</li></ul></div><a class="st-text-link" href="https://www.instagram.com/davizgarzia.music/" target="_blank" rel="noopener noreferrer">Más de mí en Instagram ↗</a></div></section>
-<section class="st-section st-north"><div><p class="st-eyebrow">THE NORTH RECORD LABEL</p><h2>DE DJs.<br>PARA DJs.</h2></div><div><p>Reggaeton Mashup Pack Vol.2.<br>19 tracks. 17 artistas. Listos para tus sets.</p><a class="st-text-link" href="thenorth.html">Descubre el sello y sus packs ↗</a></div><span class="st-north-mark" aria-hidden="true">N↗</span></section>
-<section id="formatos" class="st-section st-formats" aria-labelledby="formatos-title">
-  <p class="st-eyebrow">04 / FORMATOS DE SHOW</p>
-  <h2 class="st-title" id="formatos-title">TU PISTA.<br><span>MI SONIDO.</span></h2>
-  <div class="st-format-grid">
-    <article class="st-format"><span class="st-format-number" aria-hidden="true">01</span><h3>Clubs y salas</h3><p>Reggaeton, house o techno. Una sesión adaptada al estilo de la sala y a su público.</p><a class="st-text-link" href="contacto.html?tipo=Discoteca#booking">Hablemos de tu sala <span aria-hidden="true">↗</span></a></article>
-    <article class="st-format"><span class="st-format-number" aria-hidden="true">02</span><h3>Festivales</h3><p>Un set para tu cartel. Definimos el estilo y la duración según el evento.</p><a class="st-text-link" href="contacto.html?tipo=Festival#booking">Hablemos de tu festival <span aria-hidden="true">↗</span></a></article>
-    <article class="st-format"><span class="st-format-number" aria-hidden="true">03</span><h3>Eventos privados</h3><p>Una sesión DJ para tu celebración. Cuéntame el ambiente que buscas y la música que te mueve.</p><a class="st-text-link" href="contacto.html?tipo=Evento%20privado#booking">Cuéntame tu idea <span aria-hidden="true">↗</span></a></article>
-  </div>
-</section>
-<section id="booking" class="st-section"><div class="st-booking"><p class="st-eyebrow">TU EVENTO. NUESTRA PRÓXIMA HISTORIA.</p><h2>¿LO HACEMOS<br><em>SONAR?</em></h2><div class="st-booking-bottom"><p>Clubs, festivales y fiestas privadas.<br>Cuéntame qué tienes en mente.</p><a class="st-button" href="contacto.html#booking">Hablemos <span aria-hidden="true">↗</span></a></div></div></section>
+<body class="recorrido-home">
+<a class="skip" href="#inicio">Saltar al contenido</a>
+<header class="chrome"><a class="brand" href="#inicio">DAVIZ GARZIA</a><nav aria-label="Principal"><a href="#fechas">Fechas</a><a href="#musica">Música</a><a href="#directo">Directo</a><a href="#formatos">Formatos</a><a href="#north">The North</a></nav><button aria-pressed="false" id="fx-toggle" type="button">Pausar animaciones</button></header>
+<a class="next-date" href="#fechas" id="next-date">Próximas fechas · calendario completo</a>
+<main id="contenido">
+<section aria-labelledby="artist" class="hero" id="inicio"><div class="hero-copy"><p class="eyebrow">DJ &amp; PRODUCTOR · CANTABRIA</p><h1 id="artist">DAVIZ<br/>GARZIA<span aria-hidden="true">.</span></h1><p class="intro">Música para romper el club.<br/>Sets hechos para bailar.</p><div class="actions"><a class="button" href="#musica">Escucha mi música</a><a class="text-link" href="contacto.html#booking">Hablemos de tu evento</a></div></div><figure class="hero-photo"><img alt="Daviz Garzia actuando en la cabina de BÏBE Halloween, con la mano sobre el equipo" fetchpriority="high" height="1800" src="photos/hero-halloween-2026.webp" width="1200"/><figcaption>BÏBE · HALLOWEEN 2026</figcaption></figure></section>
+<span id="proximas" class="sr-only"></span><section aria-labelledby="dates-title" class="dates section" id="fechas"><div class="section-top"><p class="eyebrow">NOS VEMOS EN LA PISTA</p><a class="text-link" href="shows.html">Calendario completo</a></div><h2 id="dates-title">LA PRÓXIMA<br/>ES CONTIGO.</h2><div class="date-layout"><div class="date-list" id="date-list"><p>Consulta todas las fechas y entradas en el <a href="shows.html#proximas">calendario completo</a>.</p></div><div class="ticket-stage"><p class="sr-only" id="date-status" role="status"></p><article aria-label="Detalle de la fecha seleccionada" aria-live="off" class="ticket" hidden="" id="ticket"><p class="ticket-kind" id="ticket-kind">CLUB</p><div class="ticket-day" id="ticket-date">21 <span>NOV 2026</span></div><h3 id="ticket-name">Sala Kaya</h3><p id="ticket-location">Santander</p><div aria-hidden="true" class="ticket-cut"></div><a class="button" href="https://www.salakaya.com/compra?e=dj-nano-santander-2026" id="ticket-url" rel="noopener noreferrer" target="_blank">Entradas · abre otra pestaña</a><p class="ticket-note" id="ticket-note"></p></article></div></div></section>
+<span id="escuchar" class="sr-only"></span><section aria-labelledby="music-title" class="music section" id="musica"><div class="section-top"><p class="eyebrow">SONIDO PROPIO</p><a class="text-link" href="musica.html#musica">Toda mi música y sesiones</a></div><div class="music-layout"><div class="record-stage"><div aria-label="Representación de un disco con el lanzamiento seleccionado" class="record" id="record" role="img"><div class="record-label"><span>DAVIZ GARZIA</span><b id="record-title">House is a feeling</b><i aria-hidden="true"></i></div></div></div><div><h2 id="music-title">DALE<br/>AL SONIDO.</h2><div class="track-list" id="track-list"><!-- AUTO-HOME-TRACKS:START -->
+<a href="https://open.spotify.com/album/2YXi4Pp5a0yCDELcsnk1Mk" rel="noopener noreferrer" target="_blank">House is a feeling</a><a href="https://open.spotify.com/album/4hmswQN97TbnoYDOeoTrzB" rel="noopener noreferrer" target="_blank">Baila Salvaje</a><a href="https://open.spotify.com/album/5dZUchEYitcHoov8Irwbwn" rel="noopener noreferrer" target="_blank">ESE FRONTEO</a>
+<!-- AUTO-HOME-TRACKS:END --></div><div class="st-player" id="st-player"><iframe allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen="" height="152" id="home-release-player" loading="eager" src="https://open.spotify.com/embed/album/2YXi4Pp5a0yCDELcsnk1Mk?theme=0" style="border:0;border-radius:12px;display:block" title="House is a feeling — Daviz Garzia" width="100%"></iframe></div><a class="st-player-external text-link" href="https://open.spotify.com/album/2YXi4Pp5a0yCDELcsnk1Mk" id="track-url" rel="noopener noreferrer" target="_blank">Abrir en Spotify · otra pestaña</a><p class="small">Tú eliges cuándo empieza la música.</p></div></div></section>
+<section aria-labelledby="live-title" class="direct section" id="directo"><div class="section-top"><p class="eyebrow">LO QUE PASA EN LA CABINA</p><span class="small">Fotografías de actuaciones reales</span></div><h2 id="live-title">ESTO SE VIVE<br/>EN DIRECTO.</h2><div class="live-layout"><figure class="live-frame"><img alt="Escenario y público de BÏBE, con Daviz Garzia en cabina" height="1200" id="live-photo" loading="lazy" src="photos/bibe-2026-escenario.webp" width="1800"/><figcaption id="live-caption">BÏBE · ESCENARIO Y PÚBLICO</figcaption></figure><div aria-label="Cambiar fotografía" class="live-options" role="group"><button aria-pressed="true" data-live="bibe" type="button"><span>BÏBE</span><b>La escala del directo</b></button><button aria-pressed="false" data-live="gamoneo" type="button"><span>Gamoneo</span><b>Conexión con el público</b></button><button aria-pressed="false" data-live="planb" type="button"><span>Plan B</span><b>Dentro de la cabina</b></button></div></div></section>
+<section aria-labelledby="format-title" class="formats section" id="formatos"><p class="eyebrow">CADA PISTA TIENE SU SONIDO</p><h2 id="format-title">TU EVENTO.<br/>MI CABINA.</h2><div class="format-grid"><article><span class="format-index">01</span><h3>Clubs y salas</h3><p>Reggaeton, house o techno. Una sesión adaptada al estilo de la sala y a su público.</p><a class="text-link" href="contacto.html?tipo=Discoteca#booking">Hablemos de tu sala</a></article><article><span class="format-index">02</span><h3>Festivales</h3><p>Un set para tu cartel. Definimos el estilo y la duración según el evento.</p><a class="text-link" href="contacto.html?tipo=Festival#booking">Hablemos de tu festival</a></article><article><span class="format-index">03</span><h3>Eventos privados</h3><p>Una sesión DJ para tu celebración. Cuéntame el ambiente que buscas y la música que te mueve.</p><a class="text-link" href="contacto.html?tipo=Evento%20privado#booking">Cuéntame tu idea</a></article></div></section>
+<section aria-labelledby="north-title" class="north section" id="north"><div><p class="eyebrow">THE NORTH RECORD LABEL</p><h2 id="north-title">NORTH TO<br/>THE WORLD.</h2><a class="button" href="thenorth.html">Entrar en The North</a></div><a aria-label="Escuchar los packs de The North" class="sleeve" href="thenorth.html"><img alt="Portada oficial del Volumen 02 de The North" height="640" loading="lazy" src="media/north/vol02.webp" width="640"/></a></section>
+<section aria-labelledby="booking-title" class="booking section" id="booking"><p class="eyebrow">LA PRÓXIMA LA HACEMOS JUNTOS</p><h2 id="booking-title">¿LO HACEMOS<br/>SONAR?</h2><div class="actions"><a class="button" href="contacto.html#booking">Hablemos de tu evento</a><a class="text-link" href="shows.html#disponibilidad">Consultar disponibilidad</a></div></section>
 </main>
 <footer>
-  <div class="foot-row">
-    <div class="foot-logo" translate="no"><a href="index.html">DAVIZ <span>GARZIA</span></a></div>
-    <div class="foot-links">
-      <a href="mailto:hola@davizgarziamusic.com">hola@davizgarziamusic.com</a>
-      <a href="https://linktr.ee/davizgarzia.music" target="_blank" rel="noopener noreferrer">Linktree</a>
-      <a href="contacto.html">Booking</a>
-      <a href="privacidad.html">Política de Privacidad</a>
-    </div>
-    <div class="foot-copy">© 2026 Daviz Garzia · Todos los derechos reservados<br>Aviso: esta web puede provocar ganas repentinas de salir de fiesta.</div>
-  </div>
-</footer>
-
-<!-- WHATSAPP FLOATING BUTTON -->
-<a href="https://wa.me/34660375685?text=Hola%20Javier%2C%20me%20gustar%C3%ADa%20contratar%20a%20Daviz%20Garzia%20para%20un%20evento.%20%C2%BFPodemos%20hablar%3F" target="_blank" rel="noopener noreferrer" class="wa-float" aria-label="Contactar al mánager por WhatsApp">
-  <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.532 5.856L.044 23.956l6.241-1.634A11.942 11.942 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.806 9.806 0 01-5.012-1.376l-.36-.213-3.705.972.988-3.608-.234-.372A9.808 9.808 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-  <span class="wa-text">Contratar</span>
-</a>
-
-<!-- FLOATING SHOW PILL -->
-<a id="show-pill" href="shows.html#proximas" aria-label="Ver próximas fechas" style="text-decoration:none">
-  <span class="sp-arrow">&#8599;</span><div class="sp-label">Próximo show</div>
-  <div class="sp-name" id="sp-evt">—</div>
-  <div class="sp-cd" id="sp-cd">—</div>
-  <div class="sp-sub" id="sp-dt"></div>
-</a>
-
-
-<!-- CURSOR GLOW -->
-<div id="cursor-glow"></div>
-
-<!-- HERO PARTICLES + CURSOR GLOW JS -->
-
-
-<!-- COOKIE BANNER -->
-<div id="cookie-banner" role="region" aria-label="Cookies">
-  <span>🍪 Esta web usa cookies propias. Con tu permiso, también analítica anónima (Google Analytics). <a href="privacidad.html">Más info</a></span>
-  <div class="cookie-actions"><button type="button" class="cookie-btn" data-cookie="1">Aceptar</button><button type="button" class="cookie-btn cookie-no" data-cookie="0">Rechazar</button></div>
+<div class="foot-row">
+<div class="foot-logo" translate="no"><a href="index.html">DAVIZ <span>GARZIA</span></a></div>
+<div class="foot-links">
+<a href="mailto:hola@davizgarziamusic.com">hola@davizgarziamusic.com</a>
+<a href="https://linktr.ee/davizgarzia.music" rel="noopener noreferrer" target="_blank">Linktree</a>
+<a href="contacto.html">Booking</a>
+<a href="privacidad.html">Política de Privacidad</a>
+<a href="https://www.instagram.com/davizgarzia.music/" rel="noopener noreferrer" target="_blank">Instagram</a><a href="https://www.youtube.com/@Davizgarziamusic" rel="noopener noreferrer" target="_blank">YouTube</a><a href="https://soundcloud.com/davizgarzia" rel="noopener noreferrer" target="_blank">SoundCloud</a></div>
+<div class="foot-copy">© 2026 Daviz Garzia · Todos los derechos reservados<br/>Aviso: esta web puede provocar ganas repentinas de salir de fiesta.</div>
 </div>
-
-<script>
+</footer><div aria-label="Cookies" id="cookie-banner" role="region">
+<span>La analítica (Google Analytics) es opcional. Los reproductores externos se cargan al abrir las páginas que los incluyen; el audio empieza cuando pulsas reproducir. <a href="privacidad.html">Más info</a></span>
+<div class="cookie-actions"><button class="cookie-btn" data-cookie="1" type="button">Aceptar</button><button class="cookie-btn cookie-no" data-cookie="0" type="button">Rechazar</button></div>
+</div><script>
 window.davizShows=[
 /* AUTO-COUNTDOWN:START */
-    {date:new Date('2026-11-21T12:00:00.000Z'),dateOnly:"2026-11-21",name:'Sala Kaya',venue:'📍 Santander',url:'https://www.salakaya.com/compra?e=dj-nano-santander-2026'},
-    {date:new Date('2026-12-04T12:00:00.000Z'),dateOnly:"2026-12-04",name:'Forever Millennial · edición Electrolatino',venue:'📍 Santander',url:'https://site.fourvenues.com/en/forever-millennial/events/forever-millennial-edicion-electrolatino-04-12-2026-AXAZ'},
-    {date:new Date('2026-12-04T12:00:00.000Z'),dateOnly:"2026-12-04",name:'BÏBE XXL ft. Alvama Ice',venue:'📍 Logroño',url:'https://site.fourvenues.com/es/oxo-events/events/rioja-sound--bibe-xxl-ft-alvama-ice-04-12-2026-AZGR'},
-    {date:new Date('2026-12-06T12:00:00.000Z'),dateOnly:"2026-12-06",name:'La Feria · Megatardeo Rioja Sound',venue:'📍 Logroño',url:'https://site.fourvenues.com/es/oxo-events/events/rioja-sound--la-feria-megatardeo-06-12-20261-ZD7X'},
-    {date:new Date('2026-12-31T12:00:00.000Z'),dateOnly:"2026-12-31",name:'Cotillón Navidad La Lechera',venue:'📍 Torrelavega',url:''}
+    {date:new Date('2026-11-21T12:00:00.000Z'),dateOnly:"2026-11-21",name:"Sala Kaya",venue:"📍 Santander",url:"https://www.salakaya.com/compra?e=dj-nano-santander-2026",type:"club",location:"Santander"},
+    {date:new Date('2026-12-04T12:00:00.000Z'),dateOnly:"2026-12-04",name:"Forever Millennial · edición Electrolatino",venue:"📍 Santander",url:"https://site.fourvenues.com/en/forever-millennial/events/forever-millennial-edicion-electrolatino-04-12-2026-AXAZ",type:"festival",location:"La Ballena · Palacio de Deportes de Santander"},
+    {date:new Date('2026-12-04T12:00:00.000Z'),dateOnly:"2026-12-04",name:"BÏBE XXL ft. Alvama Ice",venue:"📍 Logroño",url:"https://site.fourvenues.com/es/oxo-events/events/rioja-sound--bibe-xxl-ft-alvama-ice-04-12-2026-AZGR",type:"festival",location:"Logroño"},
+    {date:new Date('2026-12-06T12:00:00.000Z'),dateOnly:"2026-12-06",name:"La Feria · Megatardeo Rioja Sound",venue:"📍 Logroño",url:"https://site.fourvenues.com/es/oxo-events/events/rioja-sound--la-feria-megatardeo-06-12-20261-ZD7X",type:"festival",location:"Logroño"},
+    {date:new Date('2026-12-31T12:00:00.000Z'),dateOnly:"2026-12-31",name:"Cotillón Navidad La Lechera",venue:"📍 Torrelavega",url:"",type:"evento",location:"Torrelavega"}
 /* AUTO-COUNTDOWN:END */
 ];
-</script>
-<script src="vendor/gsap-3.13.0.min.js" defer></script>
-<script src="vendor/ScrollTrigger-3.13.0.min.js" defer></script>
-<script src="vendor/lenis-1.1.20.min.js" defer></script>
-<script src="studio.js" defer></script>
-<script src="app.js" defer></script>
-
-<script src="gz.js" defer></script>
-</body>
+</script><script defer="" src="app.js?v=20261112"></script><script defer="" src="recorrido.js?v=20261112"></script></body>
 </html>

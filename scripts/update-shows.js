@@ -157,7 +157,9 @@ function buildCountdownEvents(shows) {
     if (!dateOnly && !/(Z|[+-]\d{2}:\d{2})$/.test(s.date)) throw new Error('Fecha con hora sin zona explícita');
     const isoDate = new Date(dateOnly ? s.date + 'T12:00:00Z' : s.date).toISOString();
     const loc = publicCity(s.city);
-    return `    {date:new Date('${isoDate}'),dateOnly:${dateOnly ? JSON.stringify(s.date) : 'null'},name:'${esc(publicName(s))}',venue:'📍 ${esc(loc)}',url:'${validUrl(s.url)}'}`;
+    // Solo campos públicos; JSON escapado para insertar datos en un script HTML.
+    const js = value => JSON.stringify(value).replace(/</g, '\\u003c').replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029');
+    return `    {date:new Date('${isoDate}'),dateOnly:${dateOnly ? js(s.date) : 'null'},name:${js(publicName(s))},venue:${js('📍 ' + loc)},url:${js(validUrl(s.url))},type:${js(showType(s))},location:${js(showMetadata(s).venue || loc)}}`;
   }).filter(Boolean).join(',\n');
 }
 
